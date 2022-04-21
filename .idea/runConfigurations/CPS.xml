@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CPS" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="jade.Boot" />
+    <module name="CPS" />
+    <option name="PROGRAM_PARAMETERS" value="-gui GUI:Utilities.ConsoleAgent();GlueStation1:Resource.ResourceAgent(&quot;GS1&quot;,&quot;GS1&quot;, &quot;SimResourceLibrary&quot;, &quot;GlueStation1&quot;); GlueStation2:Resource.ResourceAgent(&quot;GS2&quot;,&quot;GS2&quot;, &quot;SimResourceLibrary&quot;, &quot;GlueStation2&quot;); QualityControlStation1:Resource.ResourceAgent(&quot;QCS1&quot;, &quot;QCS1&quot;, &quot;SimResourceLibrary&quot;, &quot;QualityControlStation1&quot;); QualityControlStation2:Resource.ResourceAgent(&quot;QCS2&quot;, &quot;QCS2&quot;, &quot;SimResourceLibrary&quot;, &quot;QualityControlStation2&quot;); Operator:Transport.TransportAgent(&quot;OP&quot;, &quot;OP&quot;, &quot;SimTransportLibrary&quot;, &quot;Operator&quot;);" />
+    <RunnerSettings RunnerId="Run" />
+    <ConfigurationWrapper RunnerId="Run" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
