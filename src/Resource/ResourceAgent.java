@@ -61,7 +61,7 @@ public class ResourceAgent extends Agent {
             e.printStackTrace();
         }
 
-        // TO DO: Add responder behaviour/s
+        // TO DO: Add responder behaviour/s - always live
         this.addBehaviour(new CFPResponder(this, MessageTemplate.MatchPerformative(ACLMessage.CFP)));
         this.addBehaviour(new ReqResourceResp(this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)));
     }
@@ -74,7 +74,7 @@ public class ResourceAgent extends Agent {
 
         @Override
         protected ACLMessage handleRequest(ACLMessage request) throws NotUnderstoodException, RefuseException {
-            System.out.println(myAgent.getLocalName() + ": Processing REQUEST message");
+            //System.out.println(myAgent.getLocalName() + ": Processing REQUEST message");
             ACLMessage msg = request.createReply();
             msg.setPerformative(ACLMessage.AGREE);
             return msg;
@@ -82,7 +82,7 @@ public class ResourceAgent extends Agent {
 
         @Override
         protected ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException {
-            System.out.println(myAgent.getLocalName() + ": Preparing result of REQUEST");
+            //System.out.println(myAgent.getLocalName() + ": Preparing result of REQUEST");
             block(5000);
             ACLMessage msg = request.createReply();
             msg.setPerformative(ACLMessage.INFORM);
@@ -98,21 +98,20 @@ public class ResourceAgent extends Agent {
 
         @Override
         protected ACLMessage handleCfp(ACLMessage cfp) throws RefuseException, FailureException, NotUnderstoodException {
-            System.out.println(myAgent.getLocalName() + ": Processing CFP message");
+            // System.out.println(myAgent.getLocalName() + ": Processing CFP message");
             ACLMessage msg = cfp.createReply();
             msg.setPerformative(ACLMessage.PROPOSE);
-            msg.setContent(String.valueOf(associatedSkills));
+            msg.setContent(Arrays.toString(associatedSkills));
             return msg;
         }
 
         @Override
         protected ACLMessage handleAcceptProposal(ACLMessage cfp, ACLMessage propose, ACLMessage accept) throws FailureException {
-            System.out.println(myAgent.getLocalName() + ": Preparing results of CFP.");
+            //System.out.println(myAgent.getLocalName() + ": Preparing results of CFP.");
             block(5000);
             ACLMessage msg = cfp.createReply();
             msg.setPerformative(ACLMessage.INFORM);
             return msg;
-            // TODO
         }
     }
 

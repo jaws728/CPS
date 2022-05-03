@@ -4,7 +4,7 @@
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="MAIN_CLASS_NAME" value="jade.Boot" />
     <module name="CPS" />
-    <option name="PROGRAM_PARAMETERS" value="-gui GUI:Utilities.ConsoleAgent();GlueStation1:Resource.ResourceAgent(&quot;GS1&quot;,&quot;GS1&quot;, &quot;SimResourceLibrary&quot;, &quot;GlueStation1&quot;); GlueStation2:Resource.ResourceAgent(&quot;GS2&quot;,&quot;GS2&quot;, &quot;SimResourceLibrary&quot;, &quot;GlueStation2&quot;); QualityControlStation1:Resource.ResourceAgent(&quot;QCS1&quot;, &quot;QCS1&quot;, &quot;SimResourceLibrary&quot;, &quot;QualityControlStation1&quot;); QualityControlStation2:Resource.ResourceAgent(&quot;QCS2&quot;, &quot;QCS2&quot;, &quot;SimResourceLibrary&quot;, &quot;QualityControlStation2&quot;); Operator:Transport.TransportAgent(&quot;OP&quot;, &quot;OP&quot;, &quot;SimTransportLibrary&quot;, &quot;Operator&quot;);" />
+    <option name="PROGRAM_PARAMETERS" value="-gui GUI:Utilities.ConsoleAgent();GlueStation1:Resource.ResourceAgent(&quot;GS1&quot;,&quot;GS1&quot;,&quot;TestLibrary&quot;,&quot;GlueStation1&quot;);GlueStation2:Resource.ResourceAgent(&quot;GS2&quot;,&quot;GS2&quot;,&quot;TestLibrary&quot;,&quot;GlueStation2&quot;);QualityControlStation1:Resource.ResourceAgent(&quot;QCS1&quot;,&quot;QCS1&quot;,&quot;TestLibrary&quot;,&quot;QualityControlStation1&quot;);QualityControlStation2:Resource.ResourceAgent(&quot;QCS2&quot;,&quot;QCS2&quot;,&quot;TestLibrary&quot;,&quot;QualityControlStation2&quot;);AGV:Transport.TransportAgent(&quot;AGV&quot;,&quot;AGV&quot;,&quot;TestTransportLibrary&quot;,&quot;AGV&quot;);" />
     <RunnerSettings RunnerId="Run" />
     <ConfigurationWrapper RunnerId="Run" />
     <method v="2">

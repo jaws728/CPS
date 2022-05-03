@@ -56,8 +56,8 @@ public class TransportAgent extends Agent {
             e.printStackTrace();
         }
 
-        // TO DO: Add responder behaviour/s
-        this.addBehaviour(new ToNextStation());
+        // TO DO: Add responder behaviour/s - always on
+        //this.addBehaviour(new ToNextStation());
         this.addBehaviour(new ReqTransportResp(this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)));
     }
 
@@ -65,7 +65,6 @@ public class TransportAgent extends Agent {
         @Override
         public void action() {
             System.out.println("To next station...");
-            // TODO
         }
     }
 
@@ -77,7 +76,7 @@ public class TransportAgent extends Agent {
 
         @Override
         protected ACLMessage handleRequest(ACLMessage request) throws NotUnderstoodException, RefuseException {
-            System.out.println(myAgent.getLocalName() + ": Processing REQUEST message");
+            //System.out.println(myAgent.getLocalName() + ": Processing REQUEST message");
             ACLMessage msg = request.createReply();
             msg.setPerformative(ACLMessage.AGREE);
             return msg;
@@ -85,8 +84,11 @@ public class TransportAgent extends Agent {
 
         @Override
         protected ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException {
-            System.out.println(myAgent.getLocalName() + ": Preparing result of REQUEST");
+            //System.out.println(myAgent.getLocalName() + ": Preparing result of REQUEST");
+            // Execute skill
             block(5000);
+            //addBehaviour(new ToNextStation());
+            // Reply to initiator
             ACLMessage msg = request.createReply();
             msg.setPerformative(ACLMessage.INFORM);
             return msg;

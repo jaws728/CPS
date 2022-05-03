@@ -1,16 +1,21 @@
 package Product;
 
+import Utilities.Constants;
 import Utilities.DFInteraction;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.FSMBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.SequentialBehaviour;
 import jade.core.behaviours.SimpleBehaviour;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.proto.AchieveREInitiator;
 import jade.proto.ContractNetInitiator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Vector;
 
 /**
@@ -21,8 +26,12 @@ public class ProductAgent extends Agent {
 
     String id;
     ArrayList<String> executionPlan = new ArrayList<>();
+    private boolean FIPAflag = false;
+    private boolean CFPflag = false;
     // String nextPos;
-    // String currPos;
+    private int currPos = 0;
+    private AID resouceCFPId = null;
+    private boolean planEnded = false;
     // TO DO: Add remaining attributes required for your implementation
 
     @Override
@@ -35,43 +44,111 @@ public class ProductAgent extends Agent {
         // TODO: Add necessary behaviour/s for the product to control the flow
         // of its own production
         // 1. Behaviours
-        FSMBehaviour fsmb = new FSMBehaviour();
-        FSMachine(fsmb);
-        this.addBehaviour(fsmb);
-        this.addBehaviour(new GetNextTask());
+        // SequentialBehaviour sb = new SequentialBehaviour();
+        // for (String state: this.executionPlan) {
+        //     sb.addSubBehaviour(new SimpleState(this, state));
+        // }
+        // this.addBehaviour(sb);
 
         //2. FIPA
-        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-        msg.addReceiver(new AID("responder", false));
-        this.addBehaviour(new ReqTransportInit(this, msg));
-        this.addBehaviour(new ReqResourceInit(this, msg));
-        ACLMessage msgCFP = new ACLMessage(ACLMessage.CFP);
-        msg.addReceiver(new AID("responder", false));
-        this.addBehaviour(new CFPInit(this, msgCFP));
+        //ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+        //msg.addReceiver(new AID("responder", false));
+        //this.addBehaviour(new ReqTransportInit(this, msg));
+        //this.addBehaviour(new ReqResourceInit(this, msg));
+        //ACLMessage msgCFP = new ACLMessage(ACLMessage.CFP);
+        //msgCFP.addReceiver(new AID("responder", false));
+        //this.addBehaviour(new CFPInit(this, msgCFP));
 
         //3. Register Agent
         //DFInteraction.RegisterInDF(this, this.id);
     }
 
-    private void FSMachine(FSMBehaviour fsmb){
-        int last = this.executionPlan.size() - 1;
-        // Registering states
-        fsmb.registerFirstState(new SimpleState(this, this.executionPlan.get(0)),"S1");
-        for (int i = 1; i < last - 1; i++) {
-            fsmb.registerState(new SimpleState(this, this.executionPlan.get(i)),"S"+(i+1));
-        }
-        fsmb.registerLastState(new SimpleState(this, this.executionPlan.get(last)),"S"+(last+1));
-
-        // Registering Transitions
-        for (int i = 1; i < last; i++){
-            fsmb.registerTransition("S"+i, "S"+(i+1), i - 1);
+    // Get the next state - if there is no next task - put planEnded to true
+    private class GetNextTask extends OneShotBehaviour {
+        @Override
+        public void action() {
+            if (currPos < executionPlan.size()) {
+                currPos++;
+                System.out.println("Next task get: " + executionPlan.get(currPos));
+            } else {
+                planEnded = true;
+                System.out.println("Ended all tasks: " + planEnded);
+            }
         }
     }
 
+    // Sending CFP requests to all resources
+    private class SendCFP extends OneShotBehaviour {
+
+        @Override
+        public void action() {
+            ACLMessage msgCFP = new ACLMessage(ACLMessage.CFP);
+            DFAgentDescription[] target = null;
+            try {
+                target = DFInteraction.SearchInDFByType(Constants.DFSERVICE_RESOURCE, myAgent);
+                for (int i = 0; i < target.length; i++){
+                    msgCFP.addReceiver(target[i].getName());
+                    myAgent.addBehaviour(new CFPInit(myAgent, msgCFP));
+                }
+            } catch (FIPAException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // All CFP responses received - handled it and decide the next state
+    private  class HandleCFP extends SimpleBehaviour {
+        private boolean finished = false;
+
+        @Override
+        public void action() {
+            if (CFPflag){
+                System.out.println("All negotiation done");
+                // Transport? get the positions -> now and station
+                // if not: pass to execute skill
+                // ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+                // msg.addReceiver(resouceCFPId);
+                // myAgent.addBehaviour(new ReqResourceInit(myAgent, msg));
+                CFPflag = false;
+                finished = true;
+            }
+        }
+
+        @Override
+        public boolean done() {
+            return finished;
+        }
+    }
+
+    private class AGVcontrol extends SimpleBehaviour {
+
+        @Override
+        public void action() {
+
+        }
+
+        @Override
+        public boolean done() {
+            return false;
+        }
+    }
+    private class ExecuteSkill extends SimpleBehaviour {
+
+        @Override
+        public void action() {
+
+        }
+
+        @Override
+        public boolean done() {
+            return false;
+        }
+    }
+
+    /*
     private class SimpleState extends SimpleBehaviour {
 
         private boolean finished = false;
-        int step = 0;
         String currState;
 
         public SimpleState(Agent a, String currState){
@@ -81,38 +158,57 @@ public class ProductAgent extends Agent {
 
         @Override
         public void action() {
-            System.out.println("SB: " + currState + " - step: " + ++step);
-            // TODO
-            if (step == 4)
+            switch(currState){
+                case Constants.SK_PICK_UP -> {
+                    ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+                    AID target = null;
+                    try {
+                        target = DFInteraction.SearchInDFByType(Constants.DFSERVICE_TRANSPORT, myAgent)[0].getName();
+                    } catch (FIPAException e) {
+                        e.printStackTrace();
+                    }
+                    msg.addReceiver(target);
+                    myAgent.addBehaviour(new ReqTransportInit(myAgent, msg));
+                }
+                case Constants.SK_GLUE_TYPE_A -> {
+                    ACLMessage msgCFP = new ACLMessage(ACLMessage.CFP);
+                    DFAgentDescription[] target = null;
+                    try {
+                        target = DFInteraction.SearchInDFByType(Constants.DFSERVICE_RESOURCE, myAgent);
+                        for (int i = 0; i < target.length; i++){
+                            msgCFP.addReceiver(target[i].getName());
+                            myAgent.addBehaviour(new CFPInit(myAgent, msgCFP));
+                        }
+                    } catch (FIPAException e) {
+                        e.printStackTrace();
+                    }
+                    if (CFPflag) {
+                        System.out.println("All negotiation done");
+                        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+                        msg.addReceiver(resouceCFPId);
+                        myAgent.addBehaviour(new ReqResourceInit(myAgent, msg));
+                        resouceCFPId = null;
+                        CFPflag = false;
+                        FIPAflag = true;
+                    }
+                }
+            }
+            System.out.println("FLAG: " + FIPAflag);
+            // End of the FIPA request
+            if (FIPAflag) {
+                System.out.println("SB: " + currState + " - step: " + currPos);
                 finished = true;
+            }
         }
 
         @Override
         public boolean done() {
+            FIPAflag = false;
+            currPos++;
             return finished;
         }
-
-        @Override
-        public int onEnd() {
-            /*
-            switch (currState){
-                case 'A': return 0;
-                case 'B': return 1;
-                case 'C': return 2;
-            }*/
-            // TODO
-            System.out.println("On end of a state " + step);
-            return -1;
-        }
     }
-
-    private class GetNextTask extends OneShotBehaviour {
-        @Override
-        public void action() {
-            System.out.println("Getting next task...");
-            // TODO
-        }
-    }
+    */
 
     private class ReqTransportInit extends AchieveREInitiator{
 
@@ -122,16 +218,15 @@ public class ProductAgent extends Agent {
 
         @Override
         protected void handleAgree(ACLMessage agree) {
-            super.handleAgree(agree);
-            System.out.println(myAgent.getLocalName() + ": AGREE msg received.");
-            // TODO
+            //super.handleAgree(agree);
+            System.out.println(myAgent.getLocalName() + ": AGREE transport msg received.");
         }
 
         @Override
         protected void handleInform(ACLMessage inform) {
-            super.handleInform(inform);
-            System.out.println(myAgent.getLocalName() + ": INFORM msg received.");
-            // TODO
+            //super.handleInform(inform);
+            System.out.println(myAgent.getLocalName() + ": INFORM transport REQ msg received.");
+            FIPAflag = true;
         }
     }
 
@@ -145,14 +240,12 @@ public class ProductAgent extends Agent {
         protected void handleAgree(ACLMessage agree) {
             super.handleAgree(agree);
             System.out.println(myAgent.getLocalName() + ": AGREE msg received.");
-            // TODO
         }
 
         @Override
         protected void handleInform(ACLMessage inform) {
             super.handleInform(inform);
             System.out.println(myAgent.getLocalName() + ": INFORM msg received.");
-            // TODO
         }
     }
 
@@ -164,20 +257,30 @@ public class ProductAgent extends Agent {
 
         @Override
         protected void handleInform(ACLMessage inform) {
-            super.handleInform(inform);
+            //super.handleInform(inform);
             System.out.println(myAgent.getLocalName() + ": INFORM CFP.");
-            // TODO
+            CFPflag = true;
+            resouceCFPId = inform.getSender();
         }
 
         @Override
         protected void handleAllResponses(Vector responses, Vector acceptances) {
-            super.handleAllResponses(responses, acceptances);
+            //super.handleAllResponses(responses, acceptances);
             System.out.println(myAgent.getLocalName() + ": ALL PROPOSAL received.");
-            ACLMessage msg = (ACLMessage) responses.get(0);
-            ACLMessage reply = msg.createReply();
-            reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-            acceptances.add(reply);
-            // TODO
+            boolean flag = false;
+
+            for (int i = 0; i < responses.size(); i++){
+                ACLMessage msg = (ACLMessage) responses.get(i);
+                ACLMessage reply = msg.createReply();
+                // FOR TESTING ONLY
+                if (executionPlan.get(currPos).equals(msg.toString()) && !flag){
+                    reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+                    flag = true;
+                } else {
+                    reply.setPerformative(ACLMessage.REJECT_PROPOSAL);
+                }
+                acceptances.add(i, reply);
+            }
         }
     }
 
@@ -187,12 +290,12 @@ public class ProductAgent extends Agent {
     }
 
     private ArrayList<String> getExecutionList(String productType){
-        switch(productType){
-            case "A": return Utilities.Constants.PROD_A;
-            case "B": return Utilities.Constants.PROD_B;
-            case "C": return Utilities.Constants.PROD_C;
-        }
-        return null;
+        return switch (productType) {
+            case "A" -> Utilities.Constants.PROD_A;
+            case "B" -> Utilities.Constants.PROD_B;
+            case "C" -> Utilities.Constants.PROD_C;
+            default -> null;
+        };
     }
 
 }
