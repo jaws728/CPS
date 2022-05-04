@@ -34,6 +34,7 @@ public class ResourceAgent extends Agent {
     @Override
     protected void setup() {
         Object[] args = this.getArguments();
+        // ID: OP, GS1/2, QCS1/2
         this.id = (String) args[0];
         this.description = (String) args[1];
 
@@ -48,20 +49,21 @@ public class ResourceAgent extends Agent {
             Logger.getLogger(ResourceAgent.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        // Locations: GlueStation1, GlueStation2, Operator, QualityControlStation1, QualityControlStation2
         this.location = (String) args[3];
 
         myLib.init(this);
         this.associatedSkills = myLib.getSkills();
         System.out.println("Resource Deployed: " + this.id + " Executes: " + Arrays.toString(associatedSkills));
 
-        //TO DO: Register in DF with the corresponding skills as services
+        // Register in DF with the corresponding skills as services
         try {
             DFInteraction.RegisterInDF(this, this.associatedSkills, Constants.DFSERVICE_RESOURCE);
         } catch (FIPAException e) {
             e.printStackTrace();
         }
 
-        // TO DO: Add responder behaviour/s - always live
+        // Add responder behaviour/s - always live
         this.addBehaviour(new CFPResponder(this, MessageTemplate.MatchPerformative(ACLMessage.CFP)));
         this.addBehaviour(new ReqResourceResp(this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)));
     }
@@ -82,10 +84,12 @@ public class ResourceAgent extends Agent {
 
         @Override
         protected ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException {
-            //System.out.println(myAgent.getLocalName() + ": Preparing result of REQUEST");
+            // Execute skill
+            //System.out.println("Executing Task: " + Arrays.toString(associatedSkills));
             block(5000);
             ACLMessage msg = request.createReply();
             msg.setPerformative(ACLMessage.INFORM);
+            msg.setContent(Arrays.toString(associatedSkills));
             return msg;
         }
     }
@@ -108,9 +112,10 @@ public class ResourceAgent extends Agent {
         @Override
         protected ACLMessage handleAcceptProposal(ACLMessage cfp, ACLMessage propose, ACLMessage accept) throws FailureException {
             //System.out.println(myAgent.getLocalName() + ": Preparing results of CFP.");
-            block(5000);
+            block(2000);
             ACLMessage msg = cfp.createReply();
             msg.setPerformative(ACLMessage.INFORM);
+            msg.setContent(location);
             return msg;
         }
     }

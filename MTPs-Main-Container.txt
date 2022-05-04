@@ -1,1 +1,1 @@
-http://10-22-124-173.ed10.eduroam.fct.unl.pt:7778/acc
+http://pk-mac.lan:7778/acc

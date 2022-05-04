@@ -57,20 +57,27 @@ public class TransportAgent extends Agent {
         }
 
         // TO DO: Add responder behaviour/s - always on
-        //this.addBehaviour(new ToNextStation());
-        this.addBehaviour(new ReqTransportResp(this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)));
+//        this.addBehaviour(new ToNextStation());
+        this.addBehaviour(new ReqAGVResp(this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)));
     }
 
     private class ToNextStation extends OneShotBehaviour {
+        private String destin = null;
+
+        private ToNextStation(String destin) {
+            this.destin = destin;
+        }
+
         @Override
         public void action() {
-            System.out.println("To next station...");
+            System.out.println("Executing Skill: " + Arrays.toString(associatedSkills)); // [sk_move]
+            System.out.println("Moving to: " + this.destin);
         }
     }
 
-    private class ReqTransportResp extends AchieveREResponder {
+    private class ReqAGVResp extends AchieveREResponder {
 
-        public ReqTransportResp(Agent a, MessageTemplate mt) {
+        public ReqAGVResp(Agent a, MessageTemplate mt) {
             super(a, mt);
         }
 
@@ -79,6 +86,7 @@ public class TransportAgent extends Agent {
             //System.out.println(myAgent.getLocalName() + ": Processing REQUEST message");
             ACLMessage msg = request.createReply();
             msg.setPerformative(ACLMessage.AGREE);
+            addBehaviour(new ToNextStation(request.getContent()));
             return msg;
         }
 
@@ -86,8 +94,8 @@ public class TransportAgent extends Agent {
         protected ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException {
             //System.out.println(myAgent.getLocalName() + ": Preparing result of REQUEST");
             // Execute skill
+            //addBehaviour(new ToNextStation(request.getContent()));
             block(5000);
-            //addBehaviour(new ToNextStation());
             // Reply to initiator
             ACLMessage msg = request.createReply();
             msg.setPerformative(ACLMessage.INFORM);

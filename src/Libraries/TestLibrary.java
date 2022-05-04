@@ -33,7 +33,7 @@ public class TestLibrary implements IResource {
                 case Utilities.Constants.SK_GLUE_TYPE_C: {
                     Thread.sleep(4000);
                     return true;
-                }                
+                }
                 case Utilities.Constants.SK_PICK_UP:
                     Thread.sleep(1000);
                     return true;
