@@ -14,6 +14,7 @@ import jade.proto.AchieveREInitiator;
 import jade.proto.ContractNetInitiator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Vector;
 
@@ -26,10 +27,11 @@ public class ProductAgent extends Agent {
     String id;
     ArrayList<String> executionPlan = new ArrayList<>();
     private boolean CFPflag = false;
-    private int currState = 0;
+    private int currState = -1;
     private AID resouceId = null;
     private String location = null;
     private String nextLoc = null;
+    private boolean taskDone = false;
 
     @Override
     protected void setup() {
@@ -40,27 +42,65 @@ public class ProductAgent extends Agent {
         this.nextLoc = this.executionPlan.get(0);
 
         // Necessary behaviour/s to control the flow of its own production
-        this.addBehaviour(new HandlePlan());
+        // this.addBehaviour(new HandlePlan());
+        this.addBehaviour(new GetNextTask());
     }
 
-    // Start and Exit of the product plan
-    private class HandlePlan extends SimpleBehaviour {
+    private class InitPlan extends OneShotBehaviour {
+        @Override
+        public void action() {
+            if (currState == 0 && Objects.equals(executionPlan.get(currState), Constants.SK_PICK_UP)) {
+                addBehaviour(new AGVControl());
+            }
+        }
+    }
+
+    // Get the next state - if there is no next task - put planEnded to true
+    private class GetNextTask extends OneShotBehaviour {
+        @Override
+        public void action() {
+            if (currState < executionPlan.size() - 1) {
+                currState++;
+                System.out.println("Next task get: " + executionPlan.get(currState));
+            } else {
+                System.out.println("Ended all tasks");
+            }
+
+            resouceId = null;
+
+            if (currState == 0 || currState == executionPlan.size() - 1) {
+                addBehaviour(new AGVControl());
+            } else {
+                addBehaviour(new SendCFP());
+            }
+        }
+    }
+
+    // Sending CFP requests to all resources
+    private class SendCFP extends SimpleBehaviour {
         private boolean finished = false;
+        private boolean firstEnter = true;
 
         @Override
         public void action() {
-            // Entry/Exit Operator: move the AGV to operation (resource) - get or drop product
-            if (Objects.equals(executionPlan.get(currState), Constants.SK_PICK_UP)) {
-                // entry point: source
-                addBehaviour(new AGVControl());
-            } else if (Objects.equals(executionPlan.get(currState), Constants.SK_DROP)){
-                // exit point: sink
-                finished = true;
+            if (firstEnter) {
+                ACLMessage msgCFP = new ACLMessage(ACLMessage.CFP);
+                try {
+                    // DFAgentDescription[] target = DFInteraction.SearchInDFByType(Constants.DFSERVICE_RESOURCE, myAgent);
+                    DFAgentDescription[] target = DFInteraction.SearchInDFByName(executionPlan.get(currState), myAgent);
+                    for (DFAgentDescription t : target) {
+                        msgCFP.addReceiver(t.getName());
+                        addBehaviour(new CFPInit(myAgent, msgCFP));
+                    }
+                } catch (FIPAException e) {
+                    e.printStackTrace();
+                }
+                firstEnter = false;
             } else {
-                // Not entry neither exit - normal states
-                if (nextLoc == null) {
-                    //end of get next state
-                    addBehaviour(new SendCFP());
+                if (resouceId != null){
+                    System.out.println("All CFP HANDLED.");
+                    addBehaviour(new AGVControl());
+                    finished = true;
                 }
             }
         }
@@ -71,100 +111,79 @@ public class ProductAgent extends Agent {
         }
     }
 
-    // Get the next state - if there is no next task - put planEnded to true
-    private class GetNextTask extends OneShotBehaviour {
+    private class AGVControl extends SimpleBehaviour {
+        private boolean finished = false;
+        private boolean firstEnter = true;
+
         @Override
         public void action() {
-            if (currState < executionPlan.size()) {
-                currState++;
-                System.out.println("Next task get: " + executionPlan.get(currState));
+            if (firstEnter) {
+                // Outside of station: Request AGV move
+                if (!Objects.equals(location, nextLoc)) {
+                    ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+                    if (resouceId == null)  {
+                        // no CFP done - it is from entry point or exit point
+                        msg.setContent("Operation");
+                        try {
+                            // Get Operation AID
+                            if (currState == 0){
+                                resouceId = DFInteraction.SearchInDFByName(Constants.SK_PICK_UP, myAgent)[0].getName();
+                            }
+                            else {
+                                resouceId = DFInteraction.SearchInDFByName(Constants.SK_DROP, myAgent)[0].getName();
+                            }
+                        } catch (FIPAException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    try {
+                        AID target = DFInteraction.SearchInDFByType(Constants.DFSERVICE_TRANSPORT, myAgent)[0].getName();
+                        msg.addReceiver(target);
+                        addBehaviour(new ReqAGVInit(myAgent, msg));
+                    } catch (FIPAException e) {
+                        e.printStackTrace();
+                    }
+                }
+                firstEnter = false;
             } else {
-                System.out.println("Ended all tasks");
-            }
-            nextLoc = null;
-        }
-    }
-
-    // Sending CFP requests to all resources
-    private class SendCFP extends OneShotBehaviour {
-
-        @Override
-        public void action() {
-            ACLMessage msgCFP = new ACLMessage(ACLMessage.CFP);
-            DFAgentDescription[] target = null;
-            try {
-                target = DFInteraction.SearchInDFByType(Constants.DFSERVICE_RESOURCE, myAgent);
-                for (int i = 0; i < target.length; i++){
-                    msgCFP.addReceiver(target[i].getName());
-                    myAgent.addBehaviour(new CFPInit(myAgent, msgCFP));
+                if (Objects.equals(location, nextLoc)){
+                    // In station: execute skill
+                    addBehaviour(new ExecuteSkill());
+                    finished = true;
                 }
-            } catch (FIPAException e) {
-                e.printStackTrace();
             }
-            if (CFPflag){
-                System.out.println("##");
-            }
-        }
-    }
-
-    private class AGVControl extends OneShotBehaviour {
-        // 1-entry, 2-exit
-        private int isOp;
-
-        private AGVControl() {
-            this.isOp = -1;
-        }
-
-        private AGVControl(int isOp) {
-            this.isOp = isOp;
         }
 
         @Override
-        public void action() {
-            // From entry point
-            if (currState == 0 && location == null && resouceId == null) {
-                ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-                msg.setContent("Operation");
-                try {
-                    AID target = DFInteraction.SearchInDFByName(Constants.SK_PICK_UP, myAgent)[0].getName();
-                    msg.addReceiver(target);
-                    addBehaviour(new ReqAGVInit(myAgent, msg));
-                    resouceId = target;
-                    System.out.println(target.toString());
-                } catch (FIPAException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            // Get positions: now and next station
-            if (!Objects.equals(location, nextLoc)) {
-                // Request AGV move
-                ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-                try {
-                    AID target = DFInteraction.SearchInDFByType(Constants.DFSERVICE_TRANSPORT, myAgent)[0].getName();
-                    msg.addReceiver(target);
-                    addBehaviour(new ReqAGVInit(myAgent, msg));
-                } catch (FIPAException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (Objects.equals(location, nextLoc) && resouceId != null) {
-                addBehaviour(new ExecuteSkill());
-            }
+        public boolean done() {
+            return finished;
         }
     }
-    private class ExecuteSkill extends OneShotBehaviour {
+    private class ExecuteSkill extends SimpleBehaviour {
+        private boolean finished = false;
+        private boolean firstEnter = true;
 
         @Override
         public void action() {
-            // FLAG: to indicate the move is finished
-            if (location.equals(nextLoc)) {
-                // Request SKILL execution
-                ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-                msg.addReceiver(resouceId);
-                addBehaviour(new ReqResourceInit(myAgent, msg));
+            if (firstEnter) {
+                if (Objects.equals(location, nextLoc) && resouceId != null) {
+                    // Request SKILL execution
+                    ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+                    msg.addReceiver(resouceId);
+                    addBehaviour(new ReqResourceInit(myAgent, msg));
+                }
+                firstEnter = false;
+            } else {
+                if (resouceId == null) {
+                    addBehaviour(new GetNextTask());
+                    finished = true;
+                }
             }
+        }
+
+        @Override
+        public boolean done() {
+            return finished;
         }
     }
 
@@ -176,13 +195,11 @@ public class ProductAgent extends Agent {
 
         @Override
         protected void handleAgree(ACLMessage agree) {
-            //super.handleAgree(agree);
             System.out.println(myAgent.getLocalName() + ": AGREE transport msg received.");
         }
 
         @Override
         protected void handleInform(ACLMessage inform) {
-            //super.handleInform(inform);
             System.out.println(myAgent.getLocalName() + ": INFORM transport REQ msg received.");
             location = nextLoc;
         }
@@ -196,47 +213,46 @@ public class ProductAgent extends Agent {
 
         @Override
         protected void handleAgree(ACLMessage agree) {
-            super.handleAgree(agree);
             System.out.println(myAgent.getLocalName() + ": AGREE msg received.");
         }
 
         @Override
         protected void handleInform(ACLMessage inform) {
-            super.handleInform(inform);
             System.out.println(myAgent.getLocalName() + ": INFORM - " + inform.getContent());
-            addBehaviour(new GetNextTask());
+            //addBehaviour(new GetNextTask());
+            resouceId = null;
         }
     }
 
     private class CFPInit extends ContractNetInitiator {
-
         public CFPInit(Agent a, ACLMessage cfp) {
             super(a, cfp);
         }
 
         @Override
         protected void handleInform(ACLMessage inform) {
-            //super.handleInform(inform);
             System.out.println(myAgent.getLocalName() + ": INFORM CFP.");
             resouceId = inform.getSender();
             nextLoc = inform.getContent();
-            CFPflag = true;
         }
 
         @Override
         protected void handleAllResponses(Vector responses, Vector acceptances) {
-            //super.handleAllResponses(responses, acceptances);
-            System.out.println(myAgent.getLocalName() + ": ALL PROPOSAL received.");
-            boolean acceptFlag = false;
-
             for (int i = 0; i < responses.size(); i++){
                 ACLMessage msg = (ACLMessage) responses.get(i);
-                System.out.println("PROPOSAL: " + msg.toString());
                 ACLMessage reply = msg.createReply();
-                // FOR TESTING ONLY
-                if (executionPlan.get(currState).equals(msg.toString()) && !acceptFlag){
-                    reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
-                    acceptFlag = true;
+                String[] str = msg.getContent().split(":");
+                if (!CFPflag) {
+                    for (String s: str) {
+                        if (executionPlan.get(currState).equals(s) && !CFPflag){
+                            System.out.println("PROPOSAL: " + s);
+                            reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+                            CFPflag = true;
+                            break;
+                        } else {
+                            reply.setPerformative(ACLMessage.REJECT_PROPOSAL);
+                        }
+                    }
                 } else {
                     reply.setPerformative(ACLMessage.REJECT_PROPOSAL);
                 }

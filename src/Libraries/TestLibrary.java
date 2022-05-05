@@ -50,15 +50,15 @@ public class TestLibrary implements IResource {
         return false;
     }
 
-    @Override
-    public boolean launchProduct(String productID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean finishProduct(String productID) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    @Override
+//    public boolean launchProduct(String productID) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+//
+//    @Override
+//    public boolean finishProduct(String productID) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     @Override
     public String[] getSkills() {
@@ -82,7 +82,7 @@ public class TestLibrary implements IResource {
                 skills = new String[1];
                 skills[0] = Utilities.Constants.SK_QUALITY_CHECK;
                 return skills;
-            case "Operator":
+            case "Source":
                 skills = new String[2];
                 skills[0] = Utilities.Constants.SK_PICK_UP;
                 skills[1] = Utilities.Constants.SK_DROP;

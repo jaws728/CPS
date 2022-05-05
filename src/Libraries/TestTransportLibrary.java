@@ -17,10 +17,10 @@ public class TestTransportLibrary implements ITransport {
         this.myAgent = a;
         System.out.println("Test library has been successfully initialized for agent: " + this.myAgent.getLocalName());
     }
-    
+
 
     @Override
-    public boolean executeMove(String origin, String destination) {
+    public boolean executeMove(String origin, String destination, String productID) {
         System.out.println("Performing transportation from " + origin + " to " + destination + ".");
         try {
             Thread.sleep(5000);

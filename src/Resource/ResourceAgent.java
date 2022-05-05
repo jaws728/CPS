@@ -105,7 +105,12 @@ public class ResourceAgent extends Agent {
             // System.out.println(myAgent.getLocalName() + ": Processing CFP message");
             ACLMessage msg = cfp.createReply();
             msg.setPerformative(ACLMessage.PROPOSE);
-            msg.setContent(Arrays.toString(associatedSkills));
+            StringBuilder content = new StringBuilder();
+            for (String skill: associatedSkills) {
+                content.append(skill);
+                content.append(":");
+            }
+            msg.setContent(String.valueOf(content));
             return msg;
         }
 
