@@ -22,7 +22,7 @@ public class SimResourceLibrary implements IResource {
     public int clientID = -1;
     Agent myAgent;
     final long timeout = 30000;
-    
+
     @Override
     public void init(Agent a) {
         this.myAgent = a;
@@ -34,11 +34,11 @@ public class SimResourceLibrary implements IResource {
             case "GlueStation2": port=19998; break;
             case "QualityControlStation1": port=19999; break;
             case "QualityControlStation2": port=20000; break;
-            case "Operator": port=20001; break;
+            case "Source": port=20001; break;
         }
-        clientID = sim.simxStart("127.0.0.1", port, true, true, 5000, 5);        
+        clientID = sim.simxStart("127.0.0.1", port, true, true, 5000, 5);
         if (clientID != -1) {
-            System.out.println(this.myAgent.getAID().getLocalName() + " initialized communication with the simulation.");            
+            System.out.println(this.myAgent.getAID().getLocalName() + " initialized communication with the simulation.");
         }
     }
 
@@ -84,7 +84,7 @@ public class SimResourceLibrary implements IResource {
                 skills = new String[1];
                 skills[0] = Utilities.Constants.SK_QUALITY_CHECK;
                 return skills;
-            case "Operator":
+            case "Source":
                 skills = new String[2];
                 skills[0] = Utilities.Constants.SK_PICK_UP;
                 skills[1] = Utilities.Constants.SK_DROP;

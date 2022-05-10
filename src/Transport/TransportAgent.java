@@ -1,5 +1,6 @@
 package Transport;
 
+import Libraries.SimTransportLibrary;
 import Utilities.Constants;
 import Utilities.DFInteraction;
 import jade.core.Agent;
@@ -26,6 +27,7 @@ public class TransportAgent extends Agent {
     ITransport myLib;
     String description;
     String[] associatedSkills;
+    boolean occupied = false;
 
     @Override
     protected void setup() {
@@ -49,30 +51,15 @@ public class TransportAgent extends Agent {
         this.associatedSkills = myLib.getSkills();
         System.out.println("Transport Deployed: " + this.id + " Executes: " + Arrays.toString(associatedSkills));
 
-        // TO DO: Register in DF
+        // Register in DF
         try {
             DFInteraction.RegisterInDF(this, this.associatedSkills, Constants.DFSERVICE_TRANSPORT);
         } catch (FIPAException e) {
             e.printStackTrace();
         }
 
-        // TO DO: Add responder behaviour/s - always on
-//        this.addBehaviour(new ToNextStation());
+        // Add responder behaviour/s - always on
         this.addBehaviour(new ReqAGVResp(this, MessageTemplate.MatchPerformative(ACLMessage.REQUEST)));
-    }
-
-    private class ToNextStation extends OneShotBehaviour {
-        private String destin = null;
-
-        private ToNextStation(String destin) {
-            this.destin = destin;
-        }
-
-        @Override
-        public void action() {
-            System.out.println("Executing Skill: " + Arrays.toString(associatedSkills)); // [sk_move]
-            System.out.println("Moving to: " + this.destin);
-        }
     }
 
     private class ReqAGVResp extends AchieveREResponder {
@@ -83,22 +70,25 @@ public class TransportAgent extends Agent {
 
         @Override
         protected ACLMessage handleRequest(ACLMessage request) throws NotUnderstoodException, RefuseException {
-            //System.out.println(myAgent.getLocalName() + ": Processing REQUEST message");
             ACLMessage msg = request.createReply();
-            msg.setPerformative(ACLMessage.AGREE);
-            addBehaviour(new ToNextStation(request.getContent()));
+            if (!occupied) {
+                msg.setPerformative(ACLMessage.AGREE);
+                occupied = true;
+            } else {
+                msg.setPerformative(ACLMessage.REFUSE);
+            }
             return msg;
         }
 
         @Override
         protected ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException {
-            //System.out.println(myAgent.getLocalName() + ": Preparing result of REQUEST");
             // Execute skill
-            //addBehaviour(new ToNextStation(request.getContent()));
-            block(5000);
+            String[] req = request.getContent().split(":");
+            myLib.executeMove(req[0], req[1], req[2]);
             // Reply to initiator
             ACLMessage msg = request.createReply();
             msg.setPerformative(ACLMessage.INFORM);
+            occupied = false;
             return msg;
         }
     }

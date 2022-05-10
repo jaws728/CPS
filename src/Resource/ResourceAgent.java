@@ -30,6 +30,7 @@ public class ResourceAgent extends Agent {
     String description;
     String[] associatedSkills;
     String location;
+    boolean occupied = false;
 
     @Override
     protected void setup() {
@@ -76,7 +77,6 @@ public class ResourceAgent extends Agent {
 
         @Override
         protected ACLMessage handleRequest(ACLMessage request) throws NotUnderstoodException, RefuseException {
-            //System.out.println(myAgent.getLocalName() + ": Processing REQUEST message");
             ACLMessage msg = request.createReply();
             msg.setPerformative(ACLMessage.AGREE);
             return msg;
@@ -85,11 +85,11 @@ public class ResourceAgent extends Agent {
         @Override
         protected ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException {
             // Execute skill
-            //System.out.println("Executing Task: " + Arrays.toString(associatedSkills));
-            block(5000);
+            myLib.executeSkill(request.getContent());
             ACLMessage msg = request.createReply();
             msg.setPerformative(ACLMessage.INFORM);
             msg.setContent(Arrays.toString(associatedSkills));
+            occupied = false;
             return msg;
         }
     }
@@ -102,25 +102,28 @@ public class ResourceAgent extends Agent {
 
         @Override
         protected ACLMessage handleCfp(ACLMessage cfp) throws RefuseException, FailureException, NotUnderstoodException {
-            // System.out.println(myAgent.getLocalName() + ": Processing CFP message");
             ACLMessage msg = cfp.createReply();
-            msg.setPerformative(ACLMessage.PROPOSE);
-            StringBuilder content = new StringBuilder();
-            for (String skill: associatedSkills) {
-                content.append(skill);
-                content.append(":");
+            if (!occupied) {
+                msg.setPerformative(ACLMessage.PROPOSE);
+                StringBuilder content = new StringBuilder();
+                for (String skill: associatedSkills) {
+                    content.append(skill);
+                    content.append(":");
+                }
+                msg.setContent(String.valueOf(content));
+            } else {
+                msg.setPerformative(ACLMessage.REFUSE);
             }
-            msg.setContent(String.valueOf(content));
             return msg;
         }
 
         @Override
         protected ACLMessage handleAcceptProposal(ACLMessage cfp, ACLMessage propose, ACLMessage accept) throws FailureException {
-            //System.out.println(myAgent.getLocalName() + ": Preparing results of CFP.");
-            block(2000);
+            block(1000);
             ACLMessage msg = cfp.createReply();
             msg.setPerformative(ACLMessage.INFORM);
             msg.setContent(location);
+            occupied = true;
             return msg;
         }
     }

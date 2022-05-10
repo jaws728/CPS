@@ -29,7 +29,7 @@ public class SimTransportLibrary implements ITransport {
         this.sim = new remoteApi();
         this.clientID = sim.simxStart("127.0.0.1", 20002, true, true, 5000, 5);
         if (this.clientID != -1) {
-            System.out.println(this.myAgent.getAID().getLocalName() + " initialized communication with the simulation.");            
+            System.out.println(this.myAgent.getAID().getLocalName() + " initialized communication with the simulation.");
         }
     }
 
