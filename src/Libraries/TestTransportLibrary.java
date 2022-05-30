@@ -27,7 +27,7 @@ public class TestTransportLibrary implements ITransport {
         } catch (InterruptedException ex) {
             Logger.getLogger(TestTransportLibrary.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return true;
+        return Math.random() > 0.2;
     }
 
     @Override

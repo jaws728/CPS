@@ -30,6 +30,7 @@ public class ProductAgent extends Agent {
     private AID resouceId = null;
     private String origin = null;
     private String destin = null;
+    private boolean tranpFailed = false;
 
     @Override
     protected void setup() {
@@ -135,6 +136,10 @@ public class ProductAgent extends Agent {
                     addBehaviour(new ExecuteSkill());
                     finished = true;
                 }
+                if (tranpFailed) {
+                    tranpFailed = false;
+                    firstEnter = true;
+                }
             }
         }
 
@@ -186,6 +191,12 @@ public class ProductAgent extends Agent {
             System.out.println(myAgent.getLocalName() + ": INFORM transport REQ msg received.");
             origin = destin;
         }
+
+        @Override
+        protected void handleFailure(ACLMessage failure) {
+            System.out.println(myAgent.getLocalName() + ": Transportation FAILED...");
+            tranpFailed = true;
+        }
     }
 
     private class ReqResourceInit extends AchieveREInitiator{
@@ -202,6 +213,29 @@ public class ProductAgent extends Agent {
         @Override
         protected void handleInform(ACLMessage inform) {
             System.out.println(myAgent.getLocalName() + ": INFORM resource - " + inform.getContent());
+            if (inform.getContent() != null) {
+                if (!Objects.equals(inform.getContent(), "OK")) {
+                    //currState = 0;
+                    int i = 0;
+                    for (String ex: executionPlan) {
+                        if (ex.contains("g")) {
+                            break;
+                        }
+                        i++;
+                        //if (ex.equals(Constants.SK_GLUE_TYPE_A) || ex.equals(Constants.SK_GLUE_TYPE_B) || ex.equals(Constants.SK_GLUE_TYPE_C)) {
+                        //    break;
+                        //}
+                    }
+                    currState = i - 1;
+                }
+            }
+            resouceId = null;
+        }
+
+        @Override
+        protected void handleFailure(ACLMessage failure) {
+            System.out.println(myAgent.getLocalName() + ": FAILED...");
+            currState -= 1;
             resouceId = null;
         }
     }

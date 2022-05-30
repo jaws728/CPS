@@ -24,11 +24,11 @@ public class TestLibrary implements IResource {
             switch (skillID) {
                 case Utilities.Constants.SK_GLUE_TYPE_A: {
                     Thread.sleep(2000);
-                    return true;
+                    return Math.random() > 0.5;
                 }
                 case Utilities.Constants.SK_GLUE_TYPE_B: {
                     Thread.sleep(3000);
-                    return true;
+                    return Math.random() > 0.5;
                 }
                 case Utilities.Constants.SK_GLUE_TYPE_C: {
                     Thread.sleep(4000);

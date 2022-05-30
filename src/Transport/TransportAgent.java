@@ -84,10 +84,14 @@ public class TransportAgent extends Agent {
         protected ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException {
             // Execute skill
             String[] req = request.getContent().split(":");
-            myLib.executeMove(req[0], req[1], req[2]);
+            boolean isDone = myLib.executeMove(req[0], req[1], req[2]);
             // Reply to initiator
             ACLMessage msg = request.createReply();
-            msg.setPerformative(ACLMessage.INFORM);
+            if (isDone) {
+                msg.setPerformative(ACLMessage.INFORM);
+            } else {
+                msg.setPerformative(ACLMessage.FAILURE);
+            }
             occupied = false;
             return msg;
         }

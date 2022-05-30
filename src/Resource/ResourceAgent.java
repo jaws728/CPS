@@ -4,6 +4,7 @@ import Utilities.Constants;
 import Utilities.DFInteraction;
 import jade.core.Agent;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +19,8 @@ import jade.proto.AchieveREInitiator;
 import jade.proto.AchieveREResponder;
 import jade.proto.ContractNetInitiator;
 import jade.proto.ContractNetResponder;
+
+import javax.swing.text.Utilities;
 
 /**
  *
@@ -85,13 +88,26 @@ public class ResourceAgent extends Agent {
         @Override
         protected ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException {
             // Execute skill
-            myLib.executeSkill(request.getContent());
+            boolean isDone = myLib.executeSkill(request.getContent());
             ACLMessage msg = request.createReply();
-            msg.setPerformative(ACLMessage.INFORM);
-            msg.setContent(Arrays.toString(associatedSkills));
+            if (isDone) {
+                msg.setPerformative(ACLMessage.INFORM);
+                //msg.setContent(Arrays.toString(associatedSkills));
+                if (Objects.equals(request.getContent(), Constants.SK_QUALITY_CHECK)) {
+                    String quality = verifyQuality() == 1 ? "OK" : "NOK";
+                    msg.setContent(quality);
+                }
+            } else {
+                msg.setPerformative(ACLMessage.FAILURE);
+            }
             occupied = false;
             return msg;
         }
+    }
+
+    private int verifyQuality() {
+        //int quality = 0;
+        return Math.random() > 0.5 ? 1 : 0;
     }
 
     private class CFPResponder extends ContractNetResponder {
