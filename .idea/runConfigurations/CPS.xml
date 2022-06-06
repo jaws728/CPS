@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CPS" type="Application" factoryName="Application">
+    <option name="ALTERNATIVE_JRE_PATH" value="18" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="jade.Boot" />
+    <module name="CPS_lab3" />
+    <option name="PROGRAM_PARAMETERS" value="-gui GUI:Utilities.ConsoleAgent();GlueStation1:Resource.ResourceAgent(&quot;GS1&quot;,&quot;GS1&quot;,&quot;TestLibrary&quot;,&quot;GlueStation1&quot;);GlueStation2:Resource.ResourceAgent(&quot;GS2&quot;,&quot;GS2&quot;,&quot;TestLibrary&quot;,&quot;GlueStation2&quot;);QualityControlStation1:Resource.ResourceAgent(&quot;QCS1&quot;,&quot;QCS1&quot;,&quot;TestLibrary&quot;,&quot;QualityControlStation1&quot;);QualityControlStation2:Resource.ResourceAgent(&quot;QCS2&quot;,&quot;QCS2&quot;,&quot;TestLibrary&quot;,&quot;QualityControlStation2&quot;);Source:Resource.ResourceAgent(&quot;S&quot;,&quot;S&quot;,&quot;TestLibrary&quot;,&quot;Source&quot;);AGV:Transport.TransportAgent(&quot;AGV&quot;,&quot;AGV&quot;,&quot;TestTransportLibrary&quot;);" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

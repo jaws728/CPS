@@ -1,0 +1,2224 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007ff801e5f1ed, pid=12233, tid=62723
+#
+# JRE version: Java(TM) SE Runtime Environment (18.0+36) (build 18+36-2087)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (18+36-2087, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, bsd-amd64)
+# Problematic frame:
+# C  [libsystem_platform.dylib+0x11ed]  _platform_memmove$VARIANT$Haswell+0x8d
+#
+# No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   https://bugreport.java.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=51445:/Applications/IntelliJ IDEA.app/Contents/bin -Dfile.encoding=UTF-8 jade.Boot -gui GUI:Utilities.ConsoleAgent();GlueStation1:Resource.ResourceAgent(GS1,GS1,TestLibrary,GlueStation1);GlueStation2:Resource.ResourceAgent(GS2,GS2,TestLibrary,GlueStation2);QualityControlStation1:Resource.ResourceAgent(QCS1,QCS1,TestLibrary,QualityControlStation1);QualityControlStation2:Resource.ResourceAgent(QCS2,QCS2,TestLibrary,QualityControlStation2);Source:Resource.ResourceAgent(S,S,TestLibrary,Source);AGV:Transport.TransportAgent(AGV,AGV,TestTransportLibrary);
+
+Host: "MacBookPro14,2" x86_64 3300 MHz, 4 cores, 16G, Darwin 21.5.0, macOS 12.4 (21F79)
+Time: Mon Jun  6 15:06:33 2022 WEST elapsed time: 67.504335 seconds (0d 0h 1m 7s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fb2f2ef1800):  JavaThread "QualityControlStation1" [_thread_in_native, id=62723, stack(0x000070000d62b000,0x000070000d72b000)]
+
+Stack: [0x000070000d62b000,0x000070000d72b000],  sp=0x000070000d729f50,  free space=1019k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libsystem_platform.dylib+0x11ed]  _platform_memmove$VARIANT$Haswell+0x8d
+C  [libc++.1.dylib+0xf734]  std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__assign_external(char const*, unsigned long)+0x78
+C  [libhdf5_cpp.200.dylib+0x24c0d]  H5::Attribute::getName() const+0x3cd
+C  [libhdf5_cpp.200.dylib+0x23abd]  H5::Attribute::p_read_variable_len(H5::DataType const&, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >&) const+0x13d
+C  [libhdf5_cpp.200.dylib+0x2374c]  H5::Attribute::read(H5::DataType const&, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >&) const+0x14c
+C  [libjnihdf5.dylib+0x691b]  Java_org_bytedeco_hdf5_Attribute_read__Lorg_bytedeco_hdf5_DataType_2Lorg_bytedeco_javacpp_BytePointer_2+0x25b
+j  org.bytedeco.hdf5.Attribute.read(Lorg/bytedeco/hdf5/DataType;Lorg/bytedeco/javacpp/BytePointer;)V+0
+j  org.deeplearning4j.nn.modelimport.keras.Hdf5Archive.readAttributeAsString(Lorg/bytedeco/hdf5/Attribute;)Ljava/lang/String;+42
+j  org.deeplearning4j.nn.modelimport.keras.Hdf5Archive.readAttributeAsString(Ljava/lang/String;[Ljava/lang/String;)Ljava/lang/String;+62
+j  org.deeplearning4j.nn.modelimport.keras.utils.KerasModelUtils.importWeights(Lorg/deeplearning4j/nn/modelimport/keras/Hdf5Archive;Ljava/lang/String;Ljava/util/Map;ILjava/lang/String;)V+221
+j  org.deeplearning4j.nn.modelimport.keras.KerasSequentialModel.<init>(Ljava/lang/String;Ljava/lang/String;Lorg/deeplearning4j/nn/modelimport/keras/Hdf5Archive;Ljava/lang/String;Ljava/lang/String;Lorg/deeplearning4j/nn/modelimport/keras/Hdf5Archive;Z[I)V+628
+j  org.deeplearning4j.nn.modelimport.keras.KerasSequentialModel.<init>(Lorg/deeplearning4j/nn/modelimport/keras/utils/KerasModelBuilder;)V+33
+j  org.deeplearning4j.nn.modelimport.keras.utils.KerasModelBuilder.buildSequential()Lorg/deeplearning4j/nn/modelimport/keras/KerasSequentialModel;+5
+j  org.deeplearning4j.nn.modelimport.keras.KerasModelImport.importKerasSequentialModelAndWeights(Ljava/lang/String;)Lorg/deeplearning4j/nn/multilayer/MultiLayerNetwork;+18
+j  Resource.InspectionModel.loadModel(Ljava/lang/String;)Lorg/deeplearning4j/nn/multilayer/MultiLayerNetwork;+3
+j  Resource.InspectionModel.<init>(Ljava/lang/String;)V+7
+j  Resource.ResourceAgent.verifyQuality()I+13
+j  Resource.ResourceAgent$ReqResourceResp.prepareResultNotification(Ljade/lang/acl/ACLMessage;Ljade/lang/acl/ACLMessage;)Ljade/lang/acl/ACLMessage;+50
+j  jade.proto.AchieveREResponder$PrepareResult.action()V+45
+J 3222 c2 jade.core.behaviours.Behaviour.actionWrapper()V (59 bytes) @ 0x000000011f558e60 [0x000000011f558da0+0x00000000000000c0]
+J 3749 c1 jade.core.behaviours.CompositeBehaviour.action()V (143 bytes) @ 0x00000001186c00e4 [0x00000001186bfc80+0x0000000000000464]
+J 3463 c2 jade.core.Agent$ActiveLifeCycle.execute()V (107 bytes) @ 0x000000011f585af4 [0x000000011f5857c0+0x0000000000000334]
+j  jade.core.Agent.run()V+21
+j  java.lang.Thread.run()V+11 java.base@18
+v  ~StubRoutines::call_stub
+V  [libjvm.dylib+0x512441]  JavaCalls::call_helper(JavaValue*, methodHandle const&, JavaCallArguments*, JavaThread*)+0x2a1
+V  [libjvm.dylib+0x5114b7]  JavaCalls::call_virtual(JavaValue*, Klass*, Symbol*, Symbol*, JavaCallArguments*, JavaThread*)+0x147
+V  [libjvm.dylib+0x511583]  JavaCalls::call_virtual(JavaValue*, Handle, Klass*, Symbol*, Symbol*, JavaThread*)+0x63
+V  [libjvm.dylib+0x5b7798]  thread_entry(JavaThread*, JavaThread*)+0x98
+V  [libjvm.dylib+0x9e5b89]  JavaThread::thread_main_inner()+0xc9
+V  [libjvm.dylib+0x9e424f]  Thread::call_run()+0xcf
+V  [libjvm.dylib+0x8867b8]  thread_native_entry(Thread*)+0x148
+C  [libsystem_pthread.dylib+0x64e1]  _pthread_start+0x7d
+C  [libsystem_pthread.dylib+0x1f6b]  thread_start+0xf
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  org.bytedeco.hdf5.Attribute.read(Lorg/bytedeco/hdf5/DataType;Lorg/bytedeco/javacpp/BytePointer;)V+0
+j  org.deeplearning4j.nn.modelimport.keras.Hdf5Archive.readAttributeAsString(Lorg/bytedeco/hdf5/Attribute;)Ljava/lang/String;+42
+j  org.deeplearning4j.nn.modelimport.keras.Hdf5Archive.readAttributeAsString(Ljava/lang/String;[Ljava/lang/String;)Ljava/lang/String;+62
+j  org.deeplearning4j.nn.modelimport.keras.utils.KerasModelUtils.importWeights(Lorg/deeplearning4j/nn/modelimport/keras/Hdf5Archive;Ljava/lang/String;Ljava/util/Map;ILjava/lang/String;)V+221
+j  org.deeplearning4j.nn.modelimport.keras.KerasSequentialModel.<init>(Ljava/lang/String;Ljava/lang/String;Lorg/deeplearning4j/nn/modelimport/keras/Hdf5Archive;Ljava/lang/String;Ljava/lang/String;Lorg/deeplearning4j/nn/modelimport/keras/Hdf5Archive;Z[I)V+628
+j  org.deeplearning4j.nn.modelimport.keras.KerasSequentialModel.<init>(Lorg/deeplearning4j/nn/modelimport/keras/utils/KerasModelBuilder;)V+33
+j  org.deeplearning4j.nn.modelimport.keras.utils.KerasModelBuilder.buildSequential()Lorg/deeplearning4j/nn/modelimport/keras/KerasSequentialModel;+5
+j  org.deeplearning4j.nn.modelimport.keras.KerasModelImport.importKerasSequentialModelAndWeights(Ljava/lang/String;)Lorg/deeplearning4j/nn/multilayer/MultiLayerNetwork;+18
+j  Resource.InspectionModel.loadModel(Ljava/lang/String;)Lorg/deeplearning4j/nn/multilayer/MultiLayerNetwork;+3
+j  Resource.InspectionModel.<init>(Ljava/lang/String;)V+7
+j  Resource.ResourceAgent.verifyQuality()I+13
+j  Resource.ResourceAgent$ReqResourceResp.prepareResultNotification(Ljade/lang/acl/ACLMessage;Ljade/lang/acl/ACLMessage;)Ljade/lang/acl/ACLMessage;+50
+j  jade.proto.AchieveREResponder$PrepareResult.action()V+45
+J 3222 c2 jade.core.behaviours.Behaviour.actionWrapper()V (59 bytes) @ 0x000000011f558e60 [0x000000011f558da0+0x00000000000000c0]
+J 3749 c1 jade.core.behaviours.CompositeBehaviour.action()V (143 bytes) @ 0x00000001186c00e4 [0x00000001186bfc80+0x0000000000000464]
+J 3463 c2 jade.core.Agent$ActiveLifeCycle.execute()V (107 bytes) @ 0x000000011f585af4 [0x000000011f5857c0+0x0000000000000334]
+j  jade.core.Agent.run()V+21
+j  java.lang.Thread.run()V+11 java.base@18
+v  ~StubRoutines::call_stub
+
+siginfo: si_signo: 11 (SIGSEGV), si_code: 1 (SEGV_MAPERR), si_addr: 0x0000000000000000
+
+Register to memory mapping:
+
+RAX=0x0 is NULL
+RBX=0x00006000038d6320 points into unknown readable memory: 0x335f6432766e6f63 | 63 6f 6e 76 32 64 5f 33
+RCX=0x0000000000000063 is an unknown value
+RDX=0x0000000000000001 is an unknown value
+RSP=0x000070000d729f50 is pointing into the stack for thread: 0x00007fb2f2ef1800
+RBP=0x000070000d729f50 is pointing into the stack for thread: 0x00007fb2f2ef1800
+RSI=0x0000600003ada9a0 points into unknown readable memory: 0x335f6432766e6f63 | 63 6f 6e 76 32 64 5f 33
+RDI=0x0 is NULL
+R8 =0x00000001b2e15362: <offset 0x74b362> in /Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libhdf5.200.dylib at 0x00000001b26ca000
+R9 =0x00000001b2e11c59: <offset 0x747c59> in /Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libhdf5.200.dylib at 0x00000001b26ca000
+R10=0x0000000000000001 is an unknown value
+R11=0xffff9ffffc525660 is an unknown value
+R12=0x00007fb2f2ef1a90 points into unknown readable memory: 0x00000001098f4918 | 18 49 8f 09 01 00 00 00
+R13=0x00007fb2f15cc800 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+R14=0x0000000000000011 is an unknown value
+R15=0x0 is NULL
+
+
+Registers:
+RAX=0x0000000000000000, RBX=0x00006000038d6320, RCX=0x0000000000000063, RDX=0x0000000000000001
+RSP=0x000070000d729f50, RBP=0x000070000d729f50, RSI=0x0000600003ada9a0, RDI=0x0000000000000000
+R8 =0x00000001b2e15362, R9 =0x00000001b2e11c59, R10=0x0000000000000001, R11=0xffff9ffffc525660
+R12=0x00007fb2f2ef1a90, R13=0x00007fb2f15cc800, R14=0x0000000000000011, R15=0x0000000000000000
+RIP=0x00007ff801e5f1ed, EFLAGS=0x0000000000010203, ERR=0x0000000000000006
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x000070000d729f50)
+0x000070000d729f50:   000070000d729f80 00007ff801dae734
+0x000070000d729f60:   0000000000000011 00007fb2f1513200
+0x000070000d729f70:   000070000d72a220 00000000000007d0
+0x000070000d729f80:   000070000d729fa0 00000001ad3abc0d
+0x000070000d729f90:   0000600003ada9a0 00006000038d6320
+0x000070000d729fa0:   000070000d72a050 00000001ad3aaabd
+0x000070000d729fb0:   0000600000a2d4d0 00006000018a8350
+0x000070000d729fc0:   0000000000c54400 0000000000000000
+0x000070000d729fd0:   000070000d72a050 0700000000000005
+0x000070000d729fe0:   f685000840001001 000070000d72ffff
+0x000070000d729ff0:   000070000d72a080 0000000107c53a00
+0x000070000d72a000:   0000000003f458e0 00007fb2f2ef1800
+0x000070000d72a010:   000070000d72a060 0000000000000a00
+0x000070000d72a020:   0000000000000004 0000000000000000
+0x000070000d72a030:   0000600003ada9a0 00006000038d6320
+0x000070000d72a040:   0000600003ada980 0000600003ada960
+0x000070000d72a050:   000070000d72a0f0 00000001ad3aa74c
+0x000070000d72a060:   000070000d72a090 00007ff801c687fd
+0x000070000d72a070:   00000000000007e0 00000000000007e0
+0x000070000d72a080:   0000600003ada960 00007ff8435b3000
+0x000070000d72a090:   000070000d72a0d0 00007ff801c83abb
+0x000070000d72a0a0:   0000600003ada960 00000000000007e0
+0x000070000d72a0b0:   00007fb2f2ef1a90 00000000000007e0
+0x000070000d72a0c0:   000070000d72a220 00000000000007d0
+0x000070000d72a0d0:   000000010d72a0f0 000070000d72a130
+0x000070000d72a0e0:   0000600003ada980 0000600003ada960
+0x000070000d72a0f0:   000070000d72a190 00000001ae32491b
+0x000070000d72a100:   0000000000000000 00007fb2f15cc800
+0x000070000d72a110:   0000000000000000 00007fb2f15cc800
+0x000070000d72a120:   00000000000007d0 00007fb2f15cc800
+0x000070000d72a130:   00000000000007e1 00000000000007d0
+0x000070000d72a140:   00007fb2f1513200 000070000d72a130 
+
+Instructions: (pc=0x00007ff801e5f1ed)
+0x00007ff801e5f0ed:   c7 48 ff c6 4c 29 c0 75 95 4d 85 c0 74 90 48 f7
+0x00007ff801e5f0fd:   c7 0f 00 00 00 75 df 49 c7 c1 f0 0f 00 00 eb a3
+0x00007ff801e5f10d:   0f 1f 00 66 0f 6f 04 0f f3 0f 6f 0c 0e 66 0f 74
+0x00007ff801e5f11d:   c1 66 0f 74 ca 66 0f df c8 66 0f d7 c1 48 83 c1
+0x00007ff801e5f12d:   10 3d ff ff 00 00 74 db f7 d0 0f bc c0 48 01 c1
+0x00007ff801e5f13d:   48 0f b6 44 0f f0 4c 0f b6 44 0e f0 4c 29 c0 5d
+0x00007ff801e5f14d:   c3 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90
+0x00007ff801e5f15d:   90 90 90 55 48 89 e5 49 89 fb 49 29 f3 48 89 f8
+0x00007ff801e5f16d:   49 39 d3 72 1b 48 83 fa 60 76 2f 48 81 fa 00 40
+0x00007ff801e5f17d:   00 00 0f 82 cb 00 00 00 48 89 d1 fc f3 a4 5d c3
+0x00007ff801e5f18d:   48 39 fe 74 f9 48 01 d6 48 01 d7 48 83 fa 60 0f
+0x00007ff801e5f19d:   82 8c 01 00 00 e9 a9 01 00 00 48 83 fa 10 76 56
+0x00007ff801e5f1ad:   c5 f8 10 4c 16 f0 48 83 ea 20 76 2a c5 fc 10 06
+0x00007ff801e5f1bd:   c5 fc 11 07 48 83 c6 20 48 83 c7 20 48 83 ea 20
+0x00007ff801e5f1cd:   72 14 c5 fc 10 06 c5 fc 11 07 48 83 c6 20 48 83
+0x00007ff801e5f1dd:   c7 20 48 83 ea 20 48 83 c2 10 7e 0c c5 f8 10 06
+0x00007ff801e5f1ed:   c5 f8 11 07 c5 f8 57 c0 c5 f8 11 0c 17 c5 f0 57
+0x00007ff801e5f1fd:   c9 5d c5 f8 77 c3 48 83 ea 08 72 10 48 8b 0e 4c
+0x00007ff801e5f20d:   8b 04 16 48 89 0f 4c 89 04 17 5d c3 48 83 c2 08
+0x00007ff801e5f21d:   74 25 4d 31 c0 42 8a 0c 06 42 88 0c 07 48 83 ea
+0x00007ff801e5f22d:   01 74 14 42 8a 4c 06 01 42 88 4c 07 01 49 83 c0
+0x00007ff801e5f23d:   02 48 83 ea 01 75 de 5d c3 66 2e 0f 1f 84 00 00
+0x00007ff801e5f24d:   00 00 00 c5 fc 10 06 48 83 c7 20 48 83 e7 e0 48
+0x00007ff801e5f25d:   89 f9 48 29 c1 48 01 ce 48 29 ca c5 fc 10 0e c5
+0x00007ff801e5f26d:   fc 11 00 c5 fc 57 c0 c5 fc 10 56 20 48 83 c6 40
+0x00007ff801e5f27d:   48 81 ea 80 00 00 00 76 5a 48 f7 c6 1f 00 00 00
+0x00007ff801e5f28d:   74 31 c5 fc 29 0f c5 fc 29 57 20 48 83 c7 40 c5
+0x00007ff801e5f29d:   fc 10 0e c5 fc 10 56 20 48 83 c6 40 48 83 ea 40
+0x00007ff801e5f2ad:   77 e0 eb 2f 66 2e 0f 1f 84 00 00 00 00 00 0f 1f
+0x00007ff801e5f2bd:   44 00 00 c5 fc 29 0f c5 fc 29 57 20 48 83 c7 40
+0x00007ff801e5f2cd:   c5 fc 28 0e c5 fc 28 56 20 48 83 c6 40 48 83 ea
+0x00007ff801e5f2dd:   40 77 e0 c5 fc 10 1c 16 c5 fc 10 64 16 20 c5 fc 
+
+
+Stack slot to memory mapping:
+stack at sp + 0 slots: 0x000070000d729f80 is pointing into the stack for thread: 0x00007fb2f2ef1800
+stack at sp + 1 slots: 0x00007ff801dae734: _ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE17__assign_externalEPKcm+0x78 in /usr/lib/libc++.1.dylib at 0x00007ff801d9f000
+stack at sp + 2 slots: 0x0000000000000011 is an unknown value
+stack at sp + 3 slots: 0x00007fb2f1513200 points into unknown readable memory: 0x0000000000000000 | 00 00 00 00 00 00 00 00
+stack at sp + 4 slots: 0x000070000d72a220 is pointing into the stack for thread: 0x00007fb2f2ef1800
+stack at sp + 5 slots: 0x00000000000007d0 is an unknown value
+stack at sp + 6 slots: 0x000070000d729fa0 is pointing into the stack for thread: 0x00007fb2f2ef1800
+stack at sp + 7 slots: 0x00000001ad3abc0d: _ZNK2H59Attribute7getNameEv+0x3cd in /Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libhdf5_cpp.200.dylib at 0x00000001ad387000
+
+
+Compiled method (c2)   67540 3222       4       jade.core.behaviours.Behaviour::actionWrapper (59 bytes)
+ total in heap  [0x000000011f558c10,0x000000011f559218] = 1544
+ relocation     [0x000000011f558d70,0x000000011f558da0] = 48
+ main code      [0x000000011f558da0,0x000000011f5590c0] = 800
+ stub code      [0x000000011f5590c0,0x000000011f5590d8] = 24
+ oops           [0x000000011f5590d8,0x000000011f5590f0] = 24
+ metadata       [0x000000011f5590f0,0x000000011f559108] = 24
+ scopes data    [0x000000011f559108,0x000000011f559160] = 88
+ scopes pcs     [0x000000011f559160,0x000000011f5591e0] = 128
+ dependencies   [0x000000011f5591e0,0x000000011f5591e8] = 8
+ handler table  [0x000000011f5591e8,0x000000011f559218] = 48
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x000000012d0a8778} 'actionWrapper' '()V' in 'jade/core/behaviours/Behaviour'
+  #           [sp+0x40]  (sp of caller)
+  0x000000011f558da0: 448b 5608 | 49bb 0000 | 0000 0800 | 0000 4d03 | d349 3bc2 
+
+  0x000000011f558db4: ;   {runtime_call ic_miss_stub}
+  0x000000011f558db4: 0f85 c609 | 48f8 6690 | 0f1f 4000 
+[Verified Entry Point]
+  0x000000011f558dc0: 8984 2400 | c0fe ff55 | 4883 ec30 | 4889 3424 | 440f b65e | 0c45 85db | 0f85 1102 | 0000 4c8b 
+  0x000000011f558de0: 1424 458b | 6a1c 4585 | ed0f 844b | 0200 0041 | 807f 3800 | 0f85 e500 | 0000 4c8b 
+
+  0x000000011f558dfc: ;   {oop("RUNNING"{0x000000070f027f18})}
+  0x000000011f558dfc: 1424 41c7 | 4220 e34f 
+
+  0x000000011f558e04: ;   {oop("RUNNING"{0x000000070f027f18})}
+  0x000000011f558e04: e0e1 49bb | 187f 020f | 0700 0000 | 4d33 da49 | c1eb 154d | 85db 741a | 49c1 ea09 | 48bf 0090 
+  0x000000011f558e24: 5206 0100 | 0000 4903 | fa80 3f04 | 0f85 1d01 | 0000 f083 | 4424 c000 | 430f b66c | ec17 85ed 
+  0x000000011f558e44: 0f85 0202 | 0000 488b | 3424 6666 | 9048 b8ff | ffff ffff 
+
+  0x000000011f558e58: ;   {virtual_call}
+  0x000000011f558e58: ffff ffe8 
+
+  0x000000011f558e5c: ; ImmutableOopMap {[0]=Oop }
+                      ;*invokevirtual action {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.Behaviour::actionWrapper@36 (line 344)
+  0x000000011f558e5c: a890 53f8 | 4c8b 1424 | 418b 5a1c | 85db 0f84 | ec01 0000 | 4180 7f38 | 000f 85a1 | 0000 004c 
+  0x000000011f558e7c: ;   {oop("READY"{0x000000070f027f30})}
+  0x000000011f558e7c: 8b14 2441 | c742 20e6 
+
+  0x000000011f558e84: ;   {oop("READY"{0x000000070f027f30})}
+  0x000000011f558e84: 4fe0 e149 | bb30 7f02 | 0f07 0000 | 004d 33da | 49c1 eb15 | 4d85 db74 | 1b49 c1ea | 0949 b800 
+  0x000000011f558ea4: 9052 0601 | 0000 004d | 03c2 4180 | 3804 0f85 | ed00 0000 | f083 4424 | c000 410f | b66c dc17 
+  0x000000011f558ec4: 85ed 0f85 | a001 0000 | 4883 c430 
+
+  0x000000011f558ed0: ;   {poll_return}
+  0x000000011f558ed0: 5d49 3ba7 | 3803 0000 | 0f87 b101 | 0000 c345 | 8b5a 2045 | 85db 0f84 | 0eff ffff | 4d8b 5720 
+  0x000000011f558ef0: 498b fb48 | c1e7 034d | 85d2 660f | 1f44 0000 | 0f84 0701 | 0000 4d8b | 5f30 4b89 | 7c13 f849 
+  0x000000011f558f10: 83c2 f84d | 8957 20e9 | defe ffff | 458b 5220 | 4585 d20f | 8452 ffff | ff4d 8b5f | 2049 8bfa 
+  0x000000011f558f30: 48c1 e703 | 4d85 db0f | 84e8 0000 | 004d 8b57 | 304b 897c | 1af8 4983 | c3f8 4d89 | 5f20 e928 
+  0x000000011f558f50: ffff ff4d | 8b57 404d | 8b5f 50f0 | 8344 24c0 | 0080 3f00 | 0f84 ccfe | ffff 4488 | 274d 85d2 
+  0x000000011f558f70: 7520 498b | f766 6666 | 0f1f 8400 | 0000 0000 | 49ba c0ee | 0a09 0100 | 0000 41ff | d2e9 a4fe 
+  0x000000011f558f90: ffff 4b89 | 7c13 f849 | 83c2 f84d | 8957 4090 | e991 feff | ff4d 8b57 | 404d 8b5f | 50f0 8344 
+  0x000000011f558fb0: 24c0 0041 | 8038 000f | 84fb feff | ff45 8820 | 4d85 d275 | 1849 8bf8 | 498b f749 | bac0 ee0a 
+  0x000000011f558fd0: 0901 0000 | 0041 ffd2 | e9db feff | ff4f 8944 | 13f8 4983 | c2f8 4d89 | 5740 e9c9 | feff ff48 
+  0x000000011f558ff0: 8bee 6666 | 9048 b8ff | ffff ffff 
+
+  0x000000011f558ffc: ;   {virtual_call}
+  0x000000011f558ffc: ffff ffe8 
+
+  0x000000011f559000: ; ImmutableOopMap {rbp=Oop [0]=Oop }
+                      ;*invokevirtual onStart {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.Behaviour::actionWrapper@8 (line 334)
+  0x000000011f559000: 4451 58f8 | 4488 650c | e9d1 fdff | ff49 8bf7 | 49ba 90ee | 0a09 0100 | 0000 41ff | d266 6690 
+  0x000000011f559020: e9d5 fdff | ff49 8bf7 | 49ba 90ee | 0a09 0100 | 0000 41ff | d2e9 41fe | ffff be45 | ffff ff49 
+  0x000000011f559040: 8bea 4489 
+
+  0x000000011f559044: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f559044: 2c24 90e8 
+
+  0x000000011f559048: ; ImmutableOopMap {rbp=Oop [0]=NarrowOop }
+                      ;*ifnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.behaviours.Behaviour::actionWrapper@20 (line 340)
+  0x000000011f559048: b45f 48f8 | be45 ffff | ff44 896c 
+
+  0x000000011f559054: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f559054: 2410 90e8 
+
+  0x000000011f559058: ; ImmutableOopMap {[0]=Oop [16]=NarrowOop }
+                      ;*ifeq {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.Agent::notifyChangeBehaviourState@9 (line 2128)
+                      ; - jade.core.behaviours.Behaviour::actionWrapper@32 (line 341)
+  0x000000011f559058: a45f 48f8 | be45 ffff | ff49 8bea 
+
+  0x000000011f559064: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f559064: 891c 24e8 
+
+  0x000000011f559068: ; ImmutableOopMap {rbp=Oop [0]=NarrowOop }
+                      ;*ifnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.behaviours.Behaviour::actionWrapper@43 (line 346)
+  0x000000011f559068: 945f 48f8 | be45 ffff | ff89 5c24 
+
+  0x000000011f559074: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f559074: 0866 90e8 
+
+  0x000000011f559078: ; ImmutableOopMap {[0]=Oop [8]=NarrowOop }
+                      ;*ifeq {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.Agent::notifyChangeBehaviourState@9 (line 2128)
+                      ; - jade.core.behaviours.Behaviour::actionWrapper@55 (line 347)
+  0x000000011f559078: 845f 48f8 | 488b f090 | eb03 488b | f048 83c4 
+
+  0x000000011f559088: ;   {runtime_call _rethrow_Java}
+  0x000000011f559088: 305d e971 
+
+  0x000000011f55908c: ;   {internal_word}
+  0x000000011f55908c: fc49 f849 | bad1 8e55 | 1f01 0000 | 004d 8997 | 5003 0000 
+
+  0x000000011f5590a0: ;   {runtime_call SafepointBlob}
+  0x000000011f5590a0: e95b 7048 | f8f4 f4f4 | f4f4 f4f4 | f4f4 f4f4 | f4f4 f4f4 | f4f4 f4f4 | f4f4 f4f4 | f4f4 f4f4 
+[Exception Handler]
+  0x000000011f5590c0: ;   {no_reloc}
+  0x000000011f5590c0: e9bb aa49 | f8e8 0000 | 0000 4883 
+
+  0x000000011f5590cc: ;   {runtime_call DeoptimizationBlob}
+  0x000000011f5590cc: 2c24 05e9 | cc62 48f8 | f4f4 f4f4 
+[/MachCode]
+
+
+Compiled method (c1)   67548 3749       3       jade.core.behaviours.CompositeBehaviour::action (143 bytes)
+ total in heap  [0x00000001186bfa10,0x00000001186c0b18] = 4360
+ relocation     [0x00000001186bfb70,0x00000001186bfc70] = 256
+ main code      [0x00000001186bfc80,0x00000001186c0800] = 2944
+ stub code      [0x00000001186c0800,0x00000001186c08c0] = 192
+ oops           [0x00000001186c08c0,0x00000001186c08c8] = 8
+ metadata       [0x00000001186c08c8,0x00000001186c0918] = 80
+ scopes data    [0x00000001186c0918,0x00000001186c09c0] = 168
+ scopes pcs     [0x00000001186c09c0,0x00000001186c0ae0] = 288
+ dependencies   [0x00000001186c0ae0,0x00000001186c0af8] = 24
+ nul chk table  [0x00000001186c0af8,0x00000001186c0b18] = 32
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour'
+  #           [sp+0x90]  (sp of caller)
+  0x00000001186bfc80: 448b 5608 | 49bb 0000 | 0000 0800 | 0000 4d03 | d34c 3bd0 
+
+  0x00000001186bfc94: ;   {runtime_call ic_miss_stub}
+  0x00000001186bfc94: 0f85 e69a | 31ff 660f | 1f44 0000 
+[Verified Entry Point]
+  0x00000001186bfca0: 8984 2400 | c0fe ff55 | 4881 ec80 | 0000 0048 | 8974 2458 
+
+  0x00000001186bfcb4: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186bfcb4: 48bf 58ad | d52d 0100 | 0000 8b9f | ac00 0000 | 83c3 0289 | 9fac 0000 | 0081 e3fe | 0700 0083 
+  0x00000001186bfcd4: fb00 0f84 | 230a 0000 | 0fbe 7e0e 
+
+  0x00000001186bfce0: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186bfce0: 83ff 0048 | bf58 add5 | 2d01 0000 | 0048 bbf0 | 0000 0000 | 0000 000f | 840a 0000 | 0048 bb00 
+  0x00000001186bfd00: 0100 0000 | 0000 0048 | 8b04 1f48 | 8d40 0148 | 8904 1f0f | 84d1 0000 | 0048 8bfe 
+
+  0x00000001186bfd1c: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186bfd1c: 48bb 58ad | d52d 0100 | 0000 8b7f | 0849 ba00 | 0000 0008 | 0000 0049 | 03fa 483b | bb20 0100 
+  0x00000001186bfd3c: 0075 0d48 | 8383 2801 | 0000 01e9 | 6600 0000 | 483b bb30 | 0100 0075 | 0d48 8383 | 3801 0000 
+  0x00000001186bfd5c: 01e9 5000 | 0000 4881 | bb20 0100 | 0000 0000 | 0075 1748 | 89bb 2001 | 0000 48c7 | 8328 0100 
+  0x00000001186bfd7c: 0001 0000 | 00e9 2c00 | 0000 4881 | bb30 0100 | 0000 0000 | 0075 1748 | 89bb 3001 | 0000 48c7 
+  0x00000001186bfd9c: 8338 0100 | 0001 0000 | 00e9 0800 | 0000 4883 | 8310 0100 | 0001 488b | fe48 8bf7 | 0f1f 4400 
+  0x00000001186bfdbc: 0048 b8ff | ffff ffff 
+
+  0x00000001186bfdc4: ;   {virtual_call}
+  0x00000001186bfdc4: ffff ffe8 
+
+  0x00000001186bfdc8: ; ImmutableOopMap {[88]=Oop }
+                      ;*invokevirtual scheduleFirst {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.CompositeBehaviour::action@8 (line 91)
+  0x00000001186bfdc8: 04ec 41ff | 488b 7424 | 58c6 460e 
+
+  0x00000001186bfdd4: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186bfdd4: 0048 ba58 | add5 2d01 | 0000 00ff | 8248 0100 | 00e9 f700 | 0000 0fbe | 5639 83fa 
+
+  0x00000001186bfdf0: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186bfdf0: 0048 ba58 | add5 2d01 | 0000 0048 | b960 0100 | 0000 0000 | 000f 840a | 0000 0048 | b970 0100 
+  0x00000001186bfe10: 0000 0000 | 0048 8b3c | 0a48 8d7f | 0148 893c | 0a0f 84ba | 0000 000f | be56 388b | 4e34 488b 
+  0x00000001186bfe30: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186bfe30: fe48 bb58 | add5 2d01 | 0000 008b | 7f08 49ba | 0000 0000 | 0800 0000 | 4903 fa48 | 3bbb 9001 
+  0x00000001186bfe50: 0000 750d | 4883 8398 | 0100 0001 | e966 0000 | 0048 3bbb | a001 0000 | 750d 4883 | 83a8 0100 
+  0x00000001186bfe70: 0001 e950 | 0000 0048 | 81bb 9001 | 0000 0000 | 0000 7517 | 4889 bb90 | 0100 0048 | c783 9801 
+  0x00000001186bfe90: 0000 0100 | 0000 e92c | 0000 0048 | 81bb a001 | 0000 0000 | 0000 7517 | 4889 bba0 | 0100 0048 
+  0x00000001186bfeb0: c783 a801 | 0000 0100 | 0000 e908 | 0000 0048 | 8383 8001 | 0000 0148 | 8bfe 488b | f748 b8ff 
+  0x00000001186bfed0: ffff ffff 
+
+  0x00000001186bfed4: ;   {virtual_call}
+  0x00000001186bfed4: ffff ffe8 
+
+  0x00000001186bfed8: ; ImmutableOopMap {[88]=Oop }
+                      ;*invokevirtual scheduleNext {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.CompositeBehaviour::action@35 (line 96)
+  0x00000001186bfed8: f422 3dff | 488b 7424 | 5848 8bfe 
+
+  0x00000001186bfee4: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186bfee4: 48bb 58ad | d52d 0100 | 0000 8b7f | 0849 ba00 | 0000 0008 | 0000 0049 | 03fa 483b | bbc8 0100 
+  0x00000001186bff04: 0075 0d48 | 8383 d001 | 0000 01e9 | 6600 0000 | 483b bbd8 | 0100 0075 | 0d48 8383 | e001 0000 
+  0x00000001186bff24: 01e9 5000 | 0000 4881 | bbc8 0100 | 0000 0000 | 0075 1748 | 89bb c801 | 0000 48c7 | 83d0 0100 
+  0x00000001186bff44: 0001 0000 | 00e9 2c00 | 0000 4881 | bbd8 0100 | 0000 0000 | 0075 1748 | 89bb d801 | 0000 48c7 
+  0x00000001186bff64: 83e0 0100 | 0001 0000 | 00e9 0800 | 0000 4883 | 83b8 0100 | 0001 488b | fe48 8bf7 | 0f1f 4400 
+  0x00000001186bff84: 0048 b8ff | ffff ffff 
+
+  0x00000001186bff8c: ;   {virtual_call}
+  0x00000001186bff8c: ffff ffe8 
+
+  0x00000001186bff90: ; ImmutableOopMap {[88]=Oop }
+                      ;*invokevirtual getCurrent {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.CompositeBehaviour::action@39 (line 101)
+  0x00000001186bff90: 0c22 3dff | 488b 7424 | 58c6 4639 | 00c6 4638 | 00c7 4634 | 0000 0000 | 4883 f800 
+
+  0x00000001186bffac: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186bffac: 48bf 58ad | d52d 0100 | 0000 48bb | f001 0000 | 0000 0000 | 0f84 0a00 | 0000 48bb | 0002 0000 
+  0x00000001186bffcc: 0000 0000 | 488b 141f | 488d 5201 | 4889 141f | 0f84 0307 | 0000 483b | 0048 8bf8 
+
+  0x00000001186bffe8: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186bffe8: 48bb 58ad | d52d 0100 | 0000 8b7f | 0849 ba00 | 0000 0008 | 0000 0049 | 03fa 483b | bb20 0200 
+  0x00000001186c0008: 0075 0d48 | 8383 2802 | 0000 01e9 | 6600 0000 | 483b bb30 | 0200 0075 | 0d48 8383 | 3802 0000 
+  0x00000001186c0028: 01e9 5000 | 0000 4881 | bb20 0200 | 0000 0000 | 0075 1748 | 89bb 2002 | 0000 48c7 | 8328 0200 
+  0x00000001186c0048: 0001 0000 | 00e9 2c00 | 0000 4881 | bb30 0200 | 0000 0000 | 0075 1748 | 89bb 3002 | 0000 48c7 
+  0x00000001186c0068: 8338 0200 | 0001 0000 | 00e9 0800 | 0000 4883 | 8310 0200 | 0001 0fbe | 780d 83e7 | 0183 ff00 
+  0x00000001186c0088: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186c0088: 48bf 58ad | d52d 0100 | 0000 48bb | 4802 0000 | 0000 0000 | 0f84 0a00 | 0000 48bb | 5802 0000 
+  0x00000001186c00a8: 0000 0000 | 488b 141f | 488d 5201 | 4889 141f | 0f84 eb01 | 0000 488b 
+
+  0x00000001186c00c0: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186c00c0: f848 bb58 | add5 2d01 | 0000 0048 | 8383 6802 | 0000 0148 | 8bf0 4889 | 4424 600f 
+
+  0x00000001186c00dc: ;   {optimized virtual_call}
+  0x00000001186c00dc: 1f40 00e8 
+
+  0x00000001186c00e0: ; ImmutableOopMap {[88]=Oop [96]=Oop }
+                      ;*invokevirtual actionWrapper {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.CompositeBehaviour::action@70 (line 109)
+  0x00000001186c00e0: dc8c e906 | 488b 7424 | 58c6 4639 | 0148 8b44 
+
+  0x00000001186c00f0: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186c00f0: 2460 48bf | 58ad d52d | 0100 0000 | 8b40 0849 | ba00 0000 | 0008 0000 | 0049 03c2 | 483b 87b0 
+  0x00000001186c0110: 0200 0075 | 0d48 8387 | b802 0000 | 01e9 6600 | 0000 483b | 87c0 0200 | 0075 0d48 | 8387 c802 
+  0x00000001186c0130: 0000 01e9 | 5000 0000 | 4881 bfb0 | 0200 0000 | 0000 0075 | 1748 8987 | b002 0000 | 48c7 87b8 
+  0x00000001186c0150: 0200 0001 | 0000 00e9 | 2c00 0000 | 4881 bfc0 | 0200 0000 | 0000 0075 | 1748 8987 | c002 0000 
+  0x00000001186c0170: 48c7 87c8 | 0200 0001 | 0000 00e9 | 0800 0000 | 4883 87a0 | 0200 0001 | 488b 7424 | 6048 b8ff 
+  0x00000001186c0190: ffff ffff 
+
+  0x00000001186c0194: ;   {virtual_call}
+  0x00000001186c0194: ffff ffe8 
+
+  0x00000001186c0198: ; ImmutableOopMap {[96]=Oop [88]=Oop }
+                      ;*invokevirtual done {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.CompositeBehaviour::action@79 (line 113)
+  0x00000001186c0198: b41e 3dff 
+
+  0x00000001186c019c: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186c019c: 83f8 0048 | be58 add5 | 2d01 0000 | 0048 bfe8 | 0200 0000 | 0000 000f | 850a 0000 | 0048 bfd8 
+  0x00000001186c01bc: 0200 0000 | 0000 0048 | 8b1c 3e48 | 8d5b 0148 | 891c 3e0f | 850a 0000 | 0048 8b74 | 2458 e91b 
+  0x00000001186c01dc: 0400 0048 | 8b44 2460 | 488b 7424 | 58c6 4638 | 0148 8bf8 
+
+  0x00000001186c01f0: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186c01f0: 48bb 58ad | d52d 0100 | 0000 8b7f | 0849 ba00 | 0000 0008 | 0000 0049 | 03fa 483b | bb08 0300 
+  0x00000001186c0210: 0075 0d48 | 8383 1003 | 0000 01e9 | 6600 0000 | 483b bb18 | 0300 0075 | 0d48 8383 | 2003 0000 
+  0x00000001186c0230: 01e9 5000 | 0000 4881 | bb08 0300 | 0000 0000 | 0075 1748 | 89bb 0803 | 0000 48c7 | 8310 0300 
+  0x00000001186c0250: 0001 0000 | 00e9 2c00 | 0000 4881 | bb18 0300 | 0000 0000 | 0075 1748 | 89bb 1803 | 0000 48c7 
+  0x00000001186c0270: 8320 0300 | 0001 0000 | 00e9 0800 | 0000 4883 | 83f8 0200 | 0001 488b | f00f 1f40 | 0048 b8ff 
+  0x00000001186c0290: ffff ffff 
+
+  0x00000001186c0294: ;   {virtual_call}
+  0x00000001186c0294: ffff ffe8 
+
+  0x00000001186c0298: ; ImmutableOopMap {[88]=Oop }
+                      ;*invokevirtual onEnd {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.CompositeBehaviour::action@92 (line 115)
+  0x00000001186c0298: e4e5 41ff | 488b 7424 | 5889 4634 | e951 0300 | 008b 7e24 | 48c1 e703 
+
+  0x00000001186c02b0: ; implicit exception: dispatches to 0x00000001186c0725
+  0x00000001186c02b0: 483b 0748 
+
+  0x00000001186c02b4: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186c02b4: 8bd7 48bb | 58ad d52d | 0100 0000 
+
+  0x00000001186c02c0: ;   {metadata('jade/core/behaviours/Behaviour$RunnableChangedEvent')}
+  0x00000001186c02c0: 49ba 8821 | c300 0800 | 0000 4c89 | 9390 0300 | 0048 8383 | 9803 0000 
+
+  0x00000001186c02d8: ;   {metadata(method data for {method} {0x000000012d132328} 'init' '(ZI)V' in 'jade/core/behaviours/Behaviour$RunnableChangedEvent')}
+  0x00000001186c02d8: 0148 ba18 | 5fd0 2d01 | 0000 008b | 9aac 0000 | 0083 c302 | 899a ac00 | 0000 81e3 | feff 1f00 
+  0x00000001186c02f8: 83fb 000f | 8429 0400 | 00c6 4710 | 00c7 470c | ffff ffff 
+
+  0x00000001186c030c: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186c030c: 488b d648 | bb58 add5 | 2d01 0000 | 0048 8383 | b803 0000 
+
+  0x00000001186c0320: ;   {metadata(method data for {method} {0x000000012d0a8a40} 'handle' '(Ljade/core/behaviours/Behaviour$RunnableChangedEvent;)V' in 'jade/core/behaviours/Behaviour')}
+  0x00000001186c0320: 0148 bac8 | 79d3 2d01 | 0000 008b | 9aac 0000 | 0083 c302 | 899a ac00 | 0000 81e3 | feff 1f00 
+  0x00000001186c0340: 83fb 000f | 8402 0400 | 0048 8bd7 
+
+  0x00000001186c034c: ;   {metadata(method data for {method} {0x000000012d0a8a40} 'handle' '(Ljade/core/behaviours/Behaviour$RunnableChangedEvent;)V' in 'jade/core/behaviours/Behaviour')}
+  0x00000001186c034c: 48bb c879 | d32d 0100 | 0000 4883 | 8308 0100 | 0001 488b 
+
+  0x00000001186c0360: ;   {metadata(method data for {method} {0x000000012d0a8a40} 'handle' '(Ljade/core/behaviours/Behaviour$RunnableChangedEvent;)V' in 'jade/core/behaviours/Behaviour')}
+  0x00000001186c0360: d648 bbc8 | 79d3 2d01 | 0000 008b | 5208 49ba | 0000 0000 | 0800 0000 | 4903 d248 | 3b93 3801 
+  0x00000001186c0380: 0000 750d | 4883 8340 | 0100 0001 | e966 0000 | 0048 3b93 | 4801 0000 | 750d 4883 | 8350 0100 
+  0x00000001186c03a0: 0001 e950 | 0000 0048 | 81bb 3801 | 0000 0000 | 0000 7517 | 4889 9338 | 0100 0048 | c783 4001 
+  0x00000001186c03c0: 0000 0100 | 0000 e92c | 0000 0048 | 81bb 4801 | 0000 0000 | 0000 7517 | 4889 9348 | 0100 0048 
+  0x00000001186c03e0: c783 5001 | 0000 0100 | 0000 e908 | 0000 0048 | 8383 2801 | 0000 01ba | 0000 0000 | 488b de48 
+  0x00000001186c0400: 8bf3 4889 
+
+  0x00000001186c0404: ;   {optimized virtual_call}
+  0x00000001186c0404: 7c24 68e8 
+
+  0x00000001186c0408: ; ImmutableOopMap {[104]=Oop [88]=Oop }
+                      ;*invokevirtual setRunnable {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.Behaviour::handle@5 (line 387)
+                      ; - jade.core.behaviours.CompositeBehaviour::action@131 (line 125)
+  0x00000001186c0408: 7496 31ff | 488b 7424 | 588b 7e30 | 48c1 e703 | 4883 ff00 
+
+  0x00000001186c041c: ;   {metadata(method data for {method} {0x000000012d0a8a40} 'handle' '(Ljade/core/behaviours/Behaviour$RunnableChangedEvent;)V' in 'jade/core/behaviours/Behaviour')}
+  0x00000001186c041c: 48ba c879 | d32d 0100 | 0000 48bb | 6001 0000 | 0000 0000 | 0f84 0a00 | 0000 48bb | 7001 0000 
+  0x00000001186c043c: 0000 0000 | 488b 041a | 488d 4001 | 4889 041a | 0f84 8201 | 0000 488b | 5424 6848 
+
+  0x00000001186c0458: ;   {metadata(method data for {method} {0x000000012d0a8a40} 'handle' '(Ljade/core/behaviours/Behaviour$RunnableChangedEvent;)V' in 'jade/core/behaviours/Behaviour')}
+  0x00000001186c0458: 8bda 48b8 | c879 d32d | 0100 0000 | 4883 8098 | 0100 0001 
+
+  0x00000001186c046c: ;   {metadata(method data for {method} {0x000000012d132518} 'isUpwards' '()Z' in 'jade/core/behaviours/Behaviour$RunnableChangedEvent')}
+  0x00000001186c046c: 48bb 207c | d32d 0100 | 0000 8b83 | ac00 0000 | 83c0 0289 | 83ac 0000 | 0081 e0fe | ff1f 0083 
+  0x00000001186c048c: f800 0f84 | d802 0000 | 8b72 0c83 
+
+  0x00000001186c0498: ;   {metadata(method data for {method} {0x000000012d132518} 'isUpwards' '()Z' in 'jade/core/behaviours/Behaviour$RunnableChangedEvent')}
+  0x00000001186c0498: feff 48be | 207c d32d | 0100 0000 | 48bb f000 | 0000 0000 | 0000 0f85 | 0a00 0000 | 48bb 0001 
+  0x00000001186c04b8: 0000 0000 | 0000 488b | 041e 488d | 4001 4889 | 041e 0f85 | 1a00 0000 
+
+  0x00000001186c04d0: ;   {metadata(method data for {method} {0x000000012d132518} 'isUpwards' '()Z' in 'jade/core/behaviours/Behaviour$RunnableChangedEvent')}
+  0x00000001186c04d0: 48be 207c | d32d 0100 | 0000 ff86 | 1001 0000 | be01 0000 | 00e9 0500 | 0000 be00 | 0000 0083 
+  0x00000001186c04f0: e601 83fe 
+
+  0x00000001186c04f4: ;   {metadata(method data for {method} {0x000000012d0a8a40} 'handle' '(Ljade/core/behaviours/Behaviour$RunnableChangedEvent;)V' in 'jade/core/behaviours/Behaviour')}
+  0x00000001186c04f4: 0048 bec8 | 79d3 2d01 | 0000 0048 | bbb8 0100 | 0000 0000 | 000f 840a | 0000 0048 | bbc8 0100 
+  0x00000001186c0514: 0000 0000 | 0048 8b04 | 1e48 8d40 | 0148 8904 | 1e0f 84a9 | 0000 0048 | 3b07 488b 
+
+  0x00000001186c0530: ;   {metadata(method data for {method} {0x000000012d0a8a40} 'handle' '(Ljade/core/behaviours/Behaviour$RunnableChangedEvent;)V' in 'jade/core/behaviours/Behaviour')}
+  0x00000001186c0530: f748 bbc8 | 79d3 2d01 | 0000 008b | 7608 49ba | 0000 0000 | 0800 0000 | 4903 f248 | 3bb3 e801 
+  0x00000001186c0550: 0000 750d | 4883 83f0 | 0100 0001 | e966 0000 | 0048 3bb3 | f801 0000 | 750d 4883 | 8300 0200 
+  0x00000001186c0570: 0001 e950 | 0000 0048 | 81bb e801 | 0000 0000 | 0000 7517 | 4889 b3e8 | 0100 0048 | c783 f001 
+  0x00000001186c0590: 0000 0100 | 0000 e92c | 0000 0048 | 81bb f801 | 0000 0000 | 0000 7517 | 4889 b3f8 | 0100 0048 
+  0x00000001186c05b0: c783 0002 | 0000 0100 | 0000 e908 | 0000 0048 | 8383 d801 | 0000 0148 | 8bf7 0f1f 
+
+  0x00000001186c05cc: ;   {optimized virtual_call}
+  0x00000001186c05cc: 4400 00e8 
+
+  0x00000001186c05d0: ; ImmutableOopMap {}
+                      ;*invokevirtual handle {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.Behaviour::handle@27 (line 392)
+                      ; - jade.core.behaviours.CompositeBehaviour::action@131 (line 125)
+  0x00000001186c05d0: ac94 31ff 
+
+  0x00000001186c05d4: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186c05d4: 48ba 58ad | d52d 0100 | 0000 ff82 | c803 0000 | 4881 c480 | 0000 005d 
+
+  0x00000001186c05ec: ;   {poll_return}
+  0x00000001186c05ec: 493b a738 | 0300 000f | 8799 0100 | 00c3 0fbe | 5638 8b4e | 3448 8bfe 
+
+  0x00000001186c0604: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186c0604: 48bb 58ad | d52d 0100 | 0000 8b7f | 0849 ba00 | 0000 0008 | 0000 0049 | 03fa 483b | bb40 0300 
+  0x00000001186c0624: 0075 0d48 | 8383 4803 | 0000 01e9 | 6600 0000 | 483b bb50 | 0300 0075 | 0d48 8383 | 5803 0000 
+  0x00000001186c0644: 01e9 5000 | 0000 4881 | bb40 0300 | 0000 0000 | 0075 1748 | 89bb 4003 | 0000 48c7 | 8348 0300 
+  0x00000001186c0664: 0001 0000 | 00e9 2c00 | 0000 4881 | bb50 0300 | 0000 0000 | 0075 1748 | 89bb 5003 | 0000 48c7 
+  0x00000001186c0684: 8358 0300 | 0001 0000 | 00e9 0800 | 0000 4883 | 8330 0300 | 0001 488b | fe48 8bf7 | 0f1f 4400 
+  0x00000001186c06a4: 0048 b8ff | ffff ffff 
+
+  0x00000001186c06ac: ;   {virtual_call}
+  0x00000001186c06ac: ffff ffe8 
+
+  0x00000001186c06b0: ; ImmutableOopMap {[88]=Oop }
+                      ;*invokevirtual checkTermination {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.CompositeBehaviour::action@108 (line 119)
+  0x00000001186c06b0: 24db 41ff | 83e0 0148 | 8b74 2458 
+
+  0x00000001186c06bc: ;   {metadata(method data for {method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186c06bc: 8846 0f48 | be58 add5 | 2d01 0000 | 00ff 8668 | 0300 0048 | 81c4 8000 
+
+  0x00000001186c06d4: ;   {poll_return}
+  0x00000001186c06d4: 0000 5d49 | 3ba7 3803 | 0000 0f87 | c400 0000 | c3c6 460f | 0148 81c4 | 8000 0000 
+
+  0x00000001186c06f0: ;   {poll_return}
+  0x00000001186c06f0: 5d49 3ba7 | 3803 0000 | 0f87 c000 
+
+  0x00000001186c06fc: ;   {metadata({method} {0x000000012d0b69a8} 'action' '()V' in 'jade/core/behaviours/CompositeBehaviour')}
+  0x00000001186c06fc: 0000 c349 | baa8 690b | 2d01 0000 | 004c 8954 | 2408 48c7 | 0424 ffff 
+
+  0x00000001186c0714: ;   {runtime_call counter_overflow Runtime1 stub}
+  0x00000001186c0714: ffff e865 
+
+  0x00000001186c0718: ; ImmutableOopMap {rsi=Oop [88]=Oop }
+                      ;*synchronization entry
+                      ; - jade.core.behaviours.CompositeBehaviour::action@-1 (line 90)
+  0x00000001186c0718: 893c ffe9 | bcf5 ffff 
+
+  0x00000001186c0720: ;   {runtime_call throw_null_pointer_exception Runtime1 stub}
+  0x00000001186c0720: e8fb 5833 
+
+  0x00000001186c0724: ; ImmutableOopMap {rax=Oop rsi=Oop [88]=Oop }
+                      ;*invokevirtual isRunnable {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.CompositeBehaviour::action@63 (line 107)
+                      ;   {runtime_call throw_null_pointer_exception Runtime1 stub}
+  0x00000001186c0724: ffe8 f658 
+
+  0x00000001186c0728: ; ImmutableOopMap {rsi=Oop [88]=Oop rdi=Oop }
+                      ;*invokevirtual init {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.CompositeBehaviour::action@123 (line 124)
+                      ;   {metadata({method} {0x000000012d132328} 'init' '(ZI)V' in 'jade/core/behaviours/Behaviour$RunnableChangedEvent')}
+  0x00000001186c0728: 33ff 49ba | 2823 132d | 0100 0000 | 4c89 5424 | 0848 c704 | 24ff ffff 
+
+  0x00000001186c0740: ;   {runtime_call counter_overflow Runtime1 stub}
+  0x00000001186c0740: ffe8 3a89 
+
+  0x00000001186c0744: ; ImmutableOopMap {rsi=Oop [88]=Oop rdi=Oop }
+                      ;*synchronization entry
+                      ; - jade.core.behaviours.Behaviour$RunnableChangedEvent::init@-1 (line 113)
+                      ; - jade.core.behaviours.CompositeBehaviour::action@123 (line 124)
+  0x00000001186c0744: 3cff e9b6 
+
+  0x00000001186c0748: ;   {metadata({method} {0x000000012d0a8a40} 'handle' '(Ljade/core/behaviours/Behaviour$RunnableChangedEvent;)V' in 'jade/core/behaviours/Behaviour')}
+  0x00000001186c0748: fbff ff49 | ba40 8a0a | 2d01 0000 | 004c 8954 | 2408 48c7 | 0424 ffff 
+
+  0x00000001186c0760: ;   {runtime_call counter_overflow Runtime1 stub}
+  0x00000001186c0760: ffff e819 
+
+  0x00000001186c0764: ; ImmutableOopMap {rsi=Oop [88]=Oop rdi=Oop }
+                      ;*synchronization entry
+                      ; - jade.core.behaviours.Behaviour::handle@-1 (line 387)
+                      ; - jade.core.behaviours.CompositeBehaviour::action@131 (line 125)
+  0x00000001186c0764: 893c ffe9 | ddfb ffff 
+
+  0x00000001186c076c: ;   {metadata({method} {0x000000012d132518} 'isUpwards' '()Z' in 'jade/core/behaviours/Behaviour$RunnableChangedEvent')}
+  0x00000001186c076c: 49ba 1825 | 132d 0100 | 0000 4c89 | 5424 0848 | c704 24ff 
+
+  0x00000001186c0780: ;   {runtime_call counter_overflow Runtime1 stub}
+  0x00000001186c0780: ffff ffe8 
+
+  0x00000001186c0784: ; ImmutableOopMap {rdx=Oop rdi=Oop rsi=Oop [88]=Oop }
+                      ;*synchronization entry
+                      ; - jade.core.behaviours.Behaviour$RunnableChangedEvent::isUpwards@-1 (line 142)
+                      ; - jade.core.behaviours.Behaviour::handle@16 (line 391)
+                      ; - jade.core.behaviours.CompositeBehaviour::action@131 (line 125)
+  0x00000001186c0784: f888 3cff | e907 fdff 
+
+  0x00000001186c078c: ;   {runtime_call throw_null_pointer_exception Runtime1 stub}
+  0x00000001186c078c: ffe8 8e58 
+
+  0x00000001186c0790: ; ImmutableOopMap {rdi=Oop rdx=Oop }
+                      ;*invokevirtual handle {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.Behaviour::handle@27 (line 392)
+                      ; - jade.core.behaviours.CompositeBehaviour::action@131 (line 125)
+                      ;   {internal_word}
+  0x00000001186c0790: 33ff 49ba | ec05 6c18 | 0100 0000 | 4d89 9750 
+
+  0x00000001186c07a0: ;   {runtime_call SafepointBlob}
+  0x00000001186c07a0: 0300 00e9 | 58f9 31ff 
+
+  0x00000001186c07a8: ;   {internal_word}
+  0x00000001186c07a8: 49ba d706 | 6c18 0100 | 0000 4d89 | 9750 0300 
+
+  0x00000001186c07b8: ;   {runtime_call SafepointBlob}
+  0x00000001186c07b8: 00e9 42f9 
+
+  0x00000001186c07bc: ;   {internal_word}
+  0x00000001186c07bc: 31ff 49ba | f106 6c18 | 0100 0000 | 4d89 9750 
+
+  0x00000001186c07cc: ;   {runtime_call SafepointBlob}
+  0x00000001186c07cc: 0300 00e9 | 2cf9 31ff | 9090 498b | 87c8 0300 | 0049 c787 | c803 0000 | 0000 0000 | 49c7 87d0 
+  0x00000001186c07ec: 0300 0000 | 0000 0048 | 81c4 8000 
+
+  0x00000001186c07f8: ;   {runtime_call unwind_exception Runtime1 stub}
+  0x00000001186c07f8: 0000 5de9 | 0067 33ff 
+[Stub Code]
+  0x00000001186c0800: ;   {no_reloc}
+  0x00000001186c0800: 0f1f 4400 
+
+  0x00000001186c0804: ;   {static_stub}
+  0x00000001186c0804: 0048 bb00 | 0000 0000 
+
+  0x00000001186c080c: ;   {runtime_call}
+  0x00000001186c080c: 0000 00e9 | fbff ffff 
+
+  0x00000001186c0814: ;   {static_stub}
+  0x00000001186c0814: 9048 bb00 | 0000 0000 
+
+  0x00000001186c081c: ;   {runtime_call}
+  0x00000001186c081c: 0000 00e9 | fbff ffff 
+
+  0x00000001186c0824: ;   {static_stub}
+  0x00000001186c0824: 9048 bb00 | 0000 0000 
+
+  0x00000001186c082c: ;   {runtime_call}
+  0x00000001186c082c: 0000 00e9 | fbff ffff 
+
+  0x00000001186c0834: ;   {static_stub}
+  0x00000001186c0834: 9048 bb00 | 0000 0000 
+
+  0x00000001186c083c: ;   {runtime_call}
+  0x00000001186c083c: 0000 00e9 | fbff ffff 
+
+  0x00000001186c0844: ;   {static_stub}
+  0x00000001186c0844: 9048 bb00 | 0000 0000 
+
+  0x00000001186c084c: ;   {runtime_call}
+  0x00000001186c084c: 0000 00e9 | fbff ffff 
+
+  0x00000001186c0854: ;   {static_stub}
+  0x00000001186c0854: 9048 bb00 | 0000 0000 
+
+  0x00000001186c085c: ;   {runtime_call}
+  0x00000001186c085c: 0000 00e9 | fbff ffff 
+
+  0x00000001186c0864: ;   {static_stub}
+  0x00000001186c0864: 9048 bb00 | 0000 0000 
+
+  0x00000001186c086c: ;   {runtime_call}
+  0x00000001186c086c: 0000 00e9 | fbff ffff 
+
+  0x00000001186c0874: ;   {static_stub}
+  0x00000001186c0874: 9048 bb00 | 0000 0000 
+
+  0x00000001186c087c: ;   {runtime_call}
+  0x00000001186c087c: 0000 00e9 | fbff ffff 
+
+  0x00000001186c0884: ;   {static_stub}
+  0x00000001186c0884: 9048 bb00 | 0000 0000 
+
+  0x00000001186c088c: ;   {runtime_call}
+  0x00000001186c088c: 0000 00e9 | fbff ffff 
+[Exception Handler]
+  0x00000001186c0894: ;   {runtime_call handle_exception_from_callee Runtime1 stub}
+  0x00000001186c0894: e867 3933 
+
+  0x00000001186c0898: ;   {external_word}
+  0x00000001186c0898: ff48 bfde | 2278 0901 | 0000 0048 
+
+  0x00000001186c08a4: ;   {runtime_call MacroAssembler::debug64(char*, long long, long long*)}
+  0x00000001186c08a4: 83e4 f0e8 | d4c5 d6f0 
+
+  0x00000001186c08ac: ;   {section_word}
+  0x00000001186c08ac: f449 baad | 086c 1801 | 0000 0041 
+
+  0x00000001186c08b8: ;   {runtime_call DeoptimizationBlob}
+  0x00000001186c08b8: 52e9 e2ea | 31ff f4f4 
+[/MachCode]
+
+
+Compiled method (c2)   67574 3463   !   4       jade.core.Agent$ActiveLifeCycle::execute (107 bytes)
+ total in heap  [0x000000011f585590,0x000000011f587008] = 6776
+ relocation     [0x000000011f5856f0,0x000000011f5857b0] = 192
+ main code      [0x000000011f5857c0,0x000000011f5866c0] = 3840
+ stub code      [0x000000011f5866c0,0x000000011f586708] = 72
+ oops           [0x000000011f586708,0x000000011f586720] = 24
+ metadata       [0x000000011f586720,0x000000011f5867d8] = 184
+ scopes data    [0x000000011f5867d8,0x000000011f586bd0] = 1016
+ scopes pcs     [0x000000011f586bd0,0x000000011f586eb0] = 736
+ dependencies   [0x000000011f586eb0,0x000000011f586ed8] = 40
+ handler table  [0x000000011f586ed8,0x000000011f586f98] = 192
+ nul chk table  [0x000000011f586f98,0x000000011f587008] = 112
+
+[Constant Pool (empty)]
+
+[MachCode]
+[Entry Point]
+  # {method} {0x000000012d0a5408} 'execute' '()V' in 'jade/core/Agent$ActiveLifeCycle'
+  #           [sp+0x50]  (sp of caller)
+  0x000000011f5857c0: 448b 5608 | 49bb 0000 | 0000 0800 | 0000 4d03 | d349 3bc2 
+
+  0x000000011f5857d4: ;   {runtime_call ic_miss_stub}
+  0x000000011f5857d4: 0f85 a63f | 45f8 6690 | 0f1f 4000 
+[Verified Entry Point]
+  0x000000011f5857e0: 8984 2400 | c0fe ff55 | 4883 ec40 | 4889 7424 | 1044 8b56 | 1447 8b54 | d450 4489 | 5424 1890 
+  0x000000011f585800: 4585 d20f | 8404 0900 | 004b 8d2c | d448 8d5c | 2430 488b | 4500 48f7 | c002 0000 | 0075 2548 
+  0x000000011f585820: 83c8 0148 | 8903 f048 | 0fb1 5d00 | 0f84 3e00 | 0000 482b | c448 81e0 | 07f0 ffff | 4889 03e9 
+  0x000000011f585840: 2c00 0000 | 4c8b d848 | 33c0 f04d | 0fb1 7b3e | 48c7 0303 | 0000 000f | 8413 0000 | 004c 3bf8 
+  0x000000011f585860: 0f85 0a00 | 0000 49ff | 8386 0000 | 0048 33c0 | 0f85 a608 | 0000 448b | 5c24 1847 | 8b5c dc10 
+  0x000000011f585880: ; implicit exception: dispatches to 0x000000011f586414
+  0x000000011f585880: 478b 54dc 
+
+  0x000000011f585884: ;   {metadata('jade/util/leap/LinkedList')}
+  0x000000011f585884: 0841 81fa | 0070 c000 | 0f85 9f08 | 0000 4f8d | 14dc 458b | 520c 660f | 1f44 0000 
+
+  0x000000011f5858a0: ; implicit exception: dispatches to 0x000000011f586424
+  0x000000011f5858a0: 478b 44d4 
+
+  0x000000011f5858a4: ;   {metadata('java/util/LinkedList')}
+  0x000000011f5858a4: 0841 81f8 | d0e7 c400 | 0f85 a208 | 0000 49c1 | e203 458b | 5210 660f | 1f44 0000 | 4585 d20f 
+  0x000000011f5858c4: 8451 0700 | 0044 8b54 | 2418 438b | 44d4 0c47 | 8b54 dc08 | 0f1f 8400 | 0000 0000 
+
+  0x000000011f5858e0: ;   {metadata('jade/util/leap/LinkedList')}
+  0x000000011f5858e0: 4181 fa00 | 70c0 000f | 8587 0800 | 004f 8d14 | dc45 8b52 | 0c47 8b44 | d408 660f | 1f44 0000 
+  0x000000011f585900: ;   {metadata('java/util/LinkedList')}
+  0x000000011f585900: 4181 f8d0 | e7c4 000f | 858b 0800 | 004f 8d1c | d485 c00f | 8c3d 0900 | 0041 8b5b | 1066 6690 
+  0x000000011f585920: 3bc3 0f8d | 5c09 0000 | 448b cb41 | d1f9 4533 | d241 b8e8 | 0300 0041 | 3bc1 660f | 1f44 0000 
+  0x000000011f585940: 0f8c 8404 | 0000 418b | 7b18 448b | db41 ffcb | 443b d80f | 8fc4 0400 | 000f 1f80 | 0000 0000 
+  0x000000011f585960: ; implicit exception: dispatches to 0x000000011f586448
+  0x000000011f585960: 458b 6cfc | 0c47 8b54 
+
+  0x000000011f585968: ;   {metadata('jade/core/behaviours/Behaviour')}
+  0x000000011f585968: ec08 49bb | 30ea c100 | 0800 0000 | 49b8 0000 | 0000 0800 | 0000 4d03 | c24d 8b50 | 384d 3bd3 
+  0x000000011f585988: 0f85 6e03 | 0000 ffc0 | 85db 0f84 | 2408 0000 | 3d00 0000 | 8075 0733 | d283 fbff | 7403 99f7 
+  0x000000011f5859a8: fb44 8b5c | 2418 4389 | 54dc 0c48 | 8d44 2430 | 4881 3800 | 0000 000f | 8485 0000 | 004c 8b55 
+  0x000000011f5859c8: 0049 f7c2 | 0200 0000 | 746f 4981 | ba86 0000 | 0000 0000 | 0074 0949 | ff8a 8600 | 0000 eb51 
+  0x000000011f5859e8: 498b 8296 | 0000 0049 | 0b82 8e00 | 0000 750a | 49c7 423e | 0000 0000 | eb48 4981 | ba9e 0000 
+  0x000000011f585a08: 0000 0000 | 0074 2548 | 33c0 49c7 | 423e 0000 | 0000 f083 | 0424 0049 | 81ba 9e00 | 0000 0000 
+  0x000000011f585a28: 0000 750d | f04d 0fb1 | 7a3e 7505 | 83c8 01eb | 11f7 c000 | 0000 00eb | 094c 8b10 | f04c 0fb1 
+  0x000000011f585a48: 5500 0f85 | 9807 0000 | 4f8d 14ec | 4c89 5424 | 0849 8b6a | 1045 0fb6 | 5a0c 4585 | db0f 8504 
+  0x000000011f585a68: 0500 004c | 8b54 2408 | 418b 5a1c | 85db 0f84 | 7608 0000 | 0f1f 4000 | 4180 7f38 | 000f 85df 
+  0x000000011f585a88: 0300 004c | 8b54 2408 
+
+  0x000000011f585a90: ;   {oop("RUNNING"{0x000000070f027f18})}
+  0x000000011f585a90: 41c7 4220 | e34f e0e1 
+
+  0x000000011f585a98: ;   {oop("RUNNING"{0x000000070f027f18})}
+  0x000000011f585a98: 49bb 187f | 020f 0700 | 0000 4d33 | da49 c1eb | 154d 85db | 741b 49c1 | ea09 48bf | 0090 5206 
+  0x000000011f585ab8: 0100 0000 | 4903 fa90 | 803f 040f | 8516 0400 | 00f0 8344 | 24c0 0045 | 0fb6 5cdc | 1745 85db 
+  0x000000011f585ad8: 0f85 2e08 | 0000 488b | 7424 0866 | 9048 b8ff | ffff ffff 
+
+  0x000000011f585aec: ;   {virtual_call}
+  0x000000011f585aec: ffff ffe8 
+
+  0x000000011f585af0: ; ImmutableOopMap {[8]=Oop [16]=Oop }
+                      ;*invokevirtual action {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.Behaviour::actionWrapper@36 (line 344)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@17 (line 1585)
+  0x000000011f585af0: 14c4 50f8 | 4c8b 5424 | 0841 8b5a | 1c66 6690 | 85db 0f84 | 2008 0000 | 4180 7f38 | 000f 8592 
+  0x000000011f585b10: 0300 004c | 8b54 2408 
+
+  0x000000011f585b18: ;   {oop("READY"{0x000000070f027f30})}
+  0x000000011f585b18: 41c7 4220 | e64f e0e1 
+
+  0x000000011f585b20: ;   {oop("READY"{0x000000070f027f30})}
+  0x000000011f585b20: 49bb 307f | 020f 0700 | 0000 4d33 | da49 c1eb | 154d 85db | 741b 49c1 | ea09 49b8 | 0090 5206 
+  0x000000011f585b40: 0100 0000 | 4d03 c241 | 8038 040f | 85d4 0300 | 00f0 8344 | 24c0 0045 | 0fb6 54dc | 1766 6690 
+  0x000000011f585b60: 4585 d20f | 85d7 0700 | 0048 896c | 2428 488b | 7424 0866 | 9048 b8ff | ffff ffff 
+
+  0x000000011f585b7c: ;   {virtual_call}
+  0x000000011f585b7c: ffff ffe8 
+
+  0x000000011f585b80: ; ImmutableOopMap {[8]=Oop [16]=Oop }
+                      ;*invokevirtual done {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@21 (line 1588)
+  0x000000011f585b80: ccc4 50f8 | 85c0 0f85 | 2605 0000 | 4c8b 5424 | 1045 8b5a | 1443 8b6c | dc50 85ed | 0f1f 4000 
+  0x000000011f585ba0: 0f84 2a06 | 0000 4d8d | 14ec 4c89 | 5424 1848 | 8d5c 2430 | 4c8b 4424 | 1849 8b00 | 48f7 c002 
+  0x000000011f585bc0: 0000 0075 | 2448 83c8 | 0148 8903 | f049 0fb1 | 180f 843e | 0000 0048 | 2bc4 4881 | e007 f0ff 
+  0x000000011f585be0: ff48 8903 | e92c 0000 | 004c 8bd8 | 4833 c0f0 | 4d0f b17b | 3e48 c703 | 0300 0000 | 0f84 1300 
+  0x000000011f585c00: 0000 4c3b | f80f 850a | 0000 0049 | ff83 8600 | 0000 4833 | c00f 8517 | 0600 004c | 8b54 2408 
+  0x000000011f585c20: 4d8b 5210 | 4c8b 5c24 | 284d 3bda | 0f85 bf04 | 0000 4c8b | 5424 0845 | 0fb6 520d | 0f1f 4000 
+  0x000000011f585c40: 4585 d20f | 849c 0300 | 0048 8d44 | 2430 4c8b | 5c24 1848 | 8138 0000 | 0000 0f84 | 8300 0000 
+  0x000000011f585c60: 4d8b 1349 | f7c2 0200 | 0000 746f | 4981 ba86 | 0000 0000 | 0000 0074 | 0949 ff8a | 8600 0000 
+  0x000000011f585c80: eb51 498b | 8296 0000 | 0049 0b82 | 8e00 0000 | 750a 49c7 | 423e 0000 | 0000 eb47 | 4981 ba9e 
+  0x000000011f585ca0: 0000 0000 | 0000 0074 | 2548 33c0 | 49c7 423e | 0000 0000 | f083 0424 | 0049 81ba | 9e00 0000 
+  0x000000011f585cc0: 0000 0000 | 750d f04d | 0fb1 7a3e | 7505 83c8 | 01eb 10f7 | c000 0000 | 00eb 084c | 8b10 f04d 
+  0x000000011f585ce0: 0fb1 130f | 8529 0500 | 0048 83c4 
+
+  0x000000011f585cec: ;   {poll_return}
+  0x000000011f585cec: 405d 493b | a738 0300 | 000f 879d | 0900 00c3 | 0f1f 4000 | 4180 7f38 | 000f 8594 
+
+  0x000000011f585d08: ;   {oop(a 'java/lang/ClassCastException'{0x000000070f027f48})}
+  0x000000011f585d08: 0200 0049 | ba48 7f02 | 0f07 0000 | 0045 8962 | 1448 8d44 | 2430 4881 | 3800 0000 | 000f 8485 
+  0x000000011f585d28: 0000 004c | 8b55 0049 | f7c2 0200 | 0000 746f | 4981 ba86 | 0000 0000 | 0000 0074 | 0949 ff8a 
+  0x000000011f585d48: 8600 0000 | eb51 498b | 8296 0000 | 0049 0b82 | 8e00 0000 | 750a 49c7 | 423e 0000 | 0000 eb48 
+  0x000000011f585d68: 4981 ba9e | 0000 0000 | 0000 0074 | 2548 33c0 | 49c7 423e | 0000 0000 | f083 0424 | 0049 81ba 
+  0x000000011f585d88: 9e00 0000 | 0000 0000 | 750d f04d | 0fb1 7a3e | 7505 83c8 | 01eb 11f7 | c000 0000 | 00eb 094c 
+  0x000000011f585da8: 8b10 f04c | 0fb1 5500 | 0f85 a605 
+
+  0x000000011f585db4: ;   {oop(a 'java/lang/ClassCastException'{0x000000070f027f48})}
+  0x000000011f585db4: 0000 48be | 487f 020f | 0700 0000 | 4883 c440 
+
+  0x000000011f585dc4: ;   {runtime_call _rethrow_Java}
+  0x000000011f585dc4: 5de9 362f | 47f8 418b | 7b14 85c0 | 0f8e 83fb | ffff 4533 | c98b c841 | 2bc9 413b | c141 0f4c 
+  0x000000011f585de4: ca81 f9e8 | 0300 0041 | 0f47 c841 | 03c9 418b | 7cfc 1041 | ffc1 660f | 1f44 0000 | 443b c97c 
+  0x000000011f585e04: ed49 8bb7 | 4003 0000 | 4c8b 5c24 
+
+  0x000000011f585e10: ; ImmutableOopMap {r11=Oop rdi=NarrowOop rbp=Oop [16]=Oop [24]=NarrowOop }
+                      ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.LinkedList::node@30 (line 575)
+                      ; - java.util.LinkedList::get@7 (line 481)
+                      ; - jade.util.leap.LinkedList::get@5 (line 75)
+                      ; - jade.core.Scheduler::schedule@30 (line 226)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+                      ;   {poll}
+  0x000000011f585e10: 1085 0644 | 3bc8 7cc1 | e93c fbff | ff45 8bcb | 442b c844 | 3bd8 450f | 4cca 4181 | f9e8 0300 
+  0x000000011f585e30: 0045 0f47 | c841 8bcb | 412b c90f | 1f44 0000 
+
+  0x000000011f585e40: ; implicit exception: dispatches to 0x000000011f58648c
+  0x000000011f585e40: 418b 7cfc | 1441 ffcb | 443b d97f | ee49 8bb7 | 4003 0000 | 4c8b 4c24 
+
+  0x000000011f585e58: ; ImmutableOopMap {r9=Oop rdi=NarrowOop rbp=Oop [16]=Oop [24]=NarrowOop }
+                      ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.LinkedList::node@60 (line 580)
+                      ; - java.util.LinkedList::get@7 (line 481)
+                      ; - jade.util.leap.LinkedList::get@5 (line 75)
+                      ; - jade.core.Scheduler::schedule@30 (line 226)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+                      ;   {poll}
+  0x000000011f585e58: 1085 060f | 1f44 0000 | 443b d87f | b8e9 effa | ffff 458b | 5a20 4585 | db0f 8414 | fcff ff4d 
+  0x000000011f585e78: 8b57 2049 | 8bfb 48c1 | e703 4d85 | d20f 8425 | 0400 004d | 8b5f 304b | 897c 13f8 | 4983 c2f8 
+  0x000000011f585e98: 4d89 5720 | 0f1f 4000 | e9e6 fbff | ff45 8b52 | 2045 85d2 | 0f84 61fc | ffff 4d8b | 5f20 498b 
+  0x000000011f585eb8: fa48 c1e7 | 0366 6690 | 4d85 db0f | 8409 0400 | 004d 8b57 | 304b 897c | 1af8 4983 | c3f8 4d89 
+  0x000000011f585ed8: 5f20 e934 | fcff ff4d | 8b57 504d | 8b5f 40f0 | 8344 24c0 | 0080 3f00 | 0f84 d3fb | ffff 4488 
+  0x000000011f585ef8: 274d 85db | 7515 498b | f749 bac0 | ee0a 0901 | 0000 0041 | ffd2 e9b6 | fbff ff4b | 897c 1af8 
+  0x000000011f585f18: 4983 c3f8 | 4d89 5f40 | e9a4 fbff | ff4d 8b57 | 504d 8b5f | 40f0 8344 | 24c0 0041 | 8038 000f 
+  0x000000011f585f38: 8414 fcff | ff45 8820 | 4d85 db75 | 1849 8bf8 | 498b f749 | bac0 ee0a | 0901 0000 | 0041 ffd2 
+  0x000000011f585f58: e9f4 fbff | ff4f 8944 | 1af8 4983 | c3f8 4d89 | 5f40 e9e2 | fbff ff48 | 896c 2418 | 498b f248 
+  0x000000011f585f78: 8b6c 2410 | 9048 b8ff | ffff ffff 
+
+  0x000000011f585f84: ;   {virtual_call}
+  0x000000011f585f84: ffff ffe8 
+
+  0x000000011f585f88: ; ImmutableOopMap {rbp=Oop [8]=Oop [16]=Oop }
+                      ;*invokevirtual onStart {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.behaviours.Behaviour::actionWrapper@8 (line 334)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@17 (line 1585)
+  0x000000011f585f88: bc81 55f8 | 4c8b 5424 | 0845 8862 | 0c48 8b6c | 2418 e9cc 
+
+  0x000000011f585f9c: ;   {oop(a 'java/lang/ClassCastException'{0x000000070f027f48})}
+  0x000000011f585f9c: faff ff49 | ba48 7f02 | 0f07 0000 | 0045 8b5a | 1445 85db | 0f84 55fd | ffff 4d8b | 5720 498b 
+  0x000000011f585fbc: fb48 c1e7 | 034d 85d2 | 0f84 af03 | 0000 4d8b | 5f30 4b89 | 7c13 f849 | 83c2 f84d | 8957 200f 
+  0x000000011f585fdc: 1f44 0000 | e926 fdff | ff4c 8b54 | 2410 458b | 5214 478b | 5cd4 5045 | 85db 0f84 | 9603 0000 
+  0x000000011f585ffc: 4b8d 34dc | 488b 5424 | 0848 8b6c 
+
+  0x000000011f586008: ;   {optimized virtual_call}
+  0x000000011f586008: 2418 90e8 
+
+  0x000000011f58600c: ; ImmutableOopMap {rbp=Oop [24]=Oop }
+                      ;*invokevirtual block {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@87 (line 1615)
+  0x000000011f58600c: 7080 19f9 | e934 fcff | ff48 8b6c | 2420 448b | 5c24 1847 | 8b54 dc18 | 4585 d20f | 847b 0300 
+  0x000000011f58602c: 004b 8d34 | d448 896c 
+
+  0x000000011f586034: ;   {optimized virtual_call}
+  0x000000011f586034: 2420 90e8 
+
+  0x000000011f586038: ; ImmutableOopMap {rbp=Oop [16]=Oop [24]=NarrowOop [32]=Oop }
+                      ;*invokevirtual idle {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Scheduler::schedule@16 (line 222)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586038: 9306 0000 | 4d8b 8f40 | 0300 004c 
+
+  0x000000011f586044: ; ImmutableOopMap {r10=Oop rbp=Oop [16]=Oop [24]=NarrowOop [32]=Oop }
+                      ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.Scheduler::schedule@19 (line 222)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586044: 8b54 2410 
+
+  0x000000011f586048: ;   {poll}
+  0x000000011f586048: 4185 0144 | 8b54 2418 | 478b 5cd4 | 1047 8b54 | dc08 660f | 1f44 0000 
+
+  0x000000011f586060: ;   {metadata('jade/util/leap/LinkedList')}
+  0x000000011f586060: 4181 fa00 | 70c0 000f | 854b 0300 | 004f 8d14 | dc41 8b6a | 0c45 8b44 | ec08 660f | 1f44 0000 
+  0x000000011f586080: ;   {metadata('java/util/LinkedList')}
+  0x000000011f586080: 4181 f8d0 | e7c4 000f | 854f 0300 | 004d 8d14 | ec45 8b52 | 1045 85d2 | 0f84 77ff | ffff 448b 
+  0x000000011f5860a0: 4424 1843 | 8b44 c40c | 488b 6c24 | 20e9 21f8 | ffff 488b | 7424 0848 | 8b6c 2410 | 9048 b8ff 
+  0x000000011f5860c0: ffff ffff 
+
+  0x000000011f5860c4: ;   {virtual_call}
+  0x000000011f5860c4: ffff ffe8 
+
+  0x000000011f5860c8: ; ImmutableOopMap {rbp=Oop [8]=Oop }
+                      ;*invokevirtual onEnd {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@28 (line 1589)
+  0x000000011f5860c8: b487 55f8 | 448b 5514 
+
+  0x000000011f5860d0: ; implicit exception: dispatches to 0x000000011f586688
+  0x000000011f5860d0: 478b 5cd4 | 5045 85db | 0f84 1603 | 0000 4b8d | 34dc 488b 
+
+  0x000000011f5860e4: ;   {optimized virtual_call}
+  0x000000011f5860e4: 5424 08e8 
+
+  0x000000011f5860e8: ; ImmutableOopMap {}
+                      ;*invokevirtual remove {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@40 (line 1590)
+  0x000000011f5860e8: f205 0000 | e9f8 fbff | ff48 8b74 | 2408 6666 | 9048 b8ff | ffff ffff 
+
+  0x000000011f586100: ;   {virtual_call}
+  0x000000011f586100: ffff ffe8 
+
+  0x000000011f586104: ; ImmutableOopMap {rbp=NarrowOop [8]=Oop [16]=Oop [24]=Oop }
+                      ;*invokevirtual handleRestartEvent {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@69 (line 1601)
+  0x000000011f586104: 60c3 50f8 | e925 fbff | ffbe f6ff | ffff 488b 
+
+  0x000000011f586114: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586114: 6c24 10e8 
+
+  0x000000011f586118: ; ImmutableOopMap {rbp=Oop }
+                      ;*invokevirtual schedule {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586118: e48e 45f8 | 488b f548 | 8d54 2430 
+
+  0x000000011f586124: ;   {runtime_call _complete_monitor_locking_Java}
+  0x000000011f586124: 6666 90e8 
+
+  0x000000011f586128: ; ImmutableOopMap {rbp=Oop [16]=Oop [24]=NarrowOop }
+                      ;*synchronization entry
+                      ; - jade.core.Scheduler::schedule@-1 (line 221)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586128: d422 47f8 | e945 f7ff | ffbe deff | ffff 488b | 6c24 1044 | 8b44 2418 | 4489 5c24 | 0445 8bd0 
+  0x000000011f586148: 4489 5424 
+
+  0x000000011f58614c: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f58614c: 0866 90e8 
+
+  0x000000011f586150: ; ImmutableOopMap {rbp=Oop [4]=NarrowOop [8]=NarrowOop [24]=NarrowOop }
+                      ;*invokeinterface isEmpty {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Scheduler::schedule@4 (line 221)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586150: ac8e 45f8 | bede ffff | ff48 8b6c | 2410 448b | 4424 1844 | 8944 2404 | 4489 5424 
+
+  0x000000011f58616c: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f58616c: 0866 90e8 
+
+  0x000000011f586170: ; ImmutableOopMap {rbp=Oop [4]=NarrowOop [8]=NarrowOop [24]=NarrowOop }
+                      ;*invokeinterface isEmpty {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.util.leap.LinkedList::isEmpty@4 (line 110)
+                      ; - jade.core.Scheduler::schedule@4 (line 221)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586170: 8c8e 45f8 | bede ffff | ff48 8b6c | 2410 448b | 5424 1844 | 895c 2404 | 8944 2408 | 4489 5424 
+  0x000000011f586190: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586190: 0c66 90e8 
+
+  0x000000011f586194: ; ImmutableOopMap {rbp=Oop [4]=NarrowOop [12]=NarrowOop [24]=NarrowOop }
+                      ;*invokeinterface get {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Scheduler::schedule@30 (line 226)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586194: 688e 45f8 | bede ffff | ff48 8b6c | 2410 448b | 5c24 1844 | 895c 2404 | 4489 5424 | 0889 4424 
+  0x000000011f5861b4: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f5861b4: 0c66 90e8 
+
+  0x000000011f5861b8: ; ImmutableOopMap {rbp=Oop [4]=NarrowOop [8]=NarrowOop [24]=NarrowOop }
+                      ;*invokeinterface get {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.util.leap.LinkedList::get@5 (line 75)
+                      ; - jade.core.Scheduler::schedule@30 (line 226)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f5861b8: 448e 45f8 | be86 ffff | ff48 8b6c | 2410 8904 
+
+  0x000000011f5861c8: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f5861c8: 2466 90e8 
+
+  0x000000011f5861cc: ; ImmutableOopMap {rbp=Oop [24]=NarrowOop }
+                      ;*irem {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Scheduler::schedule@55 (line 231)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f5861cc: 308e 45f8 | bef6 ffff | ff49 8bea | 4c8b 5424 | 084c 8914 
+
+  0x000000011f5861e0: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f5861e0: 2466 90e8 
+
+  0x000000011f5861e4: ; ImmutableOopMap {rbp=Oop [0]=Oop }
+                      ;*monitorenter {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@58 (line 1594)
+  0x000000011f5861e4: 188e 45f8 | 488b fd48 | 8d74 2430 | 498b d766 | 0f1f 8400 | 0000 0000 | 6666 6690 | 49ba e06c 
+  0x000000011f586204: 5c09 0100 | 0000 41ff | d2e9 3ef8 | ffff 498b | fb48 8d74 | 2430 498b | d766 6690 | 49ba e06c 
+  0x000000011f586224: 5c09 0100 | 0000 41ff | d2e9 b7fa | ffff 4c8b | 5424 104c | 8914 2449 | 8bf0 488d 
+
+  0x000000011f586240: ;   {runtime_call _complete_monitor_locking_Java}
+  0x000000011f586240: 5424 30e8 
+
+  0x000000011f586244: ; ImmutableOopMap {rbp=NarrowOop [0]=Oop [8]=Oop [24]=Oop }
+                      ;*monitorenter {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@58 (line 1594)
+  0x000000011f586244: b821 47f8 | 4c8b 1424 | 4c89 5424 | 10e9 c5f9 | ffff be45 | ffff ff48 | 8b6c 2410 | 448b 5424 
+  0x000000011f586264: 1844 8954 | 2404 4c89 | 5c24 1889 | 4424 144c | 895c 2420 | 8944 2428 
+
+  0x000000011f58627c: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f58627c: 6666 90e8 
+
+  0x000000011f586280: ; ImmutableOopMap {rbp=Oop [4]=NarrowOop [24]=Oop [32]=Oop }
+                      ;*iflt {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.LinkedList::isElementIndex@1 (line 537)
+                      ; - java.util.LinkedList::checkElementIndex@2 (line 558)
+                      ; - java.util.LinkedList::get@2 (line 480)
+                      ; - jade.util.leap.LinkedList::get@5 (line 75)
+                      ; - jade.core.Scheduler::schedule@30 (line 226)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586280: 7c8d 45f8 | be45 ffff | ff48 8b6c | 2410 448b | 5424 1844 | 8954 2404 | 4c89 5c24 | 1889 4424 
+  0x000000011f5862a0: 1489 4424 | 2089 5c24 
+
+  0x000000011f5862a8: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f5862a8: 2466 90e8 
+
+  0x000000011f5862ac: ; ImmutableOopMap {rbp=Oop [4]=NarrowOop [24]=Oop }
+                      ;*if_icmpge {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.LinkedList::isElementIndex@9 (line 537)
+                      ; - java.util.LinkedList::checkElementIndex@2 (line 558)
+                      ; - java.util.LinkedList::get@2 (line 480)
+                      ; - jade.util.leap.LinkedList::get@5 (line 75)
+                      ; - jade.core.Scheduler::schedule@30 (line 226)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f5862ac: 508d 45f8 | 498b f766 | 0f1f 8400 | 0000 0000 | 6666 6690 | 49ba 90ee | 0a09 0100 | 0000 41ff 
+  0x000000011f5862cc: d2e9 b9f7 | ffff 498b | f766 6666 | 0f1f 8400 | 0000 0000 | 49ba 90ee | 0a09 0100 | 0000 41ff 
+  0x000000011f5862ec: d2e9 21f8 | ffff be45 | ffff ff4c | 8b54 2410 | 4c89 1424 | 895c 2418 
+
+  0x000000011f586304: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586304: 6666 90e8 
+
+  0x000000011f586308: ; ImmutableOopMap {[0]=Oop [8]=Oop [24]=NarrowOop }
+                      ;*ifnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.behaviours.Behaviour::actionWrapper@20 (line 340)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@17 (line 1585)
+  0x000000011f586308: f48c 45f8 | be45 ffff | ff4c 8b54 | 2410 4c89 | 1424 895c | 2418 4489 
+
+  0x000000011f586320: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586320: 5c24 1ce8 
+
+  0x000000011f586324: ; ImmutableOopMap {[0]=Oop [8]=Oop [24]=NarrowOop }
+                      ;*ifeq {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.Agent::notifyChangeBehaviourState@9 (line 2128)
+                      ; - jade.core.behaviours.Behaviour::actionWrapper@32 (line 341)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@17 (line 1585)
+  0x000000011f586324: d88c 45f8 | be45 ffff | ff4c 8b54 | 2410 4c89 | 1424 895c 
+
+  0x000000011f586338: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586338: 2418 90e8 
+
+  0x000000011f58633c: ; ImmutableOopMap {[0]=Oop [8]=Oop [24]=NarrowOop }
+                      ;*ifnull {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.behaviours.Behaviour::actionWrapper@43 (line 346)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@17 (line 1585)
+  0x000000011f58633c: c08c 45f8 | be45 ffff | ff4c 8b5c | 2410 4c89 | 1c24 895c | 2410 4489 
+
+  0x000000011f586354: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586354: 5424 14e8 
+
+  0x000000011f586358: ; ImmutableOopMap {[0]=Oop [8]=Oop [16]=NarrowOop }
+                      ;*ifeq {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.Agent::notifyChangeBehaviourState@9 (line 2128)
+                      ; - jade.core.behaviours.Behaviour::actionWrapper@55 (line 347)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@17 (line 1585)
+  0x000000011f586358: a48c 45f8 | 488b fd48 | 8d74 2430 | 498b d749 | bae0 6c5c | 0901 0000 | 0041 ffd2 | e93d faff 
+  0x000000011f586378: ff49 8bf7 | 0f1f 4000 | 49ba 90ee | 0a09 0100 | 0000 41ff | d2e9 79f9 | ffff bef6 | ffff ff4c 
+  0x000000011f586398: 8b54 2408 | 4c89 1424 
+
+  0x000000011f5863a0: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f5863a0: 6666 90e8 
+
+  0x000000011f5863a4: ; ImmutableOopMap {rbp=NarrowOop [0]=Oop }
+                      ;*invokevirtual block {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@87 (line 1615)
+  0x000000011f5863a4: 588c 45f8 | bef6 ffff | ff48 8b6c 
+
+  0x000000011f5863b0: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f5863b0: 2410 90e8 
+
+  0x000000011f5863b4: ; ImmutableOopMap {rbp=Oop [24]=NarrowOop }
+                      ;*invokevirtual idle {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Scheduler::schedule@16 (line 222)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f5863b4: 488c 45f8 | bede ffff | ff48 8b6c | 2410 448b | 4424 1844 | 895c 2404 | 458b d044 | 8954 2408 
+  0x000000011f5863d4: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f5863d4: 6666 90e8 
+
+  0x000000011f5863d8: ; ImmutableOopMap {rbp=Oop [4]=NarrowOop [8]=NarrowOop [24]=NarrowOop }
+                      ;*invokeinterface isEmpty {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Scheduler::schedule@4 (line 221)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f5863d8: 248c 45f8 | bede ffff | ff44 8b5c | 2418 458b | d344 8954 
+
+  0x000000011f5863ec: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f5863ec: 240c 90e8 
+
+  0x000000011f5863f0: ; ImmutableOopMap {rbp=NarrowOop [12]=NarrowOop [16]=Oop [24]=NarrowOop }
+                      ;*invokeinterface isEmpty {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.util.leap.LinkedList::isEmpty@4 (line 110)
+                      ; - jade.core.Scheduler::schedule@4 (line 221)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f5863f0: 0c8c 45f8 | bef6 ffff | ff48 8b6c 
+
+  0x000000011f5863fc: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f5863fc: 2408 90e8 
+
+  0x000000011f586400: ; ImmutableOopMap {rbp=Oop }
+                      ;*invokevirtual remove {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@40 (line 1590)
+  0x000000011f586400: fc8b 45f8 | bef6 ffff | ff48 8b6c 
+
+  0x000000011f58640c: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f58640c: 2410 90e8 
+
+  0x000000011f586410: ; ImmutableOopMap {rbp=Oop }
+                      ;*getfield myScheduler {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.Agent::access$1000@1 (line 81)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@4 (line 1581)
+  0x000000011f586410: ec8b 45f8 | bef6 ffff | ff48 8b6c 
+
+  0x000000011f58641c: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f58641c: 2410 90e8 
+
+  0x000000011f586420: ; ImmutableOopMap {rbp=Oop [24]=NarrowOop }
+                      ;*invokeinterface isEmpty {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Scheduler::schedule@4 (line 221)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586420: dc8b 45f8 | bef6 ffff | ff48 8b6c 
+
+  0x000000011f58642c: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f58642c: 2410 90e8 
+
+  0x000000011f586430: ; ImmutableOopMap {rbp=Oop [24]=NarrowOop }
+                      ;*invokeinterface isEmpty {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.util.leap.LinkedList::isEmpty@4 (line 110)
+                      ; - jade.core.Scheduler::schedule@4 (line 221)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586430: cc8b 45f8 | bef6 ffff | ff48 8b6c | 2410 8944 
+
+  0x000000011f586440: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586440: 2404 90e8 
+
+  0x000000011f586444: ; ImmutableOopMap {rbp=Oop [24]=NarrowOop }
+                      ;*invokeinterface get {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.util.leap.LinkedList::get@5 (line 75)
+                      ; - jade.core.Scheduler::schedule@30 (line 226)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586444: b88b 45f8 | bef6 ffff | ff48 8b6c 
+
+  0x000000011f586450: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586450: 2410 90e8 
+
+  0x000000011f586454: ; ImmutableOopMap {rbp=Oop [24]=NarrowOop }
+                      ;*getfield item {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.LinkedList::get@10 (line 481)
+                      ; - jade.util.leap.LinkedList::get@5 (line 75)
+                      ; - jade.core.Scheduler::schedule@30 (line 226)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586454: a88b 45f8 | bef4 ffff | ff48 8b6c | 2410 448b | 5424 1844 | 8954 2404 
+
+  0x000000011f58646c: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f58646c: 6666 90e8 
+
+  0x000000011f586470: ; ImmutableOopMap {rbp=Oop [4]=NarrowOop [24]=NarrowOop }
+                      ;*checkcast {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Scheduler::schedule@35 (line 226)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586470: 8c8b 45f8 | bef6 ffff | ff49 8bea | 4c8b 5424 | 084c 8914 
+
+  0x000000011f586484: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586484: 2466 90e8 
+
+  0x000000011f586488: ; ImmutableOopMap {rbp=Oop [0]=Oop }
+                      ;*getfield myScheduler {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.Agent::access$1000@1 (line 81)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@52 (line 1594)
+  0x000000011f586488: 748b 45f8 | bef6 ffff | ff48 8b6c 
+
+  0x000000011f586494: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586494: 2410 90e8 
+
+  0x000000011f586498: ; ImmutableOopMap {rbp=Oop [24]=NarrowOop }
+                      ;*getfield prev {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.LinkedList::node@53 (line 581)
+                      ; - java.util.LinkedList::get@7 (line 481)
+                      ; - jade.util.leap.LinkedList::get@5 (line 75)
+                      ; - jade.core.Scheduler::schedule@30 (line 226)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586498: 648b 45f8 | bef6 ffff | ff48 8b6c 
+
+  0x000000011f5864a4: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f5864a4: 2410 90e8 
+
+  0x000000011f5864a8: ; ImmutableOopMap {rbp=Oop [24]=NarrowOop }
+                      ;*getfield next {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) java.util.LinkedList::node@23 (line 576)
+                      ; - java.util.LinkedList::get@7 (line 481)
+                      ; - jade.util.leap.LinkedList::get@5 (line 75)
+                      ; - jade.core.Scheduler::schedule@30 (line 226)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f5864a8: 548b 45f8 | 488b d8e9 | d400 0000 | 488b d8e9 | 8f01 0000 | 488b d890 | e986 0100 | 0048 8bd8 
+  0x000000011f5864c8: 488d 4424 | 3048 8138 | 0000 0000 | 0f84 8500 | 0000 4c8b | 5500 49f7 | c202 0000 | 0074 6f49 
+  0x000000011f5864e8: 81ba 8600 | 0000 0000 | 0000 7409 | 49ff 8a86 | 0000 00eb | 5149 8b82 | 9600 0000 | 490b 828e 
+  0x000000011f586508: 0000 0075 | 0a49 c742 | 3e00 0000 | 00eb 4849 | 81ba 9e00 | 0000 0000 | 0000 7425 | 4833 c049 
+  0x000000011f586528: c742 3e00 | 0000 00f0 | 8304 2400 | 4981 ba9e | 0000 0000 | 0000 0075 | 0df0 4d0f | b17a 3e75 
+  0x000000011f586548: 0583 c801 | eb11 f7c0 | 0000 0000 | eb09 4c8b | 10f0 4c0f | b155 0090 | 0f84 e500 | 0000 488b 
+  0x000000011f586568: fd48 8d74 | 2430 498b | d749 bae0 | 6c5c 0901 | 0000 0041 | ffd2 6690 | e9c6 0000 | 0048 8bd8 
+  0x000000011f586588: 488d 4424 | 304c 8b5c | 2418 4881 | 3800 0000 | 000f 8483 | 0000 004d | 8b13 49f7 | c202 0000 
+  0x000000011f5865a8: 0074 6f49 | 81ba 8600 | 0000 0000 | 0000 7409 | 49ff 8a86 | 0000 00eb | 5149 8b82 | 9600 0000 
+  0x000000011f5865c8: 490b 828e | 0000 0075 | 0a49 c742 | 3e00 0000 | 00eb 4749 | 81ba 9e00 | 0000 0000 | 0000 7425 
+  0x000000011f5865e8: 4833 c049 | c742 3e00 | 0000 00f0 | 8304 2400 | 4981 ba9e | 0000 0000 | 0000 0075 | 0df0 4d0f 
+  0x000000011f586608: b17a 3e75 | 0583 c801 | eb10 f7c0 | 0000 0000 | eb08 4c8b | 10f0 4d0f | b113 7427 | 498b fb48 
+  0x000000011f586628: 8d74 2430 | 498b d749 | bae0 6c5c | 0901 0000 | 0041 ffd2 | eb0d 488b | d8eb 0848 | 8bd8 eb03 
+  0x000000011f586648: 488b d848 | 8bf3 e96d | f7ff ffbe | f6ff ffff | 4c8b 5424 | 084c 8914 
+
+  0x000000011f586660: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586660: 2466 90e8 
+
+  0x000000011f586664: ; ImmutableOopMap {rbp=NarrowOop [0]=Oop }
+                      ;*getfield myScheduler {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.Agent::access$1000@1 (line 81)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@83 (line 1615)
+  0x000000011f586664: 9889 45f8 | bef6 ffff | ff48 8b6c 
+
+  0x000000011f586670: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586670: 2410 90e8 
+
+  0x000000011f586674: ; ImmutableOopMap {rbp=Oop [24]=NarrowOop }
+                      ;*invokeinterface isEmpty {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.core.Scheduler::schedule@4 (line 221)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586674: 8889 45f8 | bef6 ffff | ff48 8b6c 
+
+  0x000000011f586680: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586680: 2410 90e8 
+
+  0x000000011f586684: ; ImmutableOopMap {rbp=Oop [24]=NarrowOop }
+                      ;*invokeinterface isEmpty {reexecute=0 rethrow=0 return_oop=0}
+                      ; - jade.util.leap.LinkedList::isEmpty@4 (line 110)
+                      ; - jade.core.Scheduler::schedule@4 (line 221)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@7 (line 1581)
+  0x000000011f586684: 7889 45f8 | bef6 ffff | ff48 8b6c 
+
+  0x000000011f586690: ;   {runtime_call UncommonTrapBlob}
+  0x000000011f586690: 2408 90e8 
+
+  0x000000011f586694: ; ImmutableOopMap {rbp=Oop }
+                      ;*getfield myScheduler {reexecute=1 rethrow=0 return_oop=0}
+                      ; - (reexecute) jade.core.Agent::access$1000@1 (line 81)
+                      ; - jade.core.Agent$ActiveLifeCycle::execute@36 (line 1590)
+  0x000000011f586694: 6889 45f8 
+
+  0x000000011f586698: ;   {internal_word}
+  0x000000011f586698: 49ba ee5c | 581f 0100 | 0000 4d89 | 9750 0300 
+
+  0x000000011f5866a8: ;   {runtime_call SafepointBlob}
+  0x000000011f5866a8: 00e9 529a | 45f8 f4f4 | f4f4 f4f4 | f4f4 f4f4 | f4f4 f4f4 | f4f4 f4f4 
+[Stub Code]
+  0x000000011f5866c0: ;   {no_reloc}
+  0x000000011f5866c0: 48bb a83a | 0c2d 0100 
+
+  0x000000011f5866c8: ;   {runtime_call I2C/C2I adapters}
+  0x000000011f5866c8: 0000 e98e 
+
+  0x000000011f5866cc: ;   {static_stub}
+  0x000000011f5866cc: 8645 f848 | bb50 9b08 | 2d01 0000 
+
+  0x000000011f5866d8: ;   {runtime_call I2C/C2I adapters}
+  0x000000011f5866d8: 00e9 7b7d 
+
+  0x000000011f5866dc: ;   {static_stub}
+  0x000000011f5866dc: 45f8 48bb | a83c 0c2d | 0100 0000 
+
+  0x000000011f5866e8: ;   {runtime_call I2C/C2I adapters}
+  0x000000011f5866e8: e970 8645 
+
+  0x000000011f5866ec: ;   {runtime_call ExceptionBlob}
+  0x000000011f5866ec: f8e9 8ed4 | 46f8 e800 | 0000 0048 | 832c 2405 
+
+  0x000000011f5866fc: ;   {runtime_call DeoptimizationBlob}
+  0x000000011f5866fc: e99f 8c45 | f8f4 f4f4 | f4f4 f4f4 
+[/MachCode]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x0000600003a29720, length=43, elements={
+0x00007fb2f202bc00, 0x00007fb2f2008600, 0x00007fb2f202ce00, 0x00007fb2f202d400,
+0x00007fb2f2039600, 0x00007fb2f2039c00, 0x00007fb2f3028800, 0x00007fb2f1014200,
+0x00007fb2f283d000, 0x00007fb2f1021600, 0x00007fb2f1312a00, 0x00007fb2f283ca00,
+0x00007fb2f2070a00, 0x00007fb2f2071000, 0x00007fb2f2164c00, 0x00007fb2f2955400,
+0x00007fb2f2030a00, 0x00007fb2f2215c00, 0x00007fb2f32ad000, 0x00007fb2f1409600,
+0x00007fb2f2e8a000, 0x00007fb2f2e8a600, 0x00007fb2f2ef0000, 0x00007fb2f2ef0600,
+0x00007fb2f2eef800, 0x00007fb2f322d800, 0x00007fb2f2ef0c00, 0x00007fb2f2ef1800,
+0x00007fb2f140c200, 0x00007fb2f3274c00, 0x00007fb2f32ae400, 0x00007fb2f140c800,
+0x00007fb2f32b5800, 0x00007fb2f1426000, 0x00007fb2f32afc00, 0x00007fb2f1336a00,
+0x00007fb2f32c2e00, 0x00007fb2f2bc3c00, 0x00007fb2f2ceca00, 0x00007fb2f3582200,
+0x00007fb2f2302000, 0x00007fb2f35c1800, 0x00007fb2f2f7ba00
+}
+
+Java Threads: ( => current thread )
+  0x00007fb2f202bc00 JavaThread "Reference Handler" daemon [_thread_blocked, id=15107, stack(0x000070000b3bc000,0x000070000b4bc000)]
+  0x00007fb2f2008600 JavaThread "Finalizer" daemon [_thread_blocked, id=15619, stack(0x000070000b4bf000,0x000070000b5bf000)]
+  0x00007fb2f202ce00 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=42499, stack(0x000070000b6c8000,0x000070000b7c8000)]
+  0x00007fb2f202d400 JavaThread "Service Thread" daemon [_thread_blocked, id=42243, stack(0x000070000b7cb000,0x000070000b8cb000)]
+  0x00007fb2f2039600 JavaThread "Monitor Deflation Thread" daemon [_thread_blocked, id=23555, stack(0x000070000b8ce000,0x000070000b9ce000)]
+  0x00007fb2f2039c00 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=41731, stack(0x000070000b9d1000,0x000070000bad1000)]
+  0x00007fb2f3028800 JavaThread "C1 CompilerThread0" daemon [_thread_blocked, id=41475, stack(0x000070000bad4000,0x000070000bbd4000)]
+  0x00007fb2f1014200 JavaThread "Sweeper thread" daemon [_thread_blocked, id=40963, stack(0x000070000bbd7000,0x000070000bcd7000)]
+  0x00007fb2f283d000 JavaThread "Common-Cleaner" daemon [_thread_blocked, id=24323, stack(0x000070000bcda000,0x000070000bdda000)]
+  0x00007fb2f1021600 JavaThread "Monitor Ctrl-Break" daemon [_thread_in_native, id=40451, stack(0x000070000bddd000,0x000070000bedd000)]
+  0x00007fb2f1312a00 JavaThread "Notification Thread" daemon [_thread_blocked, id=24835, stack(0x000070000bee0000,0x000070000bfe0000)]
+  0x00007fb2f283ca00 JavaThread "JADE Timer dispatcher" [_thread_blocked, id=39171, stack(0x000070000c4f2000,0x000070000c5f2000)]
+  0x00007fb2f2070a00 JavaThread "JICPServer-1099" daemon [_thread_in_native, id=38659, stack(0x000070000c5f5000,0x000070000c6f5000)]
+  0x00007fb2f2071000 JavaThread "Thread-2" [_thread_blocked, id=27395, stack(0x000070000c6f8000,0x000070000c7f8000)]
+  0x00007fb2f2164c00 JavaThread "Thread-3" [_thread_in_native, id=38147, stack(0x000070000c7fb000,0x000070000c8fb000)]
+  0x00007fb2f2955400 JavaThread "Attach Listener" daemon [_thread_blocked, id=37635, stack(0x000070000c8fe000,0x000070000c9fe000)]
+  0x00007fb2f2030a00 JavaThread "AppKit Thread" daemon [_thread_in_native, id=259, stack(0x00007ff7b7bcd000,0x00007ff7b83cd000)]
+  0x00007fb2f2215c00 JavaThread "Java2D Queue Flusher" daemon [_thread_blocked, id=72195, stack(0x000070000cd10000,0x000070000ce10000)]
+  0x00007fb2f32ad000 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=69635, stack(0x000070000ce13000,0x000070000cf13000)]
+  0x00007fb2f1409600 JavaThread "Deliverer-00" [_thread_blocked, id=57931, stack(0x000070000cf16000,0x000070000d016000)]
+  0x00007fb2f2e8a000 JavaThread "Deliverer-01" [_thread_blocked, id=61195, stack(0x000070000d019000,0x000070000d119000)]
+  0x00007fb2f2e8a600 JavaThread "Deliverer-02" [_thread_blocked, id=61451, stack(0x000070000d11c000,0x000070000d21c000)]
+  0x00007fb2f2ef0000 JavaThread "Deliverer-03" [_thread_blocked, id=65539, stack(0x000070000d21f000,0x000070000d31f000)]
+  0x00007fb2f2ef0600 JavaThread "Deliverer-04" [_thread_blocked, id=65283, stack(0x000070000d322000,0x000070000d422000)]
+  0x00007fb2f2eef800 JavaThread "Thread-9" [_thread_in_native, id=84235, stack(0x000070000ca84000,0x000070000cb84000)]
+  0x00007fb2f322d800 JavaThread "ams" [_thread_blocked, id=84559, stack(0x000070000d425000,0x000070000d525000)]
+  0x00007fb2f2ef0c00 JavaThread "df" [_thread_blocked, id=62467, stack(0x000070000d528000,0x000070000d628000)]
+=>0x00007fb2f2ef1800 JavaThread "QualityControlStation1" [_thread_in_native, id=62723, stack(0x000070000d62b000,0x000070000d72b000)]
+  0x00007fb2f140c200 JavaThread "QualityControlStation2" [_thread_blocked, id=64259, stack(0x000070000d72e000,0x000070000d82e000)]
+  0x00007fb2f3274c00 JavaThread "GlueStation1" [_thread_blocked, id=63235, stack(0x000070000d831000,0x000070000d931000)]
+  0x00007fb2f32ae400 JavaThread "GlueStation2" [_thread_blocked, id=63491, stack(0x000070000d934000,0x000070000da34000)]
+  0x00007fb2f140c800 JavaThread "AGV" [_thread_blocked, id=130819, stack(0x000070000da37000,0x000070000db37000)]
+  0x00007fb2f32b5800 JavaThread "GUI" [_thread_blocked, id=87811, stack(0x000070000db3a000,0x000070000dc3a000)]
+  0x00007fb2f1426000 JavaThread "rma" [_thread_blocked, id=130307, stack(0x000070000dc3d000,0x000070000dd3d000)]
+  0x00007fb2f32afc00 JavaThread "Source" [_thread_blocked, id=88323, stack(0x000070000dd40000,0x000070000de40000)]
+  0x00007fb2f1336a00 JavaThread "DestroyJavaVM" [_thread_blocked, id=9731, stack(0x000070000aca7000,0x000070000ada7000)]
+  0x00007fb2f32c2e00 JavaThread "AWT-Shutdown" [_thread_blocked, id=130051, stack(0x000070000de43000,0x000070000df43000)]
+  0x00007fb2f2bc3c00 JavaThread "AWT-EventQueue-0" [_thread_blocked, id=128775, stack(0x000070000df46000,0x000070000e046000)]
+  0x00007fb2f2ceca00 JavaThread "TimerQueue" daemon [_thread_blocked, id=118819, stack(0x000070000e5e4000,0x000070000e6e4000)]
+  0x00007fb2f3582200 JavaThread "sniffer0" [_thread_blocked, id=91955, stack(0x000070000e7ea000,0x000070000e8ea000)]
+  0x00007fb2f2302000 JavaThread "sniffer0-on-Main-Container" [_thread_blocked, id=117323, stack(0x000070000e049000,0x000070000e149000)]
+  0x00007fb2f35c1800 JavaThread "Product1" [_thread_in_vm, id=115463, stack(0x000070000e14c000,0x000070000e24c000)]
+  0x00007fb2f2f7ba00 JavaThread "JavaCPP Deallocator" daemon [_thread_blocked, id=83571, stack(0x000070000cb87000,0x000070000cc87000)]
+
+Other Threads:
+  0x00007fb2f1b06d40 VMThread "VM Thread" [stack: 0x000070000b2b9000,0x000070000b3b9000] [id=14851]
+  0x00007fb2f0f1cdf0 WatcherThread "VM Periodic Task Thread" [stack: 0x000070000bfe3000,0x000070000c0e3000] [id=39939]
+  0x00007fb2f1b05950 WorkerThread "GC Thread#0" [stack: 0x000070000adaa000,0x000070000aeaa000] [id=19971]
+  0x00007fb2f190d8f0 WorkerThread "GC Thread#1" [stack: 0x000070000c0e6000,0x000070000c1e6000] [id=39427]
+  0x00007fb2f1b0e2d0 WorkerThread "GC Thread#2" [stack: 0x000070000c1e9000,0x000070000c2e9000] [id=25347]
+  0x00007fb2f0f1f560 WorkerThread "GC Thread#3" [stack: 0x000070000c2ec000,0x000070000c3ec000] [id=25859]
+  0x00007fb2f18045b0 ConcurrentGCThread "G1 Main Marker" [stack: 0x000070000aead000,0x000070000afad000] [id=12803]
+  0x00007fb2f1804e10 WorkerThread "G1 Conc#0" [stack: 0x000070000afb0000,0x000070000b0b0000] [id=13571]
+  0x00007fb2f1811500 ConcurrentGCThread "G1 Refine#0" [stack: 0x000070000b0b3000,0x000070000b1b3000] [id=19203]
+  0x00007fb2f1820ee0 ConcurrentGCThread "G1 Refine#1" [stack: 0x000070000c3ef000,0x000070000c4ef000] [id=26627]
+  0x00007fb2f19058e0 ConcurrentGCThread "G1 Service" [stack: 0x000070000b1b6000,0x000070000b2b6000] [id=18691]
+
+Threads with active compile tasks:
+
+VM state: not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap address: 0x0000000700000000, size: 4096 MB, Compressed Oops mode: Zero based, Oop shift amount: 3
+
+CDS archive(s) mapped at: [0x0000000800000000-0x0000000800ba8000-0x0000000800ba8000), size 12222464, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 0.
+Compressed class space mapped at: 0x0000000800c00000-0x0000000840c00000, reserved size: 1073741824
+Narrow klass base: 0x0000000800000000, Narrow klass shift: 0, Narrow klass range: 0x100000000
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 4 size 8 Array Of Cards #cards 16 size 48 Howl #buckets 8 coarsen threshold 3686 Howl Bitmap #cards 512 size 80 coarsen threshold 460 Card regions per heap region 1 cards per card region 4096
+ CPUs: 4 total, 4 available
+ Memory: 16384M
+ Large Page Support: Disabled
+ NUMA Support: Disabled
+ Compressed Oops: Enabled (Zero based)
+ Heap Region Size: 2M
+ Heap Min Capacity: 8M
+ Heap Initial Capacity: 256M
+ Heap Max Capacity: 4G
+ Pre-touch: Disabled
+ Parallel Workers: 4
+ Concurrent Workers: 1
+ Concurrent Refinement Workers: 4
+ Periodic GC: Disabled
+
+Heap:
+ garbage-first heap   total 110592K, used 54943K [0x0000000700000000, 0x0000000800000000)
+  region size 2048K, 21 young (43008K), 5 survivors (10240K)
+ Metaspace       used 27279K, committed 27520K, reserved 1114112K
+  class space    used 3086K, committed 3200K, reserved 1048576K
+
+Heap Regions: E=young(eden), S=young(survivor), O=old, HS=humongous(starts), HC=humongous(continues), CS=collection set, F=free, OA=open archive, CA=closed archive, TAMS=top-at-mark-start (previous, next)
+|   0|0x0000000700000000, 0x0000000700200000, 0x0000000700200000|100%|HS|  |TAMS 0x0000000700200000, 0x0000000700000000| Complete 
+|   1|0x0000000700200000, 0x0000000700400000, 0x0000000700400000|100%| O|  |TAMS 0x0000000700400000, 0x0000000700200000| Untracked 
+|   2|0x0000000700400000, 0x0000000700600000, 0x0000000700600000|100%| O|  |TAMS 0x0000000700600000, 0x0000000700400000| Untracked 
+|   3|0x0000000700600000, 0x0000000700800000, 0x0000000700800000|100%| O|  |TAMS 0x0000000700800000, 0x0000000700600000| Untracked 
+|   4|0x0000000700800000, 0x0000000700a00000, 0x0000000700a00000|100%| O|  |TAMS 0x0000000700a00000, 0x0000000700800000| Untracked 
+|   5|0x0000000700a00000, 0x0000000700c00000, 0x0000000700c00000|100%| O|  |TAMS 0x0000000700c00000, 0x0000000700a00000| Untracked 
+|   6|0x0000000700c00000, 0x0000000700e00000, 0x0000000700e00000|100%| O|  |TAMS 0x0000000700e00000, 0x0000000700c00000| Untracked 
+|   7|0x0000000700e00000, 0x0000000700eb1a00, 0x0000000701000000| 34%| O|  |TAMS 0x0000000700eb1a00, 0x0000000700e00000| Untracked 
+|   8|0x0000000701000000, 0x0000000701000000, 0x0000000701200000|  0%| F|  |TAMS 0x0000000701000000, 0x0000000701000000| Untracked 
+|   9|0x0000000701200000, 0x0000000701200000, 0x0000000701400000|  0%| F|  |TAMS 0x0000000701200000, 0x0000000701200000| Untracked 
+|  10|0x0000000701400000, 0x0000000701400000, 0x0000000701600000|  0%| F|  |TAMS 0x0000000701400000, 0x0000000701400000| Untracked 
+|  11|0x0000000701600000, 0x0000000701600000, 0x0000000701800000|  0%| F|  |TAMS 0x0000000701600000, 0x0000000701600000| Untracked 
+|  12|0x0000000701800000, 0x0000000701800000, 0x0000000701a00000|  0%| F|  |TAMS 0x0000000701800000, 0x0000000701800000| Untracked 
+|  13|0x0000000701a00000, 0x0000000701a00000, 0x0000000701c00000|  0%| F|  |TAMS 0x0000000701a00000, 0x0000000701a00000| Untracked 
+|  14|0x0000000701c00000, 0x0000000701c00000, 0x0000000701e00000|  0%| F|  |TAMS 0x0000000701c00000, 0x0000000701c00000| Untracked 
+|  15|0x0000000701e00000, 0x0000000701e00000, 0x0000000702000000|  0%| F|  |TAMS 0x0000000701e00000, 0x0000000701e00000| Untracked 
+|  16|0x0000000702000000, 0x0000000702000000, 0x0000000702200000|  0%| F|  |TAMS 0x0000000702000000, 0x0000000702000000| Untracked 
+|  17|0x0000000702200000, 0x0000000702200000, 0x0000000702400000|  0%| F|  |TAMS 0x0000000702200000, 0x0000000702200000| Untracked 
+|  18|0x0000000702400000, 0x0000000702400000, 0x0000000702600000|  0%| F|  |TAMS 0x0000000702400000, 0x0000000702400000| Untracked 
+|  19|0x0000000702600000, 0x0000000702600000, 0x0000000702800000|  0%| F|  |TAMS 0x0000000702600000, 0x0000000702600000| Untracked 
+|  20|0x0000000702800000, 0x0000000702800000, 0x0000000702a00000|  0%| F|  |TAMS 0x0000000702800000, 0x0000000702800000| Untracked 
+|  21|0x0000000702a00000, 0x0000000702a00000, 0x0000000702c00000|  0%| F|  |TAMS 0x0000000702a00000, 0x0000000702a00000| Untracked 
+|  22|0x0000000702c00000, 0x0000000702c00000, 0x0000000702e00000|  0%| F|  |TAMS 0x0000000702c00000, 0x0000000702c00000| Untracked 
+|  23|0x0000000702e00000, 0x0000000702e00000, 0x0000000703000000|  0%| F|  |TAMS 0x0000000702e00000, 0x0000000702e00000| Untracked 
+|  24|0x0000000703000000, 0x0000000703000000, 0x0000000703200000|  0%| F|  |TAMS 0x0000000703000000, 0x0000000703000000| Untracked 
+|  25|0x0000000703200000, 0x0000000703200000, 0x0000000703400000|  0%| F|  |TAMS 0x0000000703200000, 0x0000000703200000| Untracked 
+|  26|0x0000000703400000, 0x0000000703400000, 0x0000000703600000|  0%| F|  |TAMS 0x0000000703400000, 0x0000000703400000| Untracked 
+|  27|0x0000000703600000, 0x0000000703600000, 0x0000000703800000|  0%| F|  |TAMS 0x0000000703600000, 0x0000000703600000| Untracked 
+|  28|0x0000000703800000, 0x0000000703800000, 0x0000000703a00000|  0%| F|  |TAMS 0x0000000703800000, 0x0000000703800000| Untracked 
+|  29|0x0000000703a00000, 0x0000000703a00000, 0x0000000703c00000|  0%| F|  |TAMS 0x0000000703a00000, 0x0000000703a00000| Untracked 
+|  30|0x0000000703c00000, 0x0000000703c00000, 0x0000000703e00000|  0%| F|  |TAMS 0x0000000703c00000, 0x0000000703c00000| Untracked 
+|  31|0x0000000703e00000, 0x0000000703f87cd8, 0x0000000704000000| 76%| E|  |TAMS 0x0000000703e00000, 0x0000000703e00000| Complete 
+|  32|0x0000000704000000, 0x0000000704200000, 0x0000000704200000|100%| E|CS|TAMS 0x0000000704000000, 0x0000000704000000| Complete 
+|  33|0x0000000704200000, 0x0000000704400000, 0x0000000704400000|100%| E|CS|TAMS 0x0000000704200000, 0x0000000704200000| Complete 
+|  34|0x0000000704400000, 0x0000000704600000, 0x0000000704600000|100%| E|  |TAMS 0x0000000704400000, 0x0000000704400000| Complete 
+|  35|0x0000000704600000, 0x0000000704800000, 0x0000000704800000|100%| E|CS|TAMS 0x0000000704600000, 0x0000000704600000| Complete 
+|  36|0x0000000704800000, 0x0000000704a00000, 0x0000000704a00000|100%| E|CS|TAMS 0x0000000704800000, 0x0000000704800000| Complete 
+|  37|0x0000000704a00000, 0x0000000704c00000, 0x0000000704c00000|100%| E|CS|TAMS 0x0000000704a00000, 0x0000000704a00000| Complete 
+|  38|0x0000000704c00000, 0x0000000704e00000, 0x0000000704e00000|100%| E|CS|TAMS 0x0000000704c00000, 0x0000000704c00000| Complete 
+|  39|0x0000000704e00000, 0x0000000705000000, 0x0000000705000000|100%| E|CS|TAMS 0x0000000704e00000, 0x0000000704e00000| Complete 
+|  40|0x0000000705000000, 0x0000000705200000, 0x0000000705200000|100%| E|CS|TAMS 0x0000000705000000, 0x0000000705000000| Complete 
+|  41|0x0000000705200000, 0x0000000705400000, 0x0000000705400000|100%| E|CS|TAMS 0x0000000705200000, 0x0000000705200000| Complete 
+|  42|0x0000000705400000, 0x0000000705600000, 0x0000000705600000|100%| E|CS|TAMS 0x0000000705400000, 0x0000000705400000| Complete 
+|  43|0x0000000705600000, 0x0000000705800000, 0x0000000705800000|100%| E|CS|TAMS 0x0000000705600000, 0x0000000705600000| Complete 
+|  44|0x0000000705800000, 0x0000000705a00000, 0x0000000705a00000|100%| E|CS|TAMS 0x0000000705800000, 0x0000000705800000| Complete 
+|  45|0x0000000705a00000, 0x0000000705c00000, 0x0000000705c00000|100%| E|CS|TAMS 0x0000000705a00000, 0x0000000705a00000| Complete 
+| 116|0x000000070e800000, 0x000000070e910318, 0x000000070ea00000| 53%| S|CS|TAMS 0x000000070e800000, 0x000000070e800000| Complete 
+| 117|0x000000070ea00000, 0x000000070ec00000, 0x000000070ec00000|100%| S|CS|TAMS 0x000000070ea00000, 0x000000070ea00000| Complete 
+| 118|0x000000070ec00000, 0x000000070ee00000, 0x000000070ee00000|100%| S|CS|TAMS 0x000000070ec00000, 0x000000070ec00000| Complete 
+| 119|0x000000070ee00000, 0x000000070f000000, 0x000000070f000000|100%| S|CS|TAMS 0x000000070ee00000, 0x000000070ee00000| Complete 
+| 120|0x000000070f000000, 0x000000070f200000, 0x000000070f200000|100%| S|CS|TAMS 0x000000070f000000, 0x000000070f000000| Complete 
+| 127|0x000000070fe00000, 0x0000000710000000, 0x0000000710000000|100%| E|CS|TAMS 0x000000070fe00000, 0x000000070fe00000| Complete 
+|2046|0x00000007ffc00000, 0x00000007ffd74000, 0x00000007ffe00000| 72%|OA|  |TAMS 0x00000007ffd74000, 0x00000007ffc00000| Untracked 
+|2047|0x00000007ffe00000, 0x00000007ffe72000, 0x0000000800000000| 22%|CA|  |TAMS 0x00000007ffe72000, 0x00000007ffe00000| Untracked 
+
+Card table byte_map: [0x0000000109d29000,0x000000010a529000] _byte_map_base: 0x0000000106529000
+
+Marking Bits (Prev, Next): (CMBitMap*) 0x00007fb2f200aa50, (CMBitMap*) 0x00007fb2f200aa10
+ Prev Bits: [0x000000012698d000, 0x000000012a98d000)
+ Next Bits: [0x000000010ad29000, 0x000000010ed29000)
+
+Polling page: 0x0000000107c5a000
+
+Metaspace:
+
+Usage:
+  Non-class:     23.63 MB used.
+      Class:      3.01 MB used.
+       Both:     26.64 MB used.
+
+Virtual space:
+  Non-class space:       64.00 MB reserved,      23.75 MB ( 37%) committed,  1 nodes.
+      Class space:        1.00 GB reserved,       3.12 MB ( <1%) committed,  1 nodes.
+             Both:        1.06 GB reserved,      26.88 MB (  2%) committed. 
+
+Chunk freelists:
+   Non-Class:  0 bytes
+       Class:  928.00 KB
+        Both:  928.00 KB
+
+MaxMetaspaceSize: unlimited
+CompressedClassSpaceSize: 1.00 GB
+Initial GC threshold: 21.00 MB
+Current GC threshold: 35.25 MB
+CDS: on
+MetaspaceReclaimPolicy: balanced
+ - commit_granule_bytes: 65536.
+ - commit_granule_words: 8192.
+ - virtual_space_node_default_size: 8388608.
+ - enlarge_chunks_in_place: 1.
+ - new_chunks_are_fully_committed: 0.
+ - uncommit_free_chunks: 1.
+ - use_allocation_guard: 0.
+
+
+Internal statistics:
+
+num_allocs_failed_limit: 3.
+num_arena_births: 288.
+num_arena_deaths: 0.
+num_vsnodes_births: 2.
+num_vsnodes_deaths: 0.
+num_space_committed: 427.
+num_space_uncommitted: 0.
+num_chunks_returned_to_freelist: 3.
+num_chunks_taken_from_freelist: 754.
+num_chunk_merges: 3.
+num_chunk_splits: 563.
+num_chunks_enlarged: 440.
+num_inconsistent_stats: 0.
+
+CodeHeap 'non-profiled nmethods': size=120032Kb used=1892Kb max_used=1892Kb free=118139Kb
+ bounds [0x000000011f455000, 0x000000011f6c5000, 0x000000012698d000]
+CodeHeap 'profiled nmethods': size=120028Kb used=9059Kb max_used=9059Kb free=110968Kb
+ bounds [0x0000000117f1e000, 0x00000001187fe000, 0x000000011f455000]
+CodeHeap 'non-nmethods': size=5700Kb used=1483Kb max_used=1520Kb free=4216Kb
+ bounds [0x000000011798d000, 0x0000000117bfd000, 0x0000000117f1e000]
+ total_blobs=5187 nmethods=4328 adapters=772
+ compilation: enabled
+              stopped_count=0, restarted_count=0
+ full_count=0
+
+Compilation events (20 events):
+Event: 67.406 Thread 0x00007fb2f3028800 4324       3       java.lang.String::lastIndexOf (104 bytes)
+Event: 67.406 Thread 0x00007fb2f3028800 nmethod 4324 0x00000001187f1a90 code [0x00000001187f1ca0, 0x00000001187f2200]
+Event: 67.439 Thread 0x00007fb2f3028800 4325       3       java.lang.ClassLoader::definePackage (85 bytes)
+Event: 67.440 Thread 0x00007fb2f3028800 nmethod 4325 0x00000001187f2410 code [0x00000001187f26e0, 0x00000001187f3710]
+Event: 67.441 Thread 0x00007fb2f2039c00 nmethod 4277 0x000000011f61d210 code [0x000000011f61d5c0, 0x000000011f621f40]
+Event: 67.442 Thread 0x00007fb2f2039c00 4278       4       jdk.internal.loader.URLClassPath::getResource (74 bytes)
+Event: 67.443 Thread 0x00007fb2f3028800 4326       3       java.lang.System::getProperty (25 bytes)
+Event: 67.443 Thread 0x00007fb2f3028800 nmethod 4326 0x00000001187f3b90 code [0x00000001187f3da0, 0x00000001187f4360]
+Event: 67.465 Thread 0x00007fb2f3028800 4329   !   3       java.io.BufferedReader::readLine (327 bytes)
+Event: 67.467 Thread 0x00007fb2f3028800 nmethod 4329 0x00000001187f4590 code [0x00000001187f48a0, 0x00000001187f5b90]
+Event: 67.470 Thread 0x00007fb2f3028800 4330       1       java.lang.ClassLoader::getUnnamedModule (5 bytes)
+Event: 67.470 Thread 0x00007fb2f3028800 nmethod 4330 0x000000011f624810 code [0x000000011f6249a0, 0x000000011f624a70]
+Event: 67.477 Thread 0x00007fb2f3028800 4331       3       org.deeplearning4j.nn.modelimport.keras.config.KerasLayerConfiguration::getLAYER_FIELD_CONFIG (8 bytes)
+Event: 67.477 Thread 0x00007fb2f3028800 nmethod 4331 0x00000001187f6610 code [0x00000001187f67a0, 0x00000001187f68d0]
+Event: 67.480 Thread 0x00007fb2f3028800 4332       1       java.util.Collections$1::hasNext (5 bytes)
+Event: 67.480 Thread 0x00007fb2f3028800 nmethod 4332 0x000000011f624b10 code [0x000000011f624ca0, 0x000000011f624d70]
+Event: 67.480 Thread 0x00007fb2f3028800 4333       1       java.util.concurrent.atomic.AtomicReference::get (5 bytes)
+Event: 67.480 Thread 0x00007fb2f3028800 nmethod 4333 0x000000011f624e10 code [0x000000011f624fa0, 0x000000011f625070]
+Event: 67.503 Thread 0x00007fb2f3028800 4335       3       java.util.regex.Pattern::peek (26 bytes)
+Event: 67.503 Thread 0x00007fb2f3028800 nmethod 4335 0x00000001187f6990 code [0x00000001187f6b40, 0x00000001187f6da0]
+
+GC Heap History (10 events):
+Event: 0.598 GC heap before
+{Heap before GC invocations=0 (full 0):
+ garbage-first heap   total 266240K, used 14232K [0x0000000700000000, 0x0000000800000000)
+  region size 2048K, 6 young (12288K), 0 survivors (0K)
+ Metaspace       used 1805K, committed 1920K, reserved 1114112K
+  class space    used 166K, committed 192K, reserved 1048576K
+}
+Event: 0.606 GC heap after
+{Heap after GC invocations=1 (full 0):
+ garbage-first heap   total 266240K, used 11223K [0x0000000700000000, 0x0000000800000000)
+  region size 2048K, 1 young (2048K), 1 survivors (2048K)
+ Metaspace       used 1805K, committed 1920K, reserved 1114112K
+  class space    used 166K, committed 192K, reserved 1048576K
+}
+Event: 5.467 GC heap before
+{Heap before GC invocations=1 (full 0):
+ garbage-first heap   total 266240K, used 21463K [0x0000000700000000, 0x0000000800000000)
+  region size 2048K, 6 young (12288K), 1 survivors (2048K)
+ Metaspace       used 8239K, committed 8384K, reserved 1114112K
+  class space    used 857K, committed 896K, reserved 1048576K
+}
+Event: 5.471 GC heap after
+{Heap after GC invocations=2 (full 0):
+ garbage-first heap   total 266240K, used 13121K [0x0000000700000000, 0x0000000800000000)
+  region size 2048K, 1 young (2048K), 1 survivors (2048K)
+ Metaspace       used 8239K, committed 8384K, reserved 1114112K
+  class space    used 857K, committed 896K, reserved 1048576K
+}
+Event: 8.852 GC heap before
+{Heap before GC invocations=2 (full 0):
+ garbage-first heap   total 266240K, used 29505K [0x0000000700000000, 0x0000000800000000)
+  region size 2048K, 10 young (20480K), 1 survivors (2048K)
+ Metaspace       used 18265K, committed 18496K, reserved 1114112K
+  class space    used 2260K, committed 2368K, reserved 1048576K
+}
+Event: 8.858 GC heap after
+{Heap after GC invocations=3 (full 0):
+ garbage-first heap   total 266240K, used 18115K [0x0000000700000000, 0x0000000800000000)
+  region size 2048K, 2 young (4096K), 2 survivors (4096K)
+ Metaspace       used 18265K, committed 18496K, reserved 1114112K
+  class space    used 2260K, committed 2368K, reserved 1048576K
+}
+Event: 53.683 GC heap before
+{Heap before GC invocations=3 (full 0):
+ garbage-first heap   total 266240K, used 73411K [0x0000000700000000, 0x0000000800000000)
+  region size 2048K, 30 young (61440K), 2 survivors (4096K)
+ Metaspace       used 19859K, committed 20096K, reserved 1114112K
+  class space    used 2329K, committed 2432K, reserved 1048576K
+}
+Event: 53.690 GC heap after
+{Heap after GC invocations=4 (full 0):
+ garbage-first heap   total 266240K, used 25182K [0x0000000700000000, 0x0000000800000000)
+  region size 2048K, 4 young (8192K), 4 survivors (8192K)
+ Metaspace       used 19859K, committed 20096K, reserved 1114112K
+  class space    used 2329K, committed 2432K, reserved 1048576K
+}
+Event: 66.813 GC heap before
+{Heap before GC invocations=4 (full 0):
+ garbage-first heap   total 266240K, used 37470K [0x0000000700000000, 0x0000000800000000)
+  region size 2048K, 11 young (22528K), 4 survivors (8192K)
+ Metaspace       used 21260K, committed 21504K, reserved 1114112K
+  class space    used 2431K, committed 2560K, reserved 1048576K
+}
+Event: 66.819 GC heap after
+{Heap after GC invocations=5 (full 0):
+ garbage-first heap   total 266240K, used 26271K [0x0000000700000000, 0x0000000800000000)
+  region size 2048K, 5 young (10240K), 5 survivors (10240K)
+ Metaspace       used 21260K, committed 21504K, reserved 1114112K
+  class space    used 2431K, committed 2560K, reserved 1048576K
+}
+
+Deoptimization events (20 events):
+Event: 67.465 Thread 0x00007fb2f2ef1800 DEOPT PACKING pc=0x000000011f60f6d4 sp=0x000070000d729490
+Event: 67.465 Thread 0x00007fb2f2ef1800 DEOPT UNPACKING pc=0x00000001179df099 sp=0x000070000d729028 mode 2
+Event: 67.465 Thread 0x00007fb2f2ef1800 Uncommon trap: trap_request=0xffffffbe fr.pc=0x000000011f60f6d4 relative=0x0000000000001cf4
+Event: 67.465 Thread 0x00007fb2f2ef1800 Uncommon trap: reason=profile_predicate action=maybe_recompile pc=0x000000011f60f6d4 method=jdk.internal.jimage.ImageStringsReader.stringFromByteBufferMatches(Ljava/nio/ByteBuffer;ILjava/lang/String;I)I @ 19 c2
+Event: 67.465 Thread 0x00007fb2f2ef1800 DEOPT PACKING pc=0x000000011f60f6d4 sp=0x000070000d729490
+Event: 67.465 Thread 0x00007fb2f2ef1800 DEOPT UNPACKING pc=0x00000001179df099 sp=0x000070000d729028 mode 2
+Event: 67.465 Thread 0x00007fb2f2ef1800 Uncommon trap: trap_request=0xffffffbe fr.pc=0x000000011f60f6d4 relative=0x0000000000001cf4
+Event: 67.465 Thread 0x00007fb2f2ef1800 Uncommon trap: reason=profile_predicate action=maybe_recompile pc=0x000000011f60f6d4 method=jdk.internal.jimage.ImageStringsReader.stringFromByteBufferMatches(Ljava/nio/ByteBuffer;ILjava/lang/String;I)I @ 19 c2
+Event: 67.465 Thread 0x00007fb2f2ef1800 DEOPT PACKING pc=0x000000011f60f6d4 sp=0x000070000d729490
+Event: 67.465 Thread 0x00007fb2f2ef1800 DEOPT UNPACKING pc=0x00000001179df099 sp=0x000070000d729028 mode 2
+Event: 67.465 Thread 0x00007fb2f2ef1800 Uncommon trap: trap_request=0xffffffbe fr.pc=0x000000011f613600 relative=0x0000000000000e60
+Event: 67.465 Thread 0x00007fb2f2ef1800 Uncommon trap: reason=profile_predicate action=maybe_recompile pc=0x000000011f613600 method=jdk.internal.jimage.ImageStringsReader.stringFromByteBufferMatches(Ljava/nio/ByteBuffer;ILjava/lang/String;I)I @ 19 c2
+Event: 67.465 Thread 0x00007fb2f2ef1800 DEOPT PACKING pc=0x000000011f613600 sp=0x000070000d729300
+Event: 67.465 Thread 0x00007fb2f2ef1800 DEOPT UNPACKING pc=0x00000001179df099 sp=0x000070000d729058 mode 2
+Event: 67.465 Thread 0x00007fb2f2ef1800 DEOPT PACKING pc=0x00000001187e8855 sp=0x000070000d729120
+Event: 67.465 Thread 0x00007fb2f2ef1800 DEOPT UNPACKING pc=0x00000001179df82f sp=0x000070000d7285e0 mode 0
+Event: 67.468 Thread 0x00007fb2f2ef1800 Uncommon trap: trap_request=0xffffff45 fr.pc=0x000000011f5ea410 relative=0x0000000000000770
+Event: 67.468 Thread 0x00007fb2f2ef1800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000000011f5ea410 method=jdk.internal.reflect.Reflection.verifyModuleAccess(Ljava/lang/Module;Ljava/lang/Class;)Z @ 7 c2
+Event: 67.468 Thread 0x00007fb2f2ef1800 DEOPT PACKING pc=0x000000011f5ea410 sp=0x000070000d729880
+Event: 67.468 Thread 0x00007fb2f2ef1800 DEOPT UNPACKING pc=0x00000001179df099 sp=0x000070000d729658 mode 2
+
+Classes loaded (20 events):
+Event: 67.366 Loading class sun/reflect/generics/reflectiveObjects/ParameterizedTypeImpl
+Event: 67.366 Loading class java/lang/reflect/ParameterizedType
+Event: 67.366 Loading class java/lang/reflect/ParameterizedType done
+Event: 67.366 Loading class sun/reflect/generics/reflectiveObjects/ParameterizedTypeImpl done
+Event: 67.366 Loading class sun/reflect/generics/tree/TypeVariableSignature
+Event: 67.366 Loading class sun/reflect/generics/tree/TypeVariableSignature done
+Event: 67.366 Loading class java/lang/reflect/TypeVariable
+Event: 67.366 Loading class java/lang/reflect/TypeVariable done
+Event: 67.366 Loading class sun/reflect/generics/reflectiveObjects/TypeVariableImpl
+Event: 67.366 Loading class sun/reflect/generics/reflectiveObjects/LazyReflectiveObjectGenerator
+Event: 67.366 Loading class sun/reflect/generics/reflectiveObjects/LazyReflectiveObjectGenerator done
+Event: 67.366 Loading class sun/reflect/generics/reflectiveObjects/TypeVariableImpl done
+Event: 67.397 Loading class jdk/internal/math/FloatingDecimal$ASCIIToBinaryBuffer
+Event: 67.397 Loading class jdk/internal/math/FloatingDecimal$ASCIIToBinaryBuffer done
+Event: 67.492 Loading class java/util/concurrent/LinkedTransferQueue
+Event: 67.492 Loading class java/util/concurrent/TransferQueue
+Event: 67.492 Loading class java/util/concurrent/TransferQueue done
+Event: 67.492 Loading class java/util/concurrent/LinkedTransferQueue done
+Event: 67.493 Loading class java/util/concurrent/LinkedTransferQueue$Node
+Event: 67.493 Loading class java/util/concurrent/LinkedTransferQueue$Node done
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (20 events):
+Event: 64.742 Thread 0x00007fb2f2bc3c00 Exception <a 'java/lang/NullPointerException'{0x000000070f6fe388}> (0x000000070f6fe388) 
+thrown [open/src/hotspot/share/runtime/sharedRuntime.cpp, line 625]
+Event: 64.742 Thread 0x00007fb2f2bc3c00 Implicit null exception at 0x00000001186ae8c3 to 0x00000001186b07e7
+Event: 64.742 Thread 0x00007fb2f2bc3c00 Exception <a 'java/lang/NullPointerException'{0x000000070f6fee70}> (0x000000070f6fee70) 
+thrown [open/src/hotspot/share/runtime/sharedRuntime.cpp, line 625]
+Event: 64.742 Thread 0x00007fb2f2bc3c00 Implicit null exception at 0x00000001186ae8c3 to 0x00000001186b07e7
+Event: 64.742 Thread 0x00007fb2f2bc3c00 Exception <a 'java/lang/NullPointerException'{0x000000070f7015a8}> (0x000000070f7015a8) 
+thrown [open/src/hotspot/share/runtime/sharedRuntime.cpp, line 625]
+Event: 64.743 Thread 0x00007fb2f2bc3c00 Implicit null exception at 0x00000001186ae8c3 to 0x00000001186b07e7
+Event: 64.743 Thread 0x00007fb2f2bc3c00 Exception <a 'java/lang/NullPointerException'{0x000000070f702650}> (0x000000070f702650) 
+thrown [open/src/hotspot/share/runtime/sharedRuntime.cpp, line 625]
+Event: 64.743 Thread 0x00007fb2f2bc3c00 Implicit null exception at 0x00000001186ae8c3 to 0x00000001186b07e7
+Event: 64.743 Thread 0x00007fb2f2bc3c00 Exception <a 'java/lang/NullPointerException'{0x000000070f703c90}> (0x000000070f703c90) 
+thrown [open/src/hotspot/share/runtime/sharedRuntime.cpp, line 625]
+Event: 64.743 Thread 0x00007fb2f2bc3c00 Implicit null exception at 0x00000001186ae8c3 to 0x00000001186b07e7
+Event: 64.743 Thread 0x00007fb2f2bc3c00 Exception <a 'java/lang/NullPointerException'{0x000000070f704d38}> (0x000000070f704d38) 
+thrown [open/src/hotspot/share/runtime/sharedRuntime.cpp, line 625]
+Event: 64.743 Thread 0x00007fb2f2bc3c00 Implicit null exception at 0x00000001186ae8c3 to 0x00000001186b07e7
+Event: 64.743 Thread 0x00007fb2f2bc3c00 Exception <a 'java/lang/NullPointerException'{0x000000070f706448}> (0x000000070f706448) 
+thrown [open/src/hotspot/share/runtime/sharedRuntime.cpp, line 625]
+Event: 66.781 Thread 0x00007fb2f2ef1800 Exception <a 'java/lang/NoSuchMethodError'{0x000000070f26af20}: 'int java.lang.invoke.DirectMethodHandle$Holder.invokeStaticInit(java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)'> (0x000000070f26af20) 
+thrown [open/src/hotspot/share/interpreter/linkResolver.cpp, line 766]
+Event: 66.782 Thread 0x00007fb2f2ef1800 Exception <a 'java/lang/NoSuchMethodError'{0x000000070f274af0}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.invokeInterface(java.lang.Object, java.lang.Object)'> (0x000000070f274af0) 
+thrown [open/src/hotspot/share/interpreter/linkResolver.cpp, line 766]
+Event: 66.782 Thread 0x00007fb2f2ef1800 Exception <a 'java/lang/IncompatibleClassChangeError'{0x000000070f2782e0}: Found class java.lang.Object, but interface was expected> (0x000000070f2782e0) 
+thrown [open/src/hotspot/share/interpreter/linkResolver.cpp, line 833]
+Event: 66.782 Thread 0x00007fb2f2ef1800 Exception <a 'java/lang/NoSuchMethodError'{0x000000070f27b0c0}: 'void java.lang.invoke.DirectMethodHandle$Holder.invokeStaticInit(java.lang.Object, java.lang.Object)'> (0x000000070f27b0c0) 
+thrown [open/src/hotspot/share/interpreter/linkResolver.cpp, line 766]
+Event: 66.783 Thread 0x00007fb2f2ef1800 Exception <a 'java/lang/NoSuchMethodError'{0x000000070f281e20}: 'int java.lang.invoke.DirectMethodHandle$Holder.invokeStaticInit(java.lang.Object, java.lang.Object)'> (0x000000070f281e20) 
+thrown [open/src/hotspot/share/interpreter/linkResolver.cpp, line 766]
+Event: 67.393 Thread 0x00007fb2f2ef1800 Implicit null exception at 0x000000011f54664c to 0x000000011f5467b0
+Event: 67.399 Thread 0x00007fb2f2ef1800 Exception <a 'java/lang/ClassCastException'{0x00000007045b6580}: class java.util.LinkedHashMap cannot be cast to class java.util.List (java.util.LinkedHashMap and java.util.List are in module java.base of loader 'bootstrap')> (0x00000007045b6580) 
+thrown [open/src/hotspot/share/interpreter/interpreterRuntime.cpp, line 447]
+
+VM Operations (20 events):
+Event: 65.721 Executing VM operation: Cleanup
+Event: 65.721 Executing VM operation: Cleanup done
+Event: 66.755 Executing VM operation: HandshakeAllThreads
+Event: 66.756 Executing VM operation: HandshakeAllThreads done
+Event: 66.756 Executing VM operation: Cleanup
+Event: 66.756 Executing VM operation: Cleanup done
+Event: 66.796 Executing VM operation: HandshakeAllThreads
+Event: 66.796 Executing VM operation: HandshakeAllThreads done
+Event: 66.813 Executing VM operation: CollectForMetadataAllocation
+Event: 66.819 Executing VM operation: CollectForMetadataAllocation done
+Event: 66.834 Executing VM operation: G1Concurrent
+Event: 66.837 Executing VM operation: G1Concurrent done
+Event: 66.843 Executing VM operation: G1Concurrent
+Event: 66.843 Executing VM operation: G1Concurrent done
+Event: 67.355 Executing VM operation: HandshakeAllThreads
+Event: 67.355 Executing VM operation: HandshakeAllThreads done
+Event: 67.397 Executing VM operation: HandshakeAllThreads
+Event: 67.398 Executing VM operation: HandshakeAllThreads done
+Event: 67.493 Executing VM operation: HandshakeAllThreads
+Event: 67.493 Executing VM operation: HandshakeAllThreads done
+
+Events (20 events):
+Event: 17.759 Protecting memory [0x000070000e3de000,0x000070000e3e2000] with protection modes 3
+Event: 17.759 Thread 0x00007fb2f324a800 Thread exited: 0x00007fb2f324a800
+Event: 18.752 Protecting memory [0x000070000e4e1000,0x000070000e4e5000] with protection modes 3
+Event: 18.752 Thread 0x00007fb2f2302000 Thread exited: 0x00007fb2f2302000
+Event: 21.066 Thread 0x00007fb2f221fe00 Thread added: 0x00007fb2f221fe00
+Event: 21.067 Protecting memory [0x000070000cb87000,0x000070000cb8b000] with protection modes 0
+Event: 21.193 Thread 0x00007fb2f2302000 Thread added: 0x00007fb2f2302000
+Event: 21.193 Protecting memory [0x000070000e049000,0x000070000e04d000] with protection modes 0
+Event: 24.270 Thread 0x00007fb2f35c1800 Thread added: 0x00007fb2f35c1800
+Event: 24.271 Protecting memory [0x000070000e14c000,0x000070000e150000] with protection modes 0
+Event: 26.071 Protecting memory [0x000070000cb87000,0x000070000cb8b000] with protection modes 3
+Event: 26.071 Thread 0x00007fb2f221fe00 Thread exited: 0x00007fb2f221fe00
+Event: 66.812 Loaded shared library /Users/p/.javacpp/cache/javacpp-1.5.5-macosx-x86_64.jar/org/bytedeco/javacpp/macosx-x86_64/libjnijavacpp.dylib
+Event: 66.826 Thread 0x00007fb2f2f7ba00 Thread added: 0x00007fb2f2f7ba00
+Event: 66.826 Protecting memory [0x000070000cb87000,0x000070000cb8b000] with protection modes 0
+Event: 66.853 Loaded shared library /Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libhdf5.200.dylib
+Event: 66.969 Loaded shared library /Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libhdf5_cpp.200.dylib
+Event: 66.979 Loaded shared library /Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libhdf5_hl.200.dylib
+Event: 66.993 Loaded shared library /Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libhdf5_hl_cpp.200.dylib
+Event: 67.010 Loaded shared library /Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libjnihdf5.dylib
+
+
+Dynamic libraries:
+0x0000000107c5c000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libjli.dylib
+0x00007ff80cb5d000 	/usr/lib/libz.1.dylib
+0x00007ff80cc3d000 	/usr/lib/libSystem.B.dylib
+0x00007ff80cc38000 	/usr/lib/system/libcache.dylib
+0x00007ff80cbf4000 	/usr/lib/system/libcommonCrypto.dylib
+0x00007ff80cc1d000 	/usr/lib/system/libcompiler_rt.dylib
+0x00007ff80cc13000 	/usr/lib/system/libcopyfile.dylib
+0x00007ff801bd4000 	/usr/lib/system/libcorecrypto.dylib
+0x00007ff801c92000 	/usr/lib/system/libdispatch.dylib
+0x00007ff801e52000 	/usr/lib/system/libdyld.dylib
+0x00007ff80cc2f000 	/usr/lib/system/libkeymgr.dylib
+0x00007ff80cbd2000 	/usr/lib/system/libmacho.dylib
+0x00007ff80c253000 	/usr/lib/system/libquarantine.dylib
+0x00007ff80cc2d000 	/usr/lib/system/libremovefile.dylib
+0x00007ff806de9000 	/usr/lib/system/libsystem_asl.dylib
+0x00007ff801b7d000 	/usr/lib/system/libsystem_blocks.dylib
+0x00007ff801d16000 	/usr/lib/system/libsystem_c.dylib
+0x00007ff80cc25000 	/usr/lib/system/libsystem_collections.dylib
+0x00007ff80b507000 	/usr/lib/system/libsystem_configuration.dylib
+0x00007ff80a7b4000 	/usr/lib/system/libsystem_containermanager.dylib
+0x00007ff80c90a000 	/usr/lib/system/libsystem_coreservices.dylib
+0x00007ff80448d000 	/usr/lib/system/libsystem_darwin.dylib
+0x00007ff80cc30000 	/usr/lib/system/libsystem_dnssd.dylib
+0x00007ff801d13000 	/usr/lib/system/libsystem_featureflags.dylib
+0x00007ff801e68000 	/usr/lib/system/libsystem_info.dylib
+0x00007ff80cb70000 	/usr/lib/system/libsystem_m.dylib
+0x00007ff801c66000 	/usr/lib/system/libsystem_malloc.dylib
+0x00007ff806d84000 	/usr/lib/system/libsystem_networkextension.dylib
+0x00007ff8048b3000 	/usr/lib/system/libsystem_notify.dylib
+0x00007ff812ea9000 	/usr/lib/system/libsystem_product_info_filter.dylib
+0x00007ff80b50b000 	/usr/lib/system/libsystem_sandbox.dylib
+0x00007ff80cc2a000 	/usr/lib/system/libsystem_secinit.dylib
+0x00007ff801e0e000 	/usr/lib/system/libsystem_kernel.dylib
+0x00007ff801e5e000 	/usr/lib/system/libsystem_platform.dylib
+0x00007ff801e46000 	/usr/lib/system/libsystem_pthread.dylib
+0x00007ff808635000 	/usr/lib/system/libsystem_symptoms.dylib
+0x00007ff801bbb000 	/usr/lib/system/libsystem_trace.dylib
+0x00007ff80cc00000 	/usr/lib/system/libunwind.dylib
+0x00007ff801b7f000 	/usr/lib/system/libxpc.dylib
+0x00007ff801df8000 	/usr/lib/libc++abi.dylib
+0x00007ff801cd9000 	/usr/lib/libobjc.A.dylib
+0x00007ff80cc0b000 	/usr/lib/liboah.dylib
+0x00007ff801d9f000 	/usr/lib/libc++.1.dylib
+0x00007ff818ca8000 	/System/Library/Frameworks/Cocoa.framework/Versions/A/Cocoa
+0x00007ff804911000 	/System/Library/Frameworks/AppKit.framework/Versions/C/AppKit
+0x00007ff807e24000 	/System/Library/Frameworks/CoreData.framework/Versions/A/CoreData
+0x00007ff802d15000 	/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation
+0x00007ff8057a0000 	/System/Library/PrivateFrameworks/UIFoundation.framework/Versions/A/UIFoundation
+0x00007ff812bac000 	/System/Library/PrivateFrameworks/RemoteViewServices.framework/Versions/A/RemoteViewServices
+0x00007ff80ae92000 	/System/Library/PrivateFrameworks/XCTTargetBootstrap.framework/Versions/A/XCTTargetBootstrap
+0x00007ff80ea44000 	/System/Library/PrivateFrameworks/InternationalSupport.framework/Versions/A/InternationalSupport
+0x00007ff80eace000 	/System/Library/PrivateFrameworks/UserActivity.framework/Versions/A/UserActivity
+0x00007ff80de24000 	/usr/lib/libspindump.dylib
+0x00007ff805a2e000 	/System/Library/Frameworks/UniformTypeIdentifiers.framework/Versions/A/UniformTypeIdentifiers
+0x00007ff8095ba000 	/usr/lib/libapp_launch_measurement.dylib
+0x00007ff8087f5000 	/System/Library/PrivateFrameworks/CoreAnalytics.framework/Versions/A/CoreAnalytics
+0x00007ff8095bd000 	/System/Library/PrivateFrameworks/CoreAutoLayout.framework/Versions/A/CoreAutoLayout
+0x00007ff80a7ec000 	/System/Library/Frameworks/Metal.framework/Versions/A/Metal
+0x00007ff80b517000 	/usr/lib/liblangid.dylib
+0x00007ff80ae97000 	/System/Library/PrivateFrameworks/CoreSVG.framework/Versions/A/CoreSVG
+0x00007ff806e19000 	/System/Library/PrivateFrameworks/SkyLight.framework/Versions/A/SkyLight
+0x00007ff8071b7000 	/System/Library/Frameworks/CoreGraphics.framework/Versions/A/CoreGraphics
+0x00007ff81326c000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Accelerate
+0x00007ff80d8a3000 	/System/Library/PrivateFrameworks/IconServices.framework/Versions/A/IconServices
+0x00007ff80a7d1000 	/System/Library/Frameworks/IOSurface.framework/Versions/A/IOSurface
+0x00007ff808823000 	/usr/lib/libDiagnosticMessagesClient.dylib
+0x00007ff81694c000 	/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices
+0x00007ff80ae7e000 	/System/Library/PrivateFrameworks/DFRFoundation.framework/Versions/A/DFRFoundation
+0x00007ff8041f9000 	/usr/lib/libicucore.A.dylib
+0x00007ff80f839000 	/System/Library/Frameworks/AudioToolbox.framework/Versions/A/AudioToolbox
+0x00007ff80ea50000 	/System/Library/PrivateFrameworks/DataDetectorsCore.framework/Versions/A/DataDetectorsCore
+0x00007ff90af37000 	/System/Library/PrivateFrameworks/TextInput.framework/Versions/A/TextInput
+0x00007ff806d9c000 	/usr/lib/libMobileGestalt.dylib
+0x00007ff80ab8a000 	/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/HIToolbox
+0x00007ff808fc0000 	/System/Library/Frameworks/QuartzCore.framework/Versions/A/QuartzCore
+0x00007ff803e9e000 	/System/Library/Frameworks/Security.framework/Versions/A/Security
+0x00007ff812be4000 	/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/SpeechRecognition.framework/Versions/A/SpeechRecognition
+0x00007ff80931a000 	/System/Library/PrivateFrameworks/CoreUI.framework/Versions/A/CoreUI
+0x00007ff803769000 	/System/Library/Frameworks/CoreAudio.framework/Versions/A/CoreAudio
+0x00007ff808912000 	/System/Library/Frameworks/DiskArbitration.framework/Versions/A/DiskArbitration
+0x00007ff80e212000 	/System/Library/PrivateFrameworks/MultitouchSupport.framework/Versions/A/MultitouchSupport
+0x00007ff806d9b000 	/usr/lib/libenergytrace.dylib
+0x00007ff8047fd000 	/System/Library/Frameworks/IOKit.framework/Versions/A/IOKit
+0x00007ff812fd4000 	/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices
+0x00007ff809554000 	/System/Library/PrivateFrameworks/PerformanceAnalysis.framework/Versions/A/PerformanceAnalysis
+0x00007ffa1ac1c000 	/System/Library/Frameworks/OpenGL.framework/Versions/A/OpenGL
+0x00007ff80c179000 	/System/Library/PrivateFrameworks/MobileKeyBag.framework/Versions/A/MobileKeyBag
+0x00007ff807883000 	/System/Library/Frameworks/ColorSync.framework/Versions/A/ColorSync
+0x00007ff801e93000 	/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+0x00007ff80b10d000 	/System/Library/Frameworks/CoreImage.framework/Versions/A/CoreImage
+0x00007ff80357d000 	/System/Library/Frameworks/CoreText.framework/Versions/A/CoreText
+0x00007ff80aec7000 	/System/Library/Frameworks/ImageIO.framework/Versions/A/ImageIO
+0x00007ff80cc43000 	/System/Library/PrivateFrameworks/SoftLinking.framework/Versions/A/SoftLinking
+0x00007ff809605000 	/usr/lib/libxml2.2.dylib
+0x00007ff80cec7000 	/usr/lib/libcompression.dylib
+0x00007ff80e977000 	/System/Library/PrivateFrameworks/TextureIO.framework/Versions/A/TextureIO
+0x00007ff80d5b5000 	/usr/lib/libate.dylib
+0x00007ff80d391000 	/usr/lib/liblzma.5.dylib
+0x00007ff802a24000 	/System/Library/Frameworks/SystemConfiguration.framework/Versions/A/SystemConfiguration
+0x00007ff80cc3f000 	/usr/lib/libfakelink.dylib
+0x00007ff8068f5000 	/System/Library/Frameworks/CFNetwork.framework/Versions/A/CFNetwork
+0x00007ff80cd80000 	/usr/lib/libarchive.2.dylib
+0x00007ff80b513000 	/System/Library/PrivateFrameworks/AppleSystemInfo.framework/Versions/A/AppleSystemInfo
+0x00007ff80c27a000 	/usr/lib/libbsm.0.dylib
+0x00007ff805f04000 	/usr/lib/libnetwork.dylib
+0x00007ff80cbd8000 	/usr/lib/system/libkxld.dylib
+0x00007ff80bead000 	/System/Library/PrivateFrameworks/IOMobileFramebuffer.framework/Versions/A/IOMobileFramebuffer
+0x00007ffb19ff0000 	/usr/lib/libCoreEntitlements.dylib
+0x00007ff80c8ec000 	/System/Library/PrivateFrameworks/AppleFSCompression.framework/Versions/A/AppleFSCompression
+0x00007ff80c262000 	/usr/lib/libcoretls.dylib
+0x00007ff80d3ab000 	/usr/lib/libcoretls_cfhelpers.dylib
+0x00007ff80cec2000 	/usr/lib/libpam.2.dylib
+0x00007ff808255000 	/usr/lib/libsqlite3.dylib
+0x00007ff80d41a000 	/usr/lib/libxar.1.dylib
+0x00007ff80c8fc000 	/usr/lib/libbz2.1.0.dylib
+0x00007ff80cc44000 	/usr/lib/libpcap.A.dylib
+0x00007ff80862d000 	/usr/lib/libdns_services.dylib
+0x00007ff80ce92000 	/usr/lib/libapple_nghttp2.dylib
+0x00007ff80cc7e000 	/usr/lib/libiconv.2.dylib
+0x00007ff80cbd1000 	/usr/lib/libcharset.1.dylib
+0x00007ff809588000 	/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/FSEvents.framework/Versions/A/FSEvents
+0x00007ff804497000 	/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/CarbonCore
+0x00007ff808876000 	/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Metadata
+0x00007ff80c90f000 	/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/OSServices.framework/Versions/A/OSServices
+0x00007ff80ce07000 	/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/SearchKit.framework/Versions/A/SearchKit
+0x00007ff8085c0000 	/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/AE.framework/Versions/A/AE
+0x00007ff802396000 	/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/LaunchServices
+0x00007ff80d342000 	/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/DictionaryServices.framework/Versions/A/DictionaryServices
+0x00007ff809595000 	/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/SharedFileList.framework/Versions/A/SharedFileList
+0x00007ff80c256000 	/usr/lib/libCheckFix.dylib
+0x00007ff806e00000 	/System/Library/PrivateFrameworks/TCC.framework/Versions/A/TCC
+0x00007ff80b519000 	/System/Library/PrivateFrameworks/CoreNLP.framework/Versions/A/CoreNLP
+0x00007ff808826000 	/System/Library/PrivateFrameworks/MetadataUtilities.framework/Versions/A/MetadataUtilities
+0x00007ff802ad8000 	/usr/lib/libmecabra.dylib
+0x00007ff80c28a000 	/usr/lib/libmecab.dylib
+0x00007ff802aa3000 	/usr/lib/libCRFSuite.dylib
+0x00007ff80c2e4000 	/usr/lib/libgermantok.dylib
+0x00007ff80ce6d000 	/usr/lib/libThaiTokenizer.dylib
+0x00007ff808919000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vImage.framework/Versions/A/vImage
+0x00007ff812fab000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/vecLib
+0x00007ff80d45b000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libvMisc.dylib
+0x00007ff80bcd8000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libvDSP.dylib
+0x00007ff802714000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+0x00007ff80cfa4000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libLAPACK.dylib
+0x00007ff80c2e7000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libLinearAlgebra.dylib
+0x00007ff80ceaa000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libSparseBLAS.dylib
+0x00007ff80cf9e000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libQuadrature.dylib
+0x00007ff80b604000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBNNS.dylib
+0x00007ff8029ae000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libSparse.dylib
+0x00007ff80b5fd000 	/System/Library/PrivateFrameworks/LinguisticData.framework/Versions/A/LinguisticData
+0x00007ff802964000 	/System/Library/PrivateFrameworks/Lexicon.framework/Versions/A/Lexicon
+0x00007ff80d454000 	/usr/lib/libChineseTokenizer.dylib
+0x00007ff8030d2000 	/System/Library/PrivateFrameworks/LanguageModeling.framework/Versions/A/LanguageModeling
+0x00007ff80ce6f000 	/System/Library/PrivateFrameworks/AppleSauce.framework/Versions/A/AppleSauce
+0x00007ff80be9b000 	/System/Library/PrivateFrameworks/CoreEmoji.framework/Versions/A/CoreEmoji
+0x00007ff80cd6f000 	/usr/lib/libcmph.dylib
+0x00007ff80956c000 	/System/Library/Frameworks/OpenDirectory.framework/Versions/A/Frameworks/CFOpenDirectory.framework/Versions/A/CFOpenDirectory
+0x00007ff809560000 	/System/Library/Frameworks/OpenDirectory.framework/Versions/A/OpenDirectory
+0x00007ff80d3ad000 	/System/Library/PrivateFrameworks/APFS.framework/Versions/A/APFS
+0x00007ff80c1b1000 	/System/Library/Frameworks/SecurityFoundation.framework/Versions/A/SecurityFoundation
+0x00007ff80d428000 	/usr/lib/libutil.dylib
+0x00007ff8047c1000 	/System/Library/PrivateFrameworks/CoreServicesStore.framework/Versions/A/CoreServicesStore
+0x00007ff80d42c000 	/usr/lib/libxslt.1.dylib
+0x00007ff80c23e000 	/System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Versions/A/BackgroundTaskManagement
+0x00007ff80e897000 	/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libRadiance.dylib
+0x00007ff80e8a0000 	/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libJPEG.dylib
+0x00007ff80e7f1000 	/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libPng.dylib
+0x00007ff80e812000 	/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libTIFF.dylib
+0x00007ff80e900000 	/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libGIF.dylib
+0x00007ff80e12c000 	/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libJP2.dylib
+0x00007ff80d86a000 	/usr/lib/libexpat.1.dylib
+0x00007ff80e0e1000 	/System/Library/PrivateFrameworks/AppleJPEG.framework/Versions/A/AppleJPEG
+0x00007ff80aa4e000 	/System/Library/PrivateFrameworks/FontServices.framework/libFontParser.dylib
+0x00007ff80856a000 	/System/Library/PrivateFrameworks/RunningBoardServices.framework/Versions/A/RunningBoardServices
+0x00007ff819263000 	/System/Library/PrivateFrameworks/IOSurfaceAccelerator.framework/Versions/A/IOSurfaceAccelerator
+0x00007ff80e20e000 	/System/Library/PrivateFrameworks/WatchdogClient.framework/Versions/A/WatchdogClient
+0x00007ff8031c0000 	/System/Library/Frameworks/CoreDisplay.framework/Versions/A/CoreDisplay
+0x00007ff80a94c000 	/System/Library/Frameworks/CoreMedia.framework/Versions/A/CoreMedia
+0x00007ff80a7e3000 	/System/Library/PrivateFrameworks/IOAccelerator.framework/Versions/A/IOAccelerator
+0x00007ff8096e9000 	/System/Library/Frameworks/CoreVideo.framework/Versions/A/CoreVideo
+0x00007ff80cec0000 	/System/Library/Frameworks/MetalPerformanceShaders.framework/Versions/A/MetalPerformanceShaders
+0x00007ff80e24b000 	/System/Library/Frameworks/VideoToolbox.framework/Versions/A/VideoToolbox
+0x00007ff8084b4000 	/System/Library/PrivateFrameworks/BaseBoard.framework/Versions/A/BaseBoard
+0x00007ff80823b000 	/System/Library/PrivateFrameworks/ProtocolBuffer.framework/Versions/A/ProtocolBuffer
+0x00007ff80e890000 	/System/Library/PrivateFrameworks/GPUWrangler.framework/Versions/A/GPUWrangler
+0x00007ff80e874000 	/System/Library/PrivateFrameworks/IOPresentment.framework/Versions/A/IOPresentment
+0x00007ff80e89a000 	/System/Library/PrivateFrameworks/DSExternalDisplay.framework/Versions/A/DSExternalDisplay
+0x00007ffa1ac10000 	/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libCoreFSCache.dylib
+0x00007ffb07714000 	/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/31001/Libraries/libGPUCompilerUtils.dylib
+0x00007ff80e905000 	/System/Library/PrivateFrameworks/CMCaptureCore.framework/Versions/A/CMCaptureCore
+0x00007ff80de12000 	/System/Library/PrivateFrameworks/AppServerSupport.framework/Versions/A/AppServerSupport
+0x00007ff8100d1000 	/System/Library/PrivateFrameworks/perfdata.framework/Versions/A/perfdata
+0x00007ff8032ec000 	/System/Library/PrivateFrameworks/AudioToolboxCore.framework/Versions/A/AudioToolboxCore
+0x00007ff80a92a000 	/System/Library/PrivateFrameworks/caulk.framework/Versions/A/caulk
+0x00007ff80f9e3000 	/usr/lib/libAudioStatistics.dylib
+0x00007ff9076da000 	/System/Library/PrivateFrameworks/SystemPolicy.framework/Versions/A/SystemPolicy
+0x00007ff80fc3e000 	/usr/lib/libSMC.dylib
+0x00007ff818b5b000 	/System/Library/Frameworks/CoreMIDI.framework/Versions/A/CoreMIDI
+0x00007ff80e7c0000 	/usr/lib/libAudioToolboxUtility.dylib
+0x00007ff90390f000 	/System/Library/PrivateFrameworks/OSAServicesClient.framework/Versions/A/OSAServicesClient
+0x00007ff8100de000 	/usr/lib/libperfcheck.dylib
+0x00007ff908184000 	/usr/lib/libmis.dylib
+0x00007ffa1ac6b000 	/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLU.dylib
+0x00007ffa1ac2f000 	/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGFXShared.dylib
+0x00007ffa1ae38000 	/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib
+0x00007ffa1ac38000 	/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLImage.dylib
+0x00007ffa1ac2c000 	/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libCVMSPluginSupport.dylib
+0x00007ffa1ac17000 	/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libCoreVMClient.dylib
+0x00007ff80b495000 	/System/Library/Frameworks/MetalPerformanceShaders.framework/Versions/A/Frameworks/MPSCore.framework/Versions/A/MPSCore
+0x00007ff80c857000 	/System/Library/Frameworks/MetalPerformanceShaders.framework/Versions/A/Frameworks/MPSImage.framework/Versions/A/MPSImage
+0x00007ff80c2fd000 	/System/Library/Frameworks/MetalPerformanceShaders.framework/Versions/A/Frameworks/MPSNeuralNetwork.framework/Versions/A/MPSNeuralNetwork
+0x00007ff80c771000 	/System/Library/Frameworks/MetalPerformanceShaders.framework/Versions/A/Frameworks/MPSMatrix.framework/Versions/A/MPSMatrix
+0x00007ff80c52c000 	/System/Library/Frameworks/MetalPerformanceShaders.framework/Versions/A/Frameworks/MPSRayIntersector.framework/Versions/A/MPSRayIntersector
+0x00007ff80c7a9000 	/System/Library/Frameworks/MetalPerformanceShaders.framework/Versions/A/Frameworks/MPSNDArray.framework/Versions/A/MPSNDArray
+0x00007ffa1fe32000 	/System/Library/Frameworks/MetalPerformanceShaders.framework/Versions/A/Frameworks/MPSFunctions.framework/Versions/A/MPSFunctions
+0x00007ff8025ed000 	/System/Library/PrivateFrameworks/MetalTools.framework/Versions/A/MetalTools
+0x00007ff80b511000 	/System/Library/PrivateFrameworks/AggregateDictionary.framework/Versions/A/AggregateDictionary
+0x00007ff80d64c000 	/usr/lib/libIOReport.dylib
+0x00007ffa1c247000 	/System/Library/Frameworks/OpenCL.framework/Versions/A/OpenCL
+0x00007ff80d9b0000 	/System/Library/PrivateFrameworks/FaceCore.framework/Versions/A/FaceCore
+0x00007ff80d9a1000 	/System/Library/PrivateFrameworks/GraphVisualizer.framework/Versions/A/GraphVisualizer
+0x00007ffb0761f000 	/System/Library/PrivateFrameworks/FontServices.framework/Versions/A/FontServices
+0x00007ff80ddca000 	/System/Library/PrivateFrameworks/OTSVG.framework/Versions/A/OTSVG
+0x00007ff8092d0000 	/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/Resources/libFontRegistry.dylib
+0x00007ff80de1a000 	/System/Library/PrivateFrameworks/FontServices.framework/libhvf.dylib
+0x00007ffb07620000 	/System/Library/PrivateFrameworks/FontServices.framework/libXTFontStaticRegistryData.dylib
+0x00007ff80d81a000 	/System/Library/PrivateFrameworks/AppleVA.framework/Versions/A/AppleVA
+0x00007ff80fa03000 	/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/ATS
+0x00007ff807981000 	/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/HIServices
+0x00007ff80e90f000 	/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/PrintCore.framework/Versions/A/PrintCore
+0x00007ff80fd91000 	/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/QD.framework/Versions/A/QD
+0x00007ff80fd89000 	/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ColorSyncLegacy.framework/Versions/A/ColorSyncLegacy
+0x00007ff80f9f3000 	/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/SpeechSynthesis
+0x00007ff80e8d0000 	/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATSUI.framework/Versions/A/ATSUI
+0x00007ff80fd1e000 	/usr/lib/libcups.2.dylib
+0x00007ff8100ed000 	/System/Library/Frameworks/Kerberos.framework/Versions/A/Kerberos
+0x00007ff8100fc000 	/System/Library/Frameworks/GSS.framework/Versions/A/GSS
+0x00007ff80fa6f000 	/usr/lib/libresolv.9.dylib
+0x00007ff80de29000 	/System/Library/PrivateFrameworks/Heimdal.framework/Versions/A/Heimdal
+0x00007ff816cde000 	/System/Library/Frameworks/Kerberos.framework/Versions/A/Libraries/libHeimdalProxy.dylib
+0x00007ff80863d000 	/System/Library/Frameworks/Network.framework/Versions/A/Network
+0x00007ff80d884000 	/usr/lib/libheimdal-asn1.dylib
+0x00007ff810147000 	/System/Library/PrivateFrameworks/CommonAuth.framework/Versions/A/CommonAuth
+0x00007ff80f975000 	/System/Library/PrivateFrameworks/AudioSession.framework/Versions/A/AudioSession
+0x00007ff80d914000 	/System/Library/PrivateFrameworks/MediaExperience.framework/Versions/A/MediaExperience
+0x00007ff80f808000 	/System/Library/PrivateFrameworks/AudioSession.framework/libSessionUtility.dylib
+0x00007ff80fd9d000 	/System/Library/PrivateFrameworks/AudioResourceArbitration.framework/Versions/A/AudioResourceArbitration
+0x00007ff813e1e000 	/System/Library/PrivateFrameworks/PowerLog.framework/Versions/A/PowerLog
+0x00007ff80d88d000 	/System/Library/PrivateFrameworks/IconFoundation.framework/Versions/A/IconFoundation
+0x00007ff812bd4000 	/System/Library/PrivateFrameworks/SpeechRecognitionCore.framework/Versions/A/SpeechRecognitionCore
+0x0000000108ca9000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/server/libjvm.dylib
+0x0000000107c8b000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libjimage.dylib
+0x0000000107cae000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libinstrument.dylib
+0x0000000107cf0000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libjava.dylib
+0x000000010877b000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libzip.dylib
+0x000000010878f000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libnio.dylib
+0x00000001087ab000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libnet.dylib
+0x00000001087c7000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libverify.dylib
+0x0000000107cdb000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libextnet.dylib
+0x000000010887e000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libawt.dylib
+0x000000010893e000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libmlib_image.dylib
+0x00007ffa1fd9b000 	/System/Library/Frameworks/JavaRuntimeSupport.framework/Versions/A/JavaRuntimeSupport
+0x00007ff9071fe000 	/System/Library/Frameworks/Carbon.framework/Versions/A/Carbon
+0x00007ff815098000 	/System/Library/PrivateFrameworks/CoreSymbolication.framework/Versions/A/CoreSymbolication
+0x00007ff81a5fa000 	/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/CommonPanels.framework/Versions/A/CommonPanels
+0x00007ff8166cc000 	/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Help.framework/Versions/A/Help
+0x00007ff81a5fe000 	/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/ImageCapture.framework/Versions/A/ImageCapture
+0x00007ff81a5ce000 	/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/OpenScripting.framework/Versions/A/OpenScripting
+0x00007ff81a5f6000 	/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Ink.framework/Versions/A/Ink
+0x00007ff9071fa000 	/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Print.framework/Versions/A/Print
+0x00007ff81a5f2000 	/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/SecurityHI.framework/Versions/A/SecurityHI
+0x00007ff81505d000 	/System/Library/PrivateFrameworks/DebugSymbols.framework/Versions/A/DebugSymbols
+0x0000000108b0a000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libawt_lwawt.dylib
+0x0000000108804000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libosxapp.dylib
+0x00007ff9064d0000 	/System/Library/Frameworks/ExceptionHandling.framework/Versions/A/ExceptionHandling
+0x000000010eeb7000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libfontmanager.dylib
+0x000000010ed29000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libfreetype.dylib
+0x00007ff804783000 	/System/Library/PrivateFrameworks/CoreServicesInternal.framework/Versions/A/CoreServicesInternal
+0x00007ff81440f000 	/System/Library/Frameworks/FileProvider.framework/Versions/A/FileProvider
+0x00007ff808421000 	/System/Library/Frameworks/Accounts.framework/Versions/A/Accounts
+0x00007ff814588000 	/System/Library/PrivateFrameworks/GenerationalStorage.framework/Versions/A/GenerationalStorage
+0x00007ff813e13000 	/System/Library/PrivateFrameworks/SymptomDiagnosticReporter.framework/Versions/A/SymptomDiagnosticReporter
+0x00007ff805a42000 	/System/Library/PrivateFrameworks/DesktopServicesPriv.framework/Versions/A/DesktopServicesPriv
+0x00007ff8048c2000 	/usr/lib/libsandbox.1.dylib
+0x00007ff809768000 	/System/Library/PrivateFrameworks/UserManagement.framework/Versions/A/UserManagement
+0x00007ff80fd7e000 	/System/Library/PrivateFrameworks/NetAuth.framework/Versions/A/NetAuth
+0x00007ff810c8d000 	/System/Library/PrivateFrameworks/Sharing.framework/Versions/A/Sharing
+0x00007ff80973b000 	/System/Library/PrivateFrameworks/login.framework/Versions/A/Frameworks/loginsupport.framework/Versions/A/loginsupport
+0x00007ff8161fb000 	/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Apple80211
+0x00007ff80c93c000 	/System/Library/PrivateFrameworks/AuthKit.framework/Versions/A/AuthKit
+0x00007ff80bf91000 	/System/Library/PrivateFrameworks/CoreUtils.framework/Versions/A/CoreUtils
+0x00007ff80beb8000 	/System/Library/Frameworks/CoreWLAN.framework/Versions/A/CoreWLAN
+0x00007ff810dec000 	/System/Library/Frameworks/IOBluetooth.framework/Versions/A/IOBluetooth
+0x00007ff816263000 	/System/Library/PrivateFrameworks/CoreWiFi.framework/Versions/A/CoreWiFi
+0x00007ff814c32000 	/System/Library/PrivateFrameworks/FrontBoardServices.framework/Versions/A/FrontBoardServices
+0x00007ff814cc3000 	/System/Library/PrivateFrameworks/BoardServices.framework/Versions/A/BoardServices
+0x00007ff80c1a0000 	/System/Library/PrivateFrameworks/AssertionServices.framework/Versions/A/AssertionServices
+0x00007ff8163e6000 	/System/Library/PrivateFrameworks/BackBoardServices.framework/Versions/A/BackBoardServices
+0x00007ff8101d8000 	/System/Library/PrivateFrameworks/CorePhoneNumbers.framework/Versions/A/CorePhoneNumbers
+0x00007ff80fa9c000 	/System/Library/PrivateFrameworks/MultiverseSupport.framework/Versions/A/MultiverseSupport
+0x00007ff816659000 	/System/Library/PrivateFrameworks/RemoteServiceDiscovery.framework/Versions/A/RemoteServiceDiscovery
+0x00007ff813f30000 	/System/Library/PrivateFrameworks/DiskManagement.framework/Versions/A/DiskManagement
+0x00007ff813e44000 	/System/Library/PrivateFrameworks/AppleIDAuthSupport.framework/Versions/A/AppleIDAuthSupport
+0x00007ffb01fb6000 	/System/Library/PrivateFrameworks/AAAFoundation.framework/Versions/A/AAAFoundation
+0x00007ff8101b9000 	/System/Library/PrivateFrameworks/KeychainCircle.framework/Versions/A/KeychainCircle
+0x00007ff816669000 	/System/Library/PrivateFrameworks/RemoteXPC.framework/Versions/A/RemoteXPC
+0x00007ff813efc000 	/System/Library/PrivateFrameworks/MediaKit.framework/Versions/A/MediaKit
+0x00007ff813e50000 	/System/Library/Frameworks/DiscRecording.framework/Versions/A/DiscRecording
+0x00007ff80d792000 	/usr/lib/libCoreStorage.dylib
+0x00007ff8166d4000 	/usr/lib/libcsfde.dylib
+0x00007ff810eb9000 	/System/Library/PrivateFrameworks/ProtectedCloudStorage.framework/Versions/A/ProtectedCloudStorage
+0x00007ff8166d0000 	/System/Library/PrivateFrameworks/EFILogin.framework/Versions/A/EFILogin
+0x00007ff8145ae000 	/System/Library/PrivateFrameworks/OctagonTrust.framework/Versions/A/OctagonTrust
+0x00007ffb06882000 	/System/Library/PrivateFrameworks/CoreUtilsExtras.framework/Versions/A/CoreUtilsExtras
+0x00007ff813d77000 	/System/Library/Frameworks/CoreBluetooth.framework/Versions/A/CoreBluetooth
+0x00007ff816d63000 	/System/Library/Frameworks/AudioUnit.framework/Versions/A/AudioUnit
+0x00007ff80d78a000 	/usr/lib/libMatch.1.dylib
+0x00007ff90ef6d000 	/System/Library/CoreServices/RawCamera.bundle/Contents/MacOS/RawCamera
+0x00007ff810157000 	/System/Library/PrivateFrameworks/MobileAsset.framework/Versions/A/MobileAsset
+0x00007ff816d8a000 	/System/Library/PrivateFrameworks/StreamingZip.framework/Versions/A/StreamingZip
+0x00007ffb03b76000 	/System/Library/PrivateFrameworks/CMPhoto.framework/Versions/A/CMPhoto
+0x00007ff814f33000 	/System/Library/PrivateFrameworks/AppleVPA.framework/Versions/A/AppleVPA
+0x00007ff80eb39000 	/System/Library/Frameworks/MediaToolbox.framework/Versions/A/MediaToolbox
+0x00007ff8143df000 	/System/Library/PrivateFrameworks/CoreAVCHD.framework/Versions/A/CoreAVCHD
+0x00007ff8132b4000 	/System/Library/Frameworks/MediaAccessibility.framework/Versions/A/MediaAccessibility
+0x00007ff8143db000 	/System/Library/PrivateFrameworks/Mangrove.framework/Versions/A/Mangrove
+0x00007ff8132bf000 	/System/Library/PrivateFrameworks/AlgosScoreFramework.framework/Versions/A/AlgosScoreFramework
+0x00007ff814020000 	/System/Library/PrivateFrameworks/CoreAUC.framework/Versions/A/CoreAUC
+0x00007ff90c796000 	/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vImage.framework/Versions/A/Libraries/libCGInterfaces.dylib
+0x0000000108ad7000 	/usr/lib/libobjc-trampolines.dylib
+0x00007ff809460000 	/System/Library/PrivateFrameworks/ViewBridge.framework/Versions/A/ViewBridge
+0x00007ff80dee0000 	/System/Library/PrivateFrameworks/login.framework/Versions/A/login
+0x00007ffa1ae43000 	/System/Library/Frameworks/OpenGL.framework/Versions/A/Resources/GLEngine.bundle/GLEngine
+0x00007ffa1aca9000 	/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLProgrammability.dylib
+0x00007ffa0fccb000 	/System/Library/Extensions/AppleIntelKBLGraphicsGLDriver.bundle/Contents/MacOS/AppleIntelKBLGraphicsGLDriver
+0x00007ff912309000 	/System/Library/PrivateFrameworks/GPUSupport.framework/Versions/A/Libraries/libGPUSupportMercury.dylib
+0x00007ffa1afcd000 	/System/Library/Frameworks/OpenGL.framework/Versions/A/Resources/GLRendererFloat.bundle/GLRendererFloat
+0x00007ffb1a0df000 	/usr/lib/libRosetta.dylib
+0x000000013a01f000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libosxui.dylib
+0x00007ffa0de4f000 	/System/Library/Extensions/AppleIntelKBLGraphicsMTLDriver.bundle/Contents/MacOS/AppleIntelKBLGraphicsMTLDriver
+0x00007ff90819f000 	/System/Library/PrivateFrameworks/GPURawCounter.framework/Versions/A/GPURawCounter
+0x00000001aa855000 	/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home/lib/libjavajpeg.dylib
+0x00000001a858d000 	/Users/p/.javacpp/cache/javacpp-1.5.5-macosx-x86_64.jar/org/bytedeco/javacpp/macosx-x86_64/libjnijavacpp.dylib
+0x00000001b26ca000 	/Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libhdf5.200.dylib
+0x00000001ad387000 	/Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libhdf5_cpp.200.dylib
+0x00000001ac8a7000 	/Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libhdf5_hl.200.dylib
+0x00000001a82be000 	/Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libhdf5_hl_cpp.200.dylib
+0x00000001ae31e000 	/Users/p/.javacpp/cache/hdf5-1.12.0-1.5.5-macosx-x86_64.jar/org/bytedeco/hdf5/macosx-x86_64/libjnihdf5.dylib
+
+
+VM Arguments:
+jvm_args: -javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=51445:/Applications/IntelliJ IDEA.app/Contents/bin -Dfile.encoding=UTF-8 
+java_command: jade.Boot -gui GUI:Utilities.ConsoleAgent();GlueStation1:Resource.ResourceAgent(GS1,GS1,TestLibrary,GlueStation1);GlueStation2:Resource.ResourceAgent(GS2,GS2,TestLibrary,GlueStation2);QualityControlStation1:Resource.ResourceAgent(QCS1,QCS1,TestLibrary,QualityControlStation1);QualityControlStation2:Resource.ResourceAgent(QCS2,QCS2,TestLibrary,QualityControlStation2);Source:Resource.ResourceAgent(S,S,TestLibrary,Source);AGV:Transport.TransportAgent(AGV,AGV,TestTransportLibrary);
+java_class_path (initial): /Users/p/Desktop/SRCIM/lab3/CPS_lab3/target/classes:/Users/p/Desktop/SRCIM/lab3/CPS_lab3/lib/jade-4.5.0.jar:/Users/p/.m2/repository/org/deeplearning4j/deeplearning4j-core/1.0.0-M1.1/deeplearning4j-core-1.0.0-M1.1.jar:/Users/p/.m2/repository/org/deeplearning4j/deeplearning4j-datasets/1.0.0-M1.1/deeplearning4j-datasets-1.0.0-M1.1.jar:/Users/p/.m2/repository/org/deeplearning4j/deeplearning4j-datavec-iterators/1.0.0-M1.1/deeplearning4j-datavec-iterators-1.0.0-M1.1.jar:/Users/p/.m2/repository/org/deeplearning4j/deeplearning4j-nn/1.0.0-M1.1/deeplearning4j-nn-1.0.0-M1.1.jar:/Users/p/.m2/repository/org/deeplearning4j/deeplearning4j-utility-iterators/1.0.0-M1.1/deeplearning4j-utility-iterators-1.0.0-M1.1.jar:/Users/p/.m2/repository/org/lucee/oswego-concurrent/1.3.4/oswego-concurrent-1.3.4.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native-api/1.0.0-M1.1/nd4j-native-api-1.0.0-M1.1.jar:/Users/p/.m2/repository/org/nd4j/nd4j-common/1.0.0-M1.1/nd4j-common-1.0.0-M1.1.jar:/Users/p/.m2/repository/org/nd4j/guava/1.0.0-M1.1/guava-1.0.0-M1.1.jar:/Users/p/.m2/repository/it/unimi/dsi/fastutil/6.5.7/fastutil-6.5.7.jar:/Users/p/.m2/repository/org/apache/commons/commons-math3/3.5/commons-math3-3.5.jar:/Users/p/.m2/repository/commons-io/commons-io/2.5/commons-io-2.5.jar:/Users/p/.m2/repository/org/apache/commons/commons-compress/1.18/commons-compress-1.18.jar:/Users/p/.m2/repository/org/nd4j/nd4j-api/1.0.0-M1.1/nd4j-api-1.0.0-M1.1.jar:/Users/p/.m2/repository/com/jakewharton/byteunits/byteunits/0.9.1/byteunits-0.9.1.jar:/Users/p/.m2/repository/org/apache/commons/commons-collections4/4.1/commons-collections4-4.1.jar:/Users/p/.m2/repository/com/google/flatbuffers/flatbuffers-java/1.10.0/flatbuffers-java-1.10.0.jar:/Users/p/.m2/repository/org/nd4j/protobuf/1.0.0-M1.1/protobuf-1.0.0-M1.1.jar:/Users/p/.m2/repository/commons-net/commons-net/3.1/commons-net-3.1.jar:/Users/p/.m2/repository/net/ericaro/neoitertools/1.0.0/neoitertools-1.0.0.jar:/Users/p/.m2/repository/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar:/Users/p/.m2/repository/org/nd4j/jackson/1.0.0-M1.1/jackson-1.0.0-M1.1.jar:/Users/p/.m2/repository/org/datavec/datavec-api/1.0.0-M1.1/datavec-api-1.0.0-M1.1.jar:/Users/p/.m2/repository/commons-codec/commons-codec/1.10/commons-codec-1.10.jar:/Users/p/.m2/repository/joda-time/joda-time/2.2/joda-time-2.2.jar:/Users/p/.m2/repository/org/freemarker/freemarker/2.3.23/freemarker-2.3.23.jar:/Users/p/.m2/repository/com/clearspring/analytics/stream/2.9.8/stream-2.9.8.jar:/Users/p/.m2/repository/net/sf/opencsv/opencsv/2.3/opencsv-2.3.jar:/Users/p/.m2/repository/com/tdunning/t-digest/3.2/t-digest-3.2.jar:/Users/p/.m2/repository/org/datavec/datavec-data-image/1.0.0-M1.1/datavec-data-image-1.0.0-M1.1.jar:/Users/p/.m2/repository/com/github/jai-imageio/jai-imageio-core/1.3.0/jai-imageio-core-1.3.0.jar:/Users/p/.m2/repository/com/twelvemonkeys/imageio/imageio-jpeg/3.1.1/imageio-jpeg-3.1.1.jar:/Users/p/.m2/repository/com/twelvemonkeys/imageio/imageio-core/3.1.1/imageio-core-3.1.1.jar:/Users/p/.m2/repository/com/twelvemonkeys/imageio/imageio-metadata/3.1.1/imageio-metadata-3.1.1.jar:/Users/p/.m2/repository/com/twelvemonkeys/common/common-lang/3.1.1/common-lang-3.1.1.jar:/Users/p/.m2/repository/com/twelvemonkeys/common/common-io/3.1.1/common-io-3.1.1.jar:/Users/p/.m2/repository/com/twelvemonkeys/common/common-image/3.1.1/common-image-3.1.1.jar:/Users/p/.m2/repository/com/twelvemonkeys/imageio/imageio-tiff/3.1.1/imageio-tiff-3.1.1.jar:/Users/p/.m2/repository/com/twelvemonkeys/imageio/imageio-psd/3.1.1/imageio-psd-3.1.1.jar:/Users/p/.m2/repository/com/twelvemonkeys/imageio/imageio-bmp/3.1.1/imageio-bmp-3.1.1.jar:/Users/p/.m2/repository/org/bytedeco/javacv/1.5.5/javacv-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/flycapture/2.13.3.31-1.5.5/flycapture-2.13.3.31-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/libdc1394/2.2.6-1.5.5/libdc1394-2.2.6-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/libfreenect/0.5.7-1.5.5/libfreenect-0.5.7-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/libfreenect2/0.2.0-1.5.5/libfreenect2-0.2.0-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/librealsense/1.12.4-1.5.5/librealsense-1.12.4-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/librealsense2/2.40.0-1.5.5/librealsense2-2.40.0-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/videoinput/0.200-1.5.5/videoinput-0.200-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/artoolkitplus/2.3.1-1.5.5/artoolkitplus-2.3.1-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/flandmark/1.07-1.5.5/flandmark-1.07-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/tesseract/4.1.1-1.5.5/tesseract-4.1.1-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/opencv-platform/4.5.1-1.5.5/opencv-platform-4.5.1-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-android-arm.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-android-arm64.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-android-x86.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-android-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-ios-arm64.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-ios-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-linux-x86.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-linux-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-linux-armhf.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-linux-arm64.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-linux-ppc64le.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-macosx-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-windows-x86.jar:/Users/p/.m2/repository/org/bytedeco/opencv/4.5.1-1.5.5/opencv-4.5.1-1.5.5-windows-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/leptonica-platform/1.80.0-1.5.5/leptonica-platform-1.80.0-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5-android-arm.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5-android-arm64.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5-android-x86.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5-android-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5-linux-x86.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5-linux-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5-linux-armhf.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5-linux-arm64.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5-linux-ppc64le.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5-macosx-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5-windows-x86.jar:/Users/p/.m2/repository/org/bytedeco/leptonica/1.80.0-1.5.5/leptonica-1.80.0-1.5.5-windows-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg-platform/4.3.2-1.5.5/ffmpeg-platform-4.3.2-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5-android-arm.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5-android-arm64.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5-android-x86.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5-android-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5-linux-x86.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5-linux-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5-linux-armhf.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5-linux-arm64.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5-linux-ppc64le.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5-macosx-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5-windows-x86.jar:/Users/p/.m2/repository/org/bytedeco/ffmpeg/4.3.2-1.5.5/ffmpeg-4.3.2-1.5.5-windows-x86_64.jar:/Users/p/.m2/repository/org/deeplearning4j/deeplearning4j-ui-components/1.0.0-M1.1/deeplearning4j-ui-components-1.0.0-M1.1.jar:/Users/p/.m2/repository/com/github/oshi/oshi-json/3.4.2/oshi-json-3.4.2.jar:/Users/p/.m2/repository/org/glassfish/javax.json/1.0.4/javax.json-1.0.4.jar:/Users/p/.m2/repository/com/github/oshi/oshi-core/3.4.2/oshi-core-3.4.2.jar:/Users/p/.m2/repository/net/java/dev/jna/jna-platform/4.3.0/jna-platform-4.3.0.jar:/Users/p/.m2/repository/net/java/dev/jna/jna/4.3.0/jna-4.3.0.jar:/Users/p/.m2/repository/org/threeten/threetenbp/1.3.3/threetenbp-1.3.3.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native-platform/1.0.0-M1.1/nd4j-native-platform-1.0.0-M1.1.jar:/Users/p/.m2/repository/org/bytedeco/openblas-platform/0.3.13-1.5.5/openblas-platform-0.3.13-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/javacpp-platform/1.5.5/javacpp-platform-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-android-arm.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-android-arm64.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-android-x86.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-android-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-ios-arm64.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-ios-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-linux-armhf.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-linux-arm64.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-linux-ppc64le.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-linux-x86.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-linux-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-macosx-arm64.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-windows-x86.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-windows-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-android-arm.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-android-arm64.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-android-x86.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-android-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-ios-arm64.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-ios-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-linux-x86.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-linux-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-linux-armhf.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-linux-arm64.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-linux-ppc64le.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-macosx-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-windows-x86.jar:/Users/p/.m2/repository/org/bytedeco/openblas/0.3.13-1.5.5/openblas-0.3.13-1.5.5-windows-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/mkl-platform/2021.1-1.5.5/mkl-platform-2021.1-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/mkl/2021.1-1.5.5/mkl-2021.1-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/mkl/2021.1-1.5.5/mkl-2021.1-1.5.5-linux-x86.jar:/Users/p/.m2/repository/org/bytedeco/mkl/2021.1-1.5.5/mkl-2021.1-1.5.5-linux-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/mkl/2021.1-1.5.5/mkl-2021.1-1.5.5-macosx-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/mkl/2021.1-1.5.5/mkl-2021.1-1.5.5-windows-x86.jar:/Users/p/.m2/repository/org/bytedeco/mkl/2021.1-1.5.5/mkl-2021.1-1.5.5-windows-x86_64.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native/1.0.0-M1.1/nd4j-native-1.0.0-M1.1.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5-macosx-x86_64.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native-preset/1.0.0-M1.1/nd4j-native-preset-1.0.0-M1.1.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native-preset/1.0.0-M1.1/nd4j-native-preset-1.0.0-M1.1-macosx-x86_64.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native/1.0.0-M1.1/nd4j-native-1.0.0-M1.1-android-arm.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native/1.0.0-M1.1/nd4j-native-1.0.0-M1.1-android-arm64.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native/1.0.0-M1.1/nd4j-native-1.0.0-M1.1-android-x86.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native/1.0.0-M1.1/nd4j-native-1.0.0-M1.1-android-x86_64.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native/1.0.0-M1.1/nd4j-native-1.0.0-M1.1-linux-x86_64.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native/1.0.0-M1.1/nd4j-native-1.0.0-M1.1-macosx-x86_64.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native/1.0.0-M1.1/nd4j-native-1.0.0-M1.1-windows-x86_64.jar:/Users/p/.m2/repository/org/nd4j/nd4j-native/1.0.0-M1.1/nd4j-native-1.0.0-M1.1-linux-armhf.jar:/Users/p/.m2/repository/org/deeplearning4j/deeplearning4j-modelimport/1.0.0-M1.1/deeplearning4j-modelimport-1.0.0-M1.1.jar:/Users/p/.m2/repository/com/google/code/gson/gson/2.8.0/gson-2.8.0.jar:/Users/p/.m2/repository/org/bytedeco/javacpp/1.5.5/javacpp-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/hdf5-platform/1.12.0-1.5.5/hdf5-platform-1.12.0-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/hdf5/1.12.0-1.5.5/hdf5-1.12.0-1.5.5.jar:/Users/p/.m2/repository/org/bytedeco/hdf5/1.12.0-1.5.5/hdf5-1.12.0-1.5.5-linux-x86.jar:/Users/p/.m2/repository/org/bytedeco/hdf5/1.12.0-1.5.5/hdf5-1.12.0-1.5.5-linux-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/hdf5/1.12.0-1.5.5/hdf5-1.12.0-1.5.5-linux-armhf.jar:/Users/p/.m2/repository/org/bytedeco/hdf5/1.12.0-1.5.5/hdf5-1.12.0-1.5.5-linux-arm64.jar:/Users/p/.m2/repository/org/bytedeco/hdf5/1.12.0-1.5.5/hdf5-1.12.0-1.5.5-linux-ppc64le.jar:/Users/p/.m2/repository/org/bytedeco/hdf5/1.12.0-1.5.5/hdf5-1.12.0-1.5.5-macosx-x86_64.jar:/Users/p/.m2/repository/org/bytedeco/hdf5/1.12.0-1.5.5/hdf5-1.12.0-1.5.5-windows-x86.jar:/Users/p/.m2/repository/org/bytedeco/hdf5/1.12.0-1.5.5/hdf5-1.12.0-1.5.5-windows-x86_64.jar:/Users/p/.m2/repository/org/deeplearning4j/deeplearning4j-common/1.0.0-M1.1/deeplearning4j-common-1.0.0-M1.1.jar:/Users/p/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar:/Users/p/.m2/repository/org/slf4j/slf4j-simple/1.7.36/slf4j-simple-1.7.36.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 3                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 4                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 2097152                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 268435456                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 4294967296                                {product} {ergonomic}
+   size_t MaxNewSize                               = 2575302656                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 2097152                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5832780                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122912730                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122912730                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 4294967296                             {manageable} {ergonomic}
+     bool UseCompressedClassPointers               = true                           {product lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseNUMA                                  = false                                     {product} {ergonomic}
+     bool UseNUMAInterleaving                      = false                                     {product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Environment Variables:
+JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home
+PATH=/Users/p/.nvm/versions/node/v17.1.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Inkscape.app/Contents/MacOS/inkscape:/Applications/VMware Fusion.app/Contents/Public:/Library/TeX/texbin:/usr/local/go/bin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Library/Frameworks/Python.framework/Versions/3.9/bin
+SHELL=/bin/zsh
+LC_CTYPE=en_US.UTF-8
+
+Signal Handlers:
+   SIGSEGV: crash_handler in libjvm.dylib, mask=11100110000111110111111111111111, flags=SA_RESTART|SA_SIGINFO
+    SIGBUS: crash_handler in libjvm.dylib, mask=11100110000111110111111111111111, flags=SA_RESTART|SA_SIGINFO
+    SIGFPE: crash_handler in libjvm.dylib, mask=11100110000111110111111111111111, flags=SA_RESTART|SA_SIGINFO
+   SIGPIPE: javaSignalHandler in libjvm.dylib, mask=11100110000111110111111111111111, flags=SA_RESTART|SA_SIGINFO
+   SIGXFSZ: javaSignalHandler in libjvm.dylib, mask=11100110000111110111111111111111, flags=SA_RESTART|SA_SIGINFO
+    SIGILL: crash_handler in libjvm.dylib, mask=11100110000111110111111111111111, flags=SA_RESTART|SA_SIGINFO
+   SIGUSR2: SR_handler in libjvm.dylib, mask=00100000000000000000000000000000, flags=SA_RESTART|SA_SIGINFO
+    SIGHUP: UserHandler in libjvm.dylib, mask=11100110000111110111111111111111, flags=SA_RESTART|SA_SIGINFO
+    SIGINT: UserHandler in libjvm.dylib, mask=11100110000111110111111111111111, flags=SA_RESTART|SA_SIGINFO
+   SIGTERM: UserHandler in libjvm.dylib, mask=11100110000111110111111111111111, flags=SA_RESTART|SA_SIGINFO
+   SIGQUIT: UserHandler in libjvm.dylib, mask=11100110000111110111111111111111, flags=SA_RESTART|SA_SIGINFO
+   SIGTRAP: crash_handler in libjvm.dylib, mask=11100110000111110111111111111111, flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:
+uname: Darwin 21.5.0 Darwin Kernel Version 21.5.0: Tue Apr 26 21:08:22 PDT 2022; root:xnu-8020.121.3~4/RELEASE_X86_64 x86_64
+OS uptime: 13 days 22:12 hours
+rlimit (soft/hard): STACK 8192k/65532k , CORE 0k/infinity , NPROC 2784/4176 , NOFILE 10240/infinity , AS infinity/infinity , CPU infinity/infinity , DATA infinity/infinity , FSIZE infinity/infinity , MEMLOCK infinity/infinity , RSS infinity/infinity
+load average: 4.15 3.53 3.49
+
+CPU: total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 142 stepping 9 microcode 0xf0, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, fma, vzeroupper, clflush, clflushopt
+
+Memory: 4k page, physical 16777216k(42164k free), swap 4194304k(839936k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (18+36-2087) for bsd-amd64 JRE (18+36-2087), built on Feb 15 2022 09:45:29 by "mach5one" with clang Apple LLVM 12.0.0 (clang-1200.0.32.29)
+
+END.
