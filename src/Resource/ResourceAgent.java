@@ -101,7 +101,7 @@ public class ResourceAgent extends Agent {
     }
 
     private String qualityCheck() {
-        // Call InspectionModel
+        // TODO InspectionModel: need import the models to the present package
         String projAbsPath = "/Users/p/Desktop/SRCIM/lab3/CPS_lab3";
         InspectionModel inspectionModel = new InspectionModel(projAbsPath + "/src/Resource/lab3_model.h5");
         INDArray input = inspectionModel.loadImage(projAbsPath + "/images/sk_q_c1.jpg", 512, 512, 3);
