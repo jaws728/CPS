@@ -2,17 +2,17 @@ package Resource;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import org.datavec.image.loader.NativeImageLoader;
 import org.deeplearning4j.nn.modelimport.keras.KerasModelImport;
 import org.deeplearning4j.nn.modelimport.keras.exceptions.InvalidKerasConfigurationException;
 import org.deeplearning4j.nn.modelimport.keras.exceptions.UnsupportedKerasConfigurationException;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
+import org.nd4j.common.io.ClassPathResource;
 import org.nd4j.linalg.api.ndarray.INDArray;
-import java.io.File;
+//import java.io.File;
 //import org.nd4j.linalg.io.ClassPathResource;
-//import org.springframework.core.io.ClassPathResource;
 
 /**
  *
@@ -34,6 +34,9 @@ public class InspectionModel {
         //String simpleMlp = new ClassPathResource(filepath).getFile().getPath();
         try {
             // filepath needs to be absolute
+            //String fullModel = new ClassPathResource(filepath).getFile().getPath();
+            //final String fullModel = new File(filepath).getAbsolutePath();
+            //model = KerasModelImport.importKerasSequentialModelAndWeights(fullModel);
             model = KerasModelImport.importKerasSequentialModelAndWeights(filepath);
         } catch (IOException | UnsupportedKerasConfigurationException | InvalidKerasConfigurationException e) {
             e.printStackTrace();
@@ -70,7 +73,7 @@ public class InspectionModel {
         int pred = -1;
         //INDArray input = Nd4j.create(DataType.FLOAT, 256, 100);
         INDArray output = model.output(imageInput);
-        pred = (int) output.maxNumber();
+        pred = (int) output.maxNumber().intValue();
         return pred;
     }
 
