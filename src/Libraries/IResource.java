@@ -11,5 +11,5 @@ public interface IResource {
     // public boolean launchProduct(String productID);
     // public boolean finishProduct(String productID);
     public String[] getSkills();
-    public boolean executeSkill(String skillID);
+    public int executeSkill(String skillID);
 }

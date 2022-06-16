@@ -84,14 +84,17 @@ public class ResourceAgent extends Agent {
         @Override
         protected ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException {
             // Execute skill
-            boolean isDone = myLib.executeSkill(request.getContent());
+            int state = myLib.executeSkill(request.getContent());
             ACLMessage msg = request.createReply();
-            if (isDone) {
+            if (state != -1) {
                 msg.setPerformative(ACLMessage.INFORM);
-                //msg.setContent(Arrays.toString(associatedSkills));
-                if (Objects.equals(request.getContent(), Constants.SK_QUALITY_CHECK)) {
-                    msg.setContent(qualityCheck());
+                if (state == 0) {
+                    // Quality checked: Needs to redo the glues
+                    msg.setContent("NOK");
                 }
+                //if (Objects.equals(request.getContent(), Constants.SK_QUALITY_CHECK)) {
+                //    msg.setContent(qualityCheck(myLib.getPath()));
+                //}
             } else {
                 msg.setPerformative(ACLMessage.FAILURE);
             }
@@ -100,11 +103,11 @@ public class ResourceAgent extends Agent {
         }
     }
 
-    private String qualityCheck() {
+    private String qualityCheck(String path) {
         // TODO InspectionModel: need import the models to the present package
-        String projAbsPath = "/Users/p/Desktop/SRCIM/lab3/CPS_lab3";
-        InspectionModel inspectionModel = new InspectionModel(projAbsPath + "/src/Resource/lab3_model.h5");
-        INDArray input = inspectionModel.loadImage(projAbsPath + "/images/sk_q_c1.jpg", 512, 512, 3);
+        final String MODEL_PATH = "C:\\Users\\Public\\CPS_lab3\\src\\Resource\\lab3_model1.h5";
+        InspectionModel inspectionModel = new InspectionModel(MODEL_PATH);
+        INDArray input = inspectionModel.loadImage(path, 512, 512, 3);
         int pred = inspectionModel.predict(input);
         return  (pred == 1 ? "OK" : "NOK");
         //return Math.random() > 0.5 ? 1 : 0;

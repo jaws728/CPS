@@ -214,7 +214,7 @@ public class ProductAgent extends Agent {
         protected void handleInform(ACLMessage inform) {
             System.out.println(myAgent.getLocalName() + ": INFORM resource - " + inform.getContent());
             if (inform.getContent() != null) {
-                if (!Objects.equals(inform.getContent(), "OK")) {
+                if ("NOK".equalsIgnoreCase(inform.getContent())) {
                     //currState = 0;
                     int i = 0;
                     for (String ex: executionPlan) {
